@@ -1,10 +1,12 @@
 import { Container } from "@mui/system";
-import Navbar from './Nav';
+import ResponsiveAppBar from './Nav';
 
 const Main = () => {
+return (
 <Container>
-    <Navbar></Navbar>
+    <ResponsiveAppBar></ResponsiveAppBar>
 </Container>
+    )
 }
 
 export default Main;
