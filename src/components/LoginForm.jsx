@@ -1,7 +1,11 @@
 import React from 'react';
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
 import { Link } from "react-router-dom";
 import * as yup from "yup";
+import MuiFormWrapper from "./common/forms/MuiFormWrapper";
+import MuiTextInput from "./common/forms/MuiTextInput";
+import { Button, Grid } from "@mui/material";
+
 
 const validationSchema = yup.object({
     username: yup
@@ -14,10 +18,9 @@ const validationSchema = yup.object({
       .required('Password is required'),
   });
  
- const LoginForm = () => (
-   <div>
-     <h1>User Login</h1>
-
+ const LoginForm = () => {
+  return (
+    <>
      <Formik
        initialValues={{ username: '', password: '' }}
        schema={validationSchema}
@@ -26,49 +29,46 @@ const validationSchema = yup.object({
            alert(JSON.stringify(values, null, 2));
            setSubmitting(false);
          }, 400);
-       }}
-     >
-       {({
-         values,
-         errors,
-         touched,
-         handleChange,
-         handleBlur,
-         handleSubmit,
-         isSubmitting,
-       }) => (
-         <form onSubmit={handleSubmit}>
-            <label>Username:</label>
-           <input
-             type="username"
-             name="username"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.username}
-             label="username"
-           />
-           {errors.username && touched.username && errors.username}
+       }}>
+        <Form>
+        <MuiFormWrapper headerText="User Login">
+        <Grid container spacing={2}>
+                      <MuiTextInput
+                        name="username"
+                        type="text"
+                        label="Username"
+                        />
 
-           <label>Password:</label>
-           <input
-             type="password"
-             name="password"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.password}
-           />
-           {errors.password && touched.password && errors.password}
-           <button type="submit" disabled={isSubmitting}>
-             Login
-           </button>
+                      <MuiTextInput
+                        name="password"
+                        type="password"
+                        label="Password"
+                        />
+                        </Grid>
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                      >
+                        Login
+                      </Button>
 
-           <Link to="/Register">Register instead</Link>
-           <Link to="/ForgotPasswordForm">Forgot Password?</Link>
-
-         </form>
-       )}
-     </Formik>
-   </div>
- );
+                      <Grid
+                        container
+                     direction="row"
+                    justifyContent="space-evenly"
+                     alignItems="center"
+                        >
+                      <Link to="/Register">Register instead</Link>
+                      <Link to="/ForgotPasswordForm">Forgot Password</Link>
+                      </Grid>
+                      
+              </MuiFormWrapper>
+          </Form>
+          </Formik>
+          </>
+      );
+    };
  
  export default LoginForm;
