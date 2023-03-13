@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import { Container } from "@mui/system";
 import Register from "../components/Register/Register";
-import logo from "../logo.svg";
+import airplanelogo from "../assets/images/airplaneLogo.jpg";
 
 const Registration = () => {
   return (
@@ -17,7 +17,7 @@ const Registration = () => {
             <Register />
           </Grid>
           <Grid item sm={6} xs={0} alignItems="center" justifyContent="center">
-            <img src={logo} alt="logo" />
+            <img src={airplanelogo} alt="logo" />
           </Grid>
         </Grid>
       </Container>
