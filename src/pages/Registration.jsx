@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const Registration = () => {
   const shipments = useSelector(state => state.shipments)
 
-  console.log(shipments);
+  console.log(shipments.shipments);
 
   return (
     <>

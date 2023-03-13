@@ -27,10 +27,11 @@ const Main = () => {
       <Container>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/Registration" element={<Registration />} />
-          <Route path="/Admin" element={<Admin />} />
-          <Route path="/Deliveries" element={<Deliveries />} />
-          <Route path="/Account" element={<Account />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registration />} caseSensitive={false} />
+          <Route path="/admin" element={<Admin />} caseSensitive={false} />
+          <Route path="/deliveries" element={<Deliveries />} caseSensitive={false} />
+          <Route path="/account" element={<Account />} caseSensitive={false} />
         </Routes>
       </Container>
     </Container>
