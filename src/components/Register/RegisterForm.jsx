@@ -8,7 +8,7 @@ const RegisterForm = () => {
     <>
       <Form>
         <MuiFormWrapper headerText="Sign up">
-          <Grid container spacing={2}>
+          <Grid container columnSpacing={2}>
             <MuiTextInput
               name="firstName"
               type="text"
