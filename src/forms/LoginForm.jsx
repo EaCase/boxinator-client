@@ -2,8 +2,8 @@ import React from 'react';
 import { Formik, Form } from 'formik';
 import { Link } from "react-router-dom";
 import * as yup from "yup";
-import MuiFormWrapper from "./common/forms/MuiFormWrapper";
-import MuiTextInput from "./common/forms/MuiTextInput";
+import MuiFormWrapper from "../components/common/forms/MuiFormWrapper";
+import MuiTextInput from "../components/common/forms/MuiTextInput";
 import { Button, Grid } from "@mui/material";
 
 

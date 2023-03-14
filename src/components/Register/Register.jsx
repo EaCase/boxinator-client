@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import RegisterForm from "./RegisterForm";
+import Account from "../../pages/Account";
 
 const initialValues = {
   firstName: "",
@@ -32,6 +33,7 @@ const validationSchema = Yup.object().shape({
 
 const Register = () => {
   const handleRegister = (values) => {
+    <Account userData = {values} />
     console.log(values);
   };
 

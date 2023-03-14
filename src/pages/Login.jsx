@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginForm from "../components/LoginForm";
+import LoginForm from "../forms/LoginForm";
 import { Grid } from "@mui/material";
 import { Container } from "@mui/system";
 import airplanelogo from "../assets/images/airplaneLogo.jpg";
