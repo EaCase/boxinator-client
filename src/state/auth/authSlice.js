@@ -1,19 +1,36 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
+import { authApi } from '../../services/auth'
 
 const initialState = {
-  user: {}
-};
+  user: null,
+  token: null,
+  isAuthenticated: false,
+}
 
-export const authSlice = createSlice({
-  name: 'user',
+const slice = createSlice({
+  name: 'auth',
   initialState,
   reducers: {
+    logout: () => initialState,
   },
-  extraReducers: {},
-});
+  extraReducers: (builder) => {
+    builder
+      .addMatcher(authApi.endpoints.login.matchPending, (state, action) => {
+        console.log('pending', action)
+      })
+      .addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
+        console.log('fulfilled', action)
+        state.user = action.payload.user
+        state.token = action.payload.token
+      })
+      .addMatcher(authApi.endpoints.login.matchRejected, (state, action) => {
+        console.log('rejected', action)
+      })
+  },
+})
 
-export const { addAll } = authSlice.actions;
+export const { logout } = slice.actions
+export default slice.reducer
 
-const authReducer = authSlice.reducer;
-
-export default authReducer;
+export const selectIsAuthenticated = (state) =>
+  state.auth.isAuthenticated
