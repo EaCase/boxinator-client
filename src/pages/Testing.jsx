@@ -1,4 +1,5 @@
 import {
+  Button,
   Container,
   Paper,
   Table,
@@ -7,11 +8,34 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
 } from "@mui/material";
-import { useGetShipmentsQuery } from "../services/shipment";
+import { Box } from "@mui/system";
+import { useState } from "react";
+import {
+  useGetShipmentsQuery,
+  useAddShipmentMutation,
+  useDeleteShipmentMutation,
+} from "../services/shipment";
 
 const Testing = () => {
   const { data, isSuccess } = useGetShipmentsQuery();
+  const [createShipment] = useAddShipmentMutation();
+  const [deleteShipment] = useDeleteShipmentMutation();
+
+  const [name, setName] = useState("");
+
+  const addShipment = async (e) => {
+    e.preventDefault();
+
+    await createShipment({
+      name,
+      country: "Finland",
+      status: "Pending",
+      date: "1.1.1970",
+    });
+    setName("");
+  };
 
   if (!isSuccess) return <></>;
 
@@ -27,6 +51,7 @@ const Testing = () => {
                 <TableCell align="right">Country</TableCell>
                 <TableCell align="right">Status</TableCell>
                 <TableCell align="right">Date</TableCell>
+                <TableCell align="right">Delete</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -35,9 +60,7 @@ const Testing = () => {
                   key={row.name}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell component="td">
-                    {row.id}
-                  </TableCell>
+                  <TableCell component="td">{row.id}</TableCell>
                   <TableCell component="td" align="right">
                     {row.name}
                   </TableCell>
@@ -53,11 +76,24 @@ const Testing = () => {
                   <TableCell component="td" align="right">
                     {row.size}
                   </TableCell>
+                  <TableCell component="td" align="right">
+                    <Button onClick={() => deleteShipment(row.id)}>
+                      Delete
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
+
+        <Box mt={5}>
+          <TextField
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          ></TextField>
+          <Button onClick={addShipment}>Add shipment</Button>
+        </Box>
       </Container>
     </>
   );
