@@ -37,10 +37,8 @@ export const accountApi = api.injectEndpoints({
 })
 
 export const {
-  useAddUserMutation,
-  useDeleteUserMutation,
-  useGetUserQuery,
-  useGetUsersQuery,
-  useUpdateUserMutation,
-  useGetErrorProneQuery,
+  useGetAccountQuery,
+  useCreateAccountMutation,
+  useDeleteAccountMutation,
+  useUpdateAccountMutation,
 } = accountApi
