@@ -1,45 +1,55 @@
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import MuiFormWrapper from "../components/common/forms/MuiFormWrapper";
 import { useGetShipmentsQuery } from "../services/shipment";
-import BoxesSlider from "../components/layout/BoxesSlider";
+import BoxesSlider, { SimpleSlider } from "../components/layout/BoxesSlider";
 
 const Shipment = () => {
-  const { data: shipments, isLoading, isSuccess, isError } = useGetShipmentsQuery();
+  const {
+    data: shipments,
+    isLoading,
+    isSuccess,
+    isError,
+  } = useGetShipmentsQuery();
 
   const boxes = [
     {
       id: 1,
       title: "Box 1",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
     },
     {
       id: 2,
       title: "Box 2",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
     },
     {
       id: 3,
       title: "Box 3",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
     },
     {
       id: 4,
       title: "Box 4",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
     },
     {
       id: 5,
       title: "Box 5",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
     },
     {
       id: 6,
       title: "Box 6",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-    }
-
-  ]
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
+    },
+  ];
 
   /*
   const [shipments, setShipments] = useState([]);
@@ -70,7 +80,7 @@ const Shipment = () => {
 
       <Grid container spacing={2}>
         <Grid xs={12} item>
-          <BoxesSlider boxes = {boxes} style={{ overflowX: "hidden" }} />
+          <BoxesSlider boxes={boxes} style={{ overflowX: "hidden" }} />
           {/*<ul>
             {inDelivery.map(shipment => (
               <li key={shipment.id}>{shipment.name}</li>
@@ -87,6 +97,9 @@ const Shipment = () => {
         </Grid>
       </Grid>
 
+      <Box>
+        <SimpleSlider shipments={boxes} />
+      </Box>
       {/* second grid for Completed */}
 
       <Grid container spacing={2}>
