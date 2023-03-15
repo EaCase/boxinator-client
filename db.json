@@ -1,19 +1,60 @@
 {
-  "posts": [
+  "shipments": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "name": "Box 1",
+      "country": "United States",
+      "status": "Completed",
+      "date": "10.10.2012"
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": 2,
+      "name": "Box 2",
+      "country": "Finland",
+      "status": "Pending",
+      "date": "6.7.2016"
+    },
+    {
+      "id": 3,
+      "name": "Box 3",
+      "country": "Sweden",
+      "status": "Cancelled",
+      "date": "10.10.2020"
+    },
+    {
+      "id": 4,
+      "name": "Box 4",
+      "country": "Norway",
+      "status": "Completed",
+      "date": "19.1.2021"
+    },
+    {
+      "id": 5,
+      "name": "Box 5",
+      "country": "Germany ",
+      "status": "Pending",
+      "date": "27.5.2009"
+    },
+    {
+      "id": 6,
+      "name": "Box 6",
+      "country": "France",
+      "status": "Pending",
+      "date": "9.8.1999"
+    },
+    {
+      "id": 7,
+      "name": "Box 7",
+      "country": "Finland",
+      "status": "Pending",
+      "date": "9.8.2022"
+    },
+    {
+      "id": 8,
+      "name": "Box 8",
+      "country": "Germany",
+      "status": "Cancelled",
+      "date": "9.8.2000"
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }

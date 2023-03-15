@@ -1,11 +1,23 @@
+import { useDispatch, useSelector } from 'react-redux'
 import { configureStore } from "@reduxjs/toolkit";
-import shipmentReducer from "./shipment/shipmentSlice";
-import authReducer from "./auth/authSlice";
+import { api } from '../services/api';
+import authReducer from "./authSlice";
 
-export const store = configureStore({
-  reducer: {
-    shipments: shipmentReducer,
-    auth: authReducer
-  },
-  devTools: true
-});
+export const createStore = (
+  options
+) =>
+  configureStore({
+    reducer: {
+      [api.reducerPath]: api.reducer,
+      auth: authReducer
+    },
+    devTools: true,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(api.middleware),
+    ...options,
+  })
+
+export const store = createStore()
+
+export const useAppDispatch = useDispatch
+export const useTypedSelector = useSelector
