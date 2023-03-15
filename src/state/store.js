@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { configureStore } from "@reduxjs/toolkit";
 import { api } from '../services/api';
-import shipmentReducer from "./shipment/shipmentSlice";
-import authReducer from "./auth/authSlice";
+import authReducer from "./authSlice";
 
 export const createStore = (
   options
@@ -10,7 +9,6 @@ export const createStore = (
   configureStore({
     reducer: {
       [api.reducerPath]: api.reducer,
-      shipment: shipmentReducer,
       auth: authReducer
     },
     devTools: true,
