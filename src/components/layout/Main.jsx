@@ -2,7 +2,7 @@ import { Container } from "@mui/system";
 import { Route, Routes } from "react-router";
 import Account from "../../pages/Account";
 import Admin from "../../pages/Admin";
-import Deliveries from "../../pages/Deliveries";
+import Shipment from "../../pages/Shipment";
 import Login from "../../pages/Login";
 import Registration from "../../pages/Registration";
 import ResponsiveAppBar from "./Nav";
@@ -24,8 +24,8 @@ const Main = () => {
           />
           <Route path="/admin" element={<Admin />} caseSensitive={false} />
           <Route
-            path="/deliveries"
-            element={<Deliveries />}
+            path="/shipments"
+            element={<Shipment />}
             caseSensitive={false}
           />
           <Route path="/account" element={<Account />} caseSensitive={false} />
