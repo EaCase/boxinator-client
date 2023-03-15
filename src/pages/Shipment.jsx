@@ -1,10 +1,13 @@
-import { Grid, Button, Box } from "@mui/material";
+import { Grid, Button, Box, Table, Typography, useTheme } from "@mui/material";
 import { useState, useEffect } from "react";
-import MuiFormWrapper from "../components/common/forms/MuiFormWrapper";
 import { useGetShipmentsQuery } from "../services/shipment";
 import BoxesSlider, { SimpleSlider } from "../components/layout/BoxesSlider";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CheckCircleOutlineSharpIcon from "@mui/icons-material/CheckCircleOutlineSharp";
 
 const Shipment = () => {
+  const theme = useTheme();
+
   const {
     data: shipments,
     isLoading,
@@ -100,19 +103,60 @@ const Shipment = () => {
       <Box>
         <SimpleSlider shipments={boxes} />
       </Box>
-      {/* second grid for Completed */}
 
-      <Grid container spacing={2}>
-        <Grid xs={6} md={8} item>
-          <MuiFormWrapper headerText="Completed" />
-          {/*<ul>
-            {completed.map(shipment => (
-              <li key={shipment.id}>{shipment.name}</li>
-            ))}
-          </ul>*/}
+      <Typography variant="h3">Completed</Typography>
+
+      <Box style={{ maxHeight: "100vh", overflow: "auto" }}>
+        <Grid container>
+          {shipments?.map((shipment) => {
+            return (
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-evenly"
+                alignItems="center"
+                component={Box}
+                sx={{
+                  boxShadow: 2,
+                  padding: 1,
+                  border: 1,
+                  borderColor: theme.palette.secondary.light,
+                  borderRadius: 2,
+                  marginBottom: 1,
+                  py: 2,
+                  minHeight: 65,
+                }}
+                item
+              >
+                <Grid
+                  item
+                  xs={1}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <CheckCircleOutlineSharpIcon
+                    style={{ verticalAlign: "middle", marginRight: 20 }}
+                  />
+                  <Typography fontWeight={700}>Basic</Typography>
+                </Grid>
+                <Grid item xs={1}></Grid>
+                <Grid item xs={3}>
+                  {shipment.status}
+                </Grid>
+                <Grid item xs={3}>
+                  {shipment.country}
+                </Grid>
+                <Grid item xs={3}>
+                  {shipment.date}
+                </Grid>
+              </Grid>
+            );
+          })}
         </Grid>
-        <Grid xs={6} md={4} item></Grid>
-      </Grid>
+      </Box>
     </>
   );
 };
