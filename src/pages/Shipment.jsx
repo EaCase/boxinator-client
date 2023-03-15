@@ -1,9 +1,12 @@
 import { Grid, Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import MuiFormWrapper from "../components/common/forms/MuiFormWrapper";
+import { useGetShipmentsQuery } from "../services/shipment";
 
 const Shipment = () => {
+  const { data: shipments, isLoading, isSuccess, isError } = useGetShipmentsQuery();
 
+  /*
   const [shipments, setShipments] = useState([]);
 
   useEffect(() => {
@@ -14,6 +17,7 @@ const Shipment = () => {
     }
     fetchShipments();
   }, []);
+  */
 
   const inDelivery = shipments.filter(
     (shipment) => shipment.status === "ordered"
@@ -30,20 +34,20 @@ const Shipment = () => {
 
       <Grid container spacing={2}>
         <Grid xs={6} md={8} item>
-        <MuiFormWrapper headerText="In Delivery"/>
-        <ul>
+          <MuiFormWrapper headerText="In Delivery" />
+          <ul>
             {inDelivery.map(shipment => (
-          <li key={shipment.id}>{shipment.name}</li>
-        ))}
-      </ul>
-        <Button
+              <li key={shipment.id}>{shipment.name}</li>
+            ))}
+          </ul>
+          <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 4, mb: 2 }}
           >
             + New Order
-      </Button>
+          </Button>
         </Grid>
       </Grid>
 
@@ -51,12 +55,12 @@ const Shipment = () => {
 
       <Grid container spacing={2}>
         <Grid xs={6} md={8} item>
-        <MuiFormWrapper headerText="Completed"/>
-        <ul>
+          <MuiFormWrapper headerText="Completed" />
+          <ul>
             {completed.map(shipment => (
-          <li key={shipment.id}>{shipment.name}</li>
-        ))}
-      </ul>
+              <li key={shipment.id}>{shipment.name}</li>
+            ))}
+          </ul>
         </Grid>
         <Grid xs={6} md={4} item></Grid>
       </Grid>
