@@ -3,11 +3,10 @@ import { api } from './api'
 export const shipmentApi = api.injectEndpoints({
   endpoints: (build) => ({
     getShipments: build.query({
-      query: () => ({ url: 'shipments' }),
-      providesTags: (result = []) => [
-        ...result.map(({ id }) => ({ type: 'Shipments', id })),
-        { type: 'Shipments', id: 'LIST' },
-      ],
+      query: () => ({ url: 'shipments' })
+    }),
+    getShipment: build.query({
+      query: (id) => `shipments/${id}`,
     }),
     addShipment: build.mutation({
       query: (body) => ({
@@ -15,11 +14,17 @@ export const shipmentApi = api.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: [{ type: 'Shipments', id: 'LIST' }],
-    }),
-    getShipment: build.query({
-      query: (id) => `shipments/${id}`,
-      providesTags: (_post, _err, id) => [{ type: 'Shipments', id }],
+      // update getShipments query manually, avoids refetch
+      async onQueryStarted(args, { queryFulfilled, dispatch }) {
+        try {
+          const { data: newShipment } = await queryFulfilled;
+          dispatch(api.util.updateQueryData('getShipments', undefined, (shipments) => {
+            shipments?.push(newShipment);
+          }))
+        } catch (e) {
+          console.log(e);
+        }
+      }
     }),
     updateShipment: build.mutation({
       query(data) {
@@ -30,7 +35,21 @@ export const shipmentApi = api.injectEndpoints({
           body,
         }
       },
-      invalidatesTags: (post) => [{ type: 'Shipments', id: post?.id }],
+      // update allShipments and getShipment queries manually
+      async onQueryStarted(args, { queryFulfilled, dispatch }) {
+        try {
+          const { data: updatedShipment } = await queryFulfilled;
+
+          dispatch(api.util.updateQueryData('getShipments', undefined, (shipments) => {
+            shipments?.map(item => item.id === args.id ? updatedShipment : item);
+          }))
+          dispatch(api.util.updateQueryData('getShipment', undefined, (shipment) => {
+            Object.assign(shipment, updatedShipment)
+          }))
+        } catch (e) {
+          console.log(e);
+        }
+      }
     }),
     deleteShipment: build.mutation({
       query(id) {
@@ -39,10 +58,16 @@ export const shipmentApi = api.injectEndpoints({
           method: 'DELETE',
         }
       },
-      invalidatesTags: (post) => [{ type: 'Shipments', id: post?.id }],
-    }),
-    getErrorProne: build.query({
-      query: () => 'error-prone',
+      async onQueryStarted(id, { queryFulfilled, dispatch }) {
+        try {
+          await queryFulfilled;
+          dispatch(api.util.updateQueryData('getShipments', undefined, (shipments) => {
+            return shipments?.filter(shipment => shipment.id !== id)
+          }))
+        } catch (e) {
+          console.log(e);
+        }
+      }
     }),
   }),
 })
@@ -52,10 +77,9 @@ export const {
   useDeleteShipmentMutation,
   useGetShipmentQuery,
   useGetShipmentsQuery,
-  useUpdateShipmentMutation,
-  useGetErrorProneQuery,
+  useUpdateShipmentMutation
 } = shipmentApi
 
 export const {
-  endpoints: { login, getShipment },
+  endpoints: { getShipment },
 } = shipmentApi
