@@ -7,7 +7,7 @@ const EditAccountForm = () => {
   return (
     <>
       <Form>
-        <MuiFormWrapper headerText="EditForm">
+        <MuiFormWrapper headerText="Your Account">
           <Grid container spacing={2}>
             <MuiTextInput
               name="firstName"

@@ -1,13 +1,6 @@
 {
   "shipments": [
     {
-      "id": 1,
-      "name": "Box 1",
-      "country": "United States",
-      "status": "Completed",
-      "date": "10.10.2012"
-    },
-    {
       "id": 2,
       "name": "Box 2",
       "country": "Finland",
@@ -55,6 +48,13 @@
       "country": "Germany",
       "status": "Cancelled",
       "date": "9.8.2000"
+    },
+    {
+      "name": "Box 9",
+      "country": "Finland",
+      "status": "Pending",
+      "date": "1.1.1970",
+      "id": 9
     }
   ]
 }
