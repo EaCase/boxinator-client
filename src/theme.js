@@ -13,6 +13,13 @@ export const theme = createTheme({
       light: '#F4F4F2'
     }
   },
+  typography: {
+    allVariants: {
+      fontFamily: "Inter",
+      textTransform: 'none',
+      fontSize: 16,
+    }
+  },
   components: {
     MuiTextField: {
       styleOverrides: {
