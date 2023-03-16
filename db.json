@@ -1,60 +1,18 @@
 {
   "shipments": [
     {
-      "id": 2,
-      "name": "Box 2",
-      "country": "Finland",
-      "status": "Pending",
-      "date": "6.7.2016"
+      "recipient": "Seppo",
+      "tier": "Basic",
+      "color": "#892020",
+      "country": "FInland",
+      "id": 11
     },
     {
-      "id": 3,
-      "name": "Box 3",
-      "country": "Sweden",
-      "status": "Cancelled",
-      "date": "10.10.2020"
-    },
-    {
-      "id": 4,
-      "name": "Box 4",
-      "country": "Norway",
-      "status": "Completed",
-      "date": "19.1.2021"
-    },
-    {
-      "id": 5,
-      "name": "Box 5",
-      "country": "Germany ",
-      "status": "Pending",
-      "date": "27.5.2009"
-    },
-    {
-      "id": 6,
-      "name": "Box 6",
-      "country": "France",
-      "status": "Pending",
-      "date": "9.8.1999"
-    },
-    {
-      "id": 7,
-      "name": "Box 7",
-      "country": "Finland",
-      "status": "Pending",
-      "date": "9.8.2022"
-    },
-    {
-      "id": 8,
-      "name": "Box 8",
-      "country": "Germany",
-      "status": "Cancelled",
-      "date": "9.8.2000"
-    },
-    {
-      "name": "Box 9",
-      "country": "Finland",
-      "status": "Pending",
-      "date": "1.1.1970",
-      "id": 9
+      "recipient": "ASdasdd",
+      "tier": "asddas",
+      "color": "#7d3030",
+      "country": "asdasd",
+      "id": 12
     }
   ]
 }

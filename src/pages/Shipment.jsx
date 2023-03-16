@@ -134,23 +134,18 @@ const Shipment = () => {
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    flexWrap: "wrap",
                   }}
                 >
                   <CheckCircleOutlineSharpIcon
                     style={{ verticalAlign: "middle", marginRight: 20 }}
                   />
-                  <Typography fontWeight={700}>Basic</Typography>
+                  <Typography fontWeight={700}>{shipment.tier}</Typography>
                 </Grid>
-                <Grid item xs={1}></Grid>
                 <Grid item xs={3}>
-                  {shipment.status}
+                  {shipment.color}
                 </Grid>
                 <Grid item xs={3}>
                   {shipment.country}
-                </Grid>
-                <Grid item xs={3}>
-                  {shipment.date}
                 </Grid>
               </Grid>
             );
