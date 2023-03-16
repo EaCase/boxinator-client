@@ -83,7 +83,7 @@ const Shipment = () => {
 
       <Grid container spacing={2}>
         <Grid xs={12} item>
-          <BoxesSlider boxes={boxes} style={{ overflowX: "hidden" }} />
+          <BoxesSlider shipments={boxes} style={{ overflowX: "hidden" }} />
           {/*<ul>
             {inDelivery.map(shipment => (
               <li key={shipment.id}>{shipment.name}</li>
@@ -99,10 +99,6 @@ const Shipment = () => {
           </Button>
         </Grid>
       </Grid>
-
-      <Box>
-        <SimpleSlider shipments={boxes} />
-      </Box>
 
       <Typography variant="h3">Completed</Typography>
 
