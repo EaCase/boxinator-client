@@ -79,16 +79,13 @@ const Shipment = () => {
 
   return (
     <>
-      {/* first grid for In Delivery */}
-
-      <Grid container spacing={2}>
-        <Grid xs={12} item>
+    <Box style={{ margin: "20px" }}>
+      <Grid container>
+        <Grid xs={12} 
+        item 
+        >
+        <Typography variant="h3">In Delivery</Typography>
           <BoxesSlider shipments={boxes} style={{ overflowX: "hidden" }} />
-          {/*<ul>
-            {inDelivery.map(shipment => (
-              <li key={shipment.id}>{shipment.name}</li>
-            ))}
-            </ul>*/}
           <Button
             type="submit"
             fullWidth
@@ -99,6 +96,7 @@ const Shipment = () => {
           </Button>
         </Grid>
       </Grid>
+      </Box>
 
       <Typography variant="h3">Completed</Typography>
 

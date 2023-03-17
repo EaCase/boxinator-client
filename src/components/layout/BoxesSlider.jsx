@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 
 export const SimpleSlider = ({ shipments }) => {
+
   const settings = {
     dots: true,
     infinite: true,
@@ -13,16 +14,12 @@ export const SimpleSlider = ({ shipments }) => {
     slidesToScroll: 2,
   };
 
-  console.log(shipments);
-
   return (
     <div>
-      <h3> Ordered </h3>
       <Slider {...settings}>
         {shipments.map((shipment) => {
           return (
-            <>
-              <Box sx={{ minWidth: 15, justifyContent: "space-between" }} />
+            <Box sx={{ mx: 2 }}>
               <Card sx={{ minWidth: 275, boxShadow: 3 }}>
                 <CardContent>
                   <Typography variant="h5" component="div">
@@ -33,12 +30,13 @@ export const SimpleSlider = ({ shipments }) => {
                   </Typography>
                 </CardContent>
               </Card>
-            </>
+            </Box>
           );
         })}
       </Slider>
     </div>
   );
 };
+
 
 export default SimpleSlider;

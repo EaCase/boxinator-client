@@ -2,7 +2,7 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 
 const MuiFormWrapper = (props) => {
   return (
-    <Container maxWidth="xs">
+    <Container maxWidth="xs" style={{marginBottom: 20}}>
       <Box
         sx={{
           marginTop: 8,
@@ -12,6 +12,7 @@ const MuiFormWrapper = (props) => {
         }}
       >
         <Typography variant="h4">{props.headerText}</Typography>
+
         <Box sx={{ mt: 5 }}>
           <Grid container spacing={2}>
             {props.children}
