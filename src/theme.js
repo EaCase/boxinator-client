@@ -16,8 +16,6 @@ export const theme = createTheme({
   typography: {
     allVariants: {
       fontFamily: "Inter",
-      textTransform: 'none',
-      fontSize: 16,
     }
   },
   components: {
