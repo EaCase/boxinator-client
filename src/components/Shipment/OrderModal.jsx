@@ -1,11 +1,9 @@
-import { Box, Button, Grid, Modal, Typography } from "@mui/material";
-import { Form, Formik } from "formik";
 import { useState } from "react";
-import { ChromePicker } from "react-color";
+import { Box, Button, Modal, Typography } from "@mui/material";
+import { Formik } from "formik";
 import { useAddShipmentMutation } from "../../services/shipment";
-import MuiColorPicker from "../common/forms/MuiColorPicker";
-import MuiFormWrapper from "../common/forms/MuiFormWrapper";
-import MuiTextInput from "../common/forms/MuiTextInput";
+import * as Yup from "yup";
+import OrderForm from "./OrderForm";
 
 const initialValues = {
   recipient: "",
@@ -14,65 +12,60 @@ const initialValues = {
   country: "",
 };
 
+const validationSchema = Yup.object().shape({
+  recipient: Yup.string().required("Recipient is required"),
+  country: Yup.string().required("Destination country is required"),
+  tier: Yup.string().required("You must select tier"),
+  color: Yup.string().required("Select color for your shipment"),
+});
+
 const OrderModal = () => {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleShowModal = () => setOpen(!open);
 
   const [createShipment] = useAddShipmentMutation();
 
   const handleCreateShipment = (values) => {
     createShipment({ ...values });
+    setOpen(!open);
   };
+
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: 600,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    bgcolor: "background.paper",
+    border: "2px solid #000",
     boxShadow: 24,
     p: 4,
-    borderRadius: 4
+    borderRadius: 4,
   };
 
   return (
     <>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <Button onClick={handleShowModal}>Open modal</Button>
       <Modal
         open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        onClose={handleShowModal}
+        aria-labelledby="new-shipment-modal"
+        aria-describedby="modal-create-new-shipment"
+        title="New shipment"
       >
         <Box sx={style}>
-          <Formik initialValues={initialValues} onSubmit={handleCreateShipment}>
-            <Form>
-              <Box>
+          <Box display="flex" mb={3}>
+            <Typography margin="auto" variant="h3">
+              Create a new order
+            </Typography>
+          </Box>
 
-                  <MuiTextInput
-                    name="recipient"
-                    type="text"
-                    label="Recipient"
-                  />
-                  <MuiTextInput
-                    name="tier"
-                    type="text"
-                    label="Tier"
-                  />
-                  <MuiTextInput
-                    name="country"
-                    type="text"
-                    label="Destination country"
-                  />
-                  <MuiColorPicker />
-                  <Button fullWidth variant="contained" type="submit">Send a shipment</Button>
-
-              </Box>
-
-            </Form>
-
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleCreateShipment}
+          >
+            <OrderForm />
           </Formik>
         </Box>
       </Modal>

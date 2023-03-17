@@ -1,27 +1,36 @@
-import { Typography } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import { Form } from "formik";
-import MuiFormWrapper from "../common/forms/MuiFormWrapper";
+import MuiColorPicker from "../common/forms/MuiColorPicker";
 import MuiTextInput from "../common/forms/MuiTextInput";
 
 const OrderForm = () => {
-  <>
-    <Typography>ASDSDSDAS</Typography>
-    <Form>
-      <MuiFormWrapper headerText="Create a new order">
-        <MuiTextInput
-          name="recipient"
-          type="text"
-          label="Recipient"
-        />
-        <Typography id="transition-modal-title" variant="h6" component="h2">
-          Text in a modal
-        </Typography>
-        <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </Typography>
-      </MuiFormWrapper>;
-    </Form>;
-  </>;
+  return (
+    <>
+      <Form>
+        <Box>
+          <Grid container sx={{ marginBottom: 4 }}>
+            <MuiTextInput name="recipient" type="text" label="Recipient" />
+            <MuiTextInput name="tier" type="text" label="Tier" />
+            <MuiTextInput
+              name="country"
+              type="text"
+              label="Destination country"
+            />
+            <MuiColorPicker label="Pick a color" />
+          </Grid>
+
+          <Button
+            fullWidth
+            variant="contained"
+            type="submit"
+            sx={{ minHeight: 60 }}
+          >
+            Send box
+          </Button>
+        </Box>
+      </Form>
+    </>
+  );
 };
 
 export default OrderForm;
