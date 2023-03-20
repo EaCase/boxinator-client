@@ -5,7 +5,7 @@ export const authApi = api.injectEndpoints({
   endpoints: (build) => ({
     login: build.mutation({
       query: (credentials) => ({
-        url: 'auth',
+        url: 'auth/login',
         method: 'POST',
         body: credentials,
       }),
