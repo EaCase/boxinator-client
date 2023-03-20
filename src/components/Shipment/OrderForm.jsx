@@ -1,23 +1,39 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Divider, Grid, Typography } from "@mui/material";
 import { Form } from "formik";
 import MuiColorPicker from "../common/forms/MuiColorPicker";
+import MuiSelectField from "../common/forms/MuiSelectField";
 import MuiTextInput from "../common/forms/MuiTextInput";
+import ShippingCost from "./ShipmentCost";
 
-const OrderForm = () => {
+const OrderForm = ({ countries, tiers }) => {
   return (
     <>
       <Form>
         <Box>
-          <Grid container sx={{ marginBottom: 4 }}>
+          <Box display="flex" mb={3}>
+            <Typography margin="auto" variant="h4">
+              Create a new order
+            </Typography>
+          </Box>
+
+          <Grid container>
             <MuiTextInput name="recipient" type="text" label="Recipient" />
-            <MuiTextInput name="tier" type="text" label="Tier" />
-            <MuiTextInput
+            <MuiSelectField sm={5} name="tier" label="Tier" options={tiers} />
+            <Grid item sm={1} />
+            <MuiSelectField
+              sm={6}
               name="country"
-              type="text"
               label="Destination country"
+              options={countries}
             />
             <MuiColorPicker label="Pick a color" />
           </Grid>
+
+          <Divider sx={{ my: 2 }} />
+
+          <ShippingCost />
+
+          <Divider sx={{ my: 2 }} />
 
           <Button
             fullWidth
