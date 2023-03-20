@@ -1,7 +1,7 @@
 import { Box, Grid, Typography, useTheme } from "@mui/material";
 import CheckCircleOutlineSharpIcon from "@mui/icons-material/CheckCircleOutlineSharp";
 
-const CompletedOrder = ({ recipient, tier, price, country, color }) => {
+const CompletedOrder = ({ recipient, boxTier, cost, country, color }) => {
   const theme = useTheme();
 
   return (
@@ -35,16 +35,16 @@ const CompletedOrder = ({ recipient, tier, price, country, color }) => {
         <CheckCircleOutlineSharpIcon
           style={{ verticalAlign: "middle", marginRight: 20 }}
         />
-        <Typography fontWeight={700}>{tier}</Typography>
+        <Typography fontWeight={700}>{boxTier.name}</Typography>
       </Grid>
       <Grid item xs={2}>
-        <Typography>{price}</Typography>
+        <Typography>{cost}</Typography>
       </Grid>
       <Grid item xs={2}>
         <Typography>{recipient}</Typography>
       </Grid>
       <Grid item xs={2}>
-        <Typography>{country}</Typography>
+        <Typography>{country.name}</Typography>
       </Grid>
       <Grid item xs={2}>
         <Typography>{color}</Typography>

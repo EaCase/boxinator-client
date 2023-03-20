@@ -3,10 +3,13 @@ import { api } from './api'
 export const shipmentApi = api.injectEndpoints({
   endpoints: (build) => ({
     getShipments: build.query({
-      query: () => ({ url: 'shipments' })
+      query: ({ accountId, from, to }) => ({ url: 'shipments/', params: { accountId, from, to } })
     }),
     getShipment: build.query({
       query: (id) => `shipments/${id}`,
+    }),
+    getShipmentCost: build.query({
+      query: ({ boxTierId, countryId }) => ({ url: 'shipments/cost', params: { boxTierId, countryId } })
     }),
     addShipment: build.mutation({
       query: (body) => ({
@@ -77,6 +80,7 @@ export const {
   useDeleteShipmentMutation,
   useGetShipmentQuery,
   useGetShipmentsQuery,
+  useGetShipmentCostQuery,
   useUpdateShipmentMutation
 } = shipmentApi
 

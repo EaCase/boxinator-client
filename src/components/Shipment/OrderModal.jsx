@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { Box, Button, CircularProgress, Modal } from "@mui/material";
+import { Box, CircularProgress, Modal } from "@mui/material";
 import { Formik } from "formik";
 import { useAddShipmentMutation } from "../../services/shipment";
 import * as Yup from "yup";
 import OrderForm from "./OrderForm";
-import { useGetCountriesQuery, useGetTiersQuery } from "../../services/api";
+import {
+  useGetCountriesQuery,
+  useGetTiersQuery,
+} from "../../services/settings";
 
 const initialValues = {
   recipient: "",
@@ -38,10 +40,7 @@ const style = {
   borderRadius: 4,
 };
 
-const OrderModal = () => {
-  const [open, setOpen] = useState(false);
-  const handleShowModal = () => setOpen(!open);
-
+const OrderModal = ({ showModal, closeModal }) => {
   const { data: tiers, isSuccess: tiersFetched } = useGetTiersQuery();
   const { data: countries, isSuccess: countriesFetched } =
     useGetCountriesQuery();
@@ -54,17 +53,14 @@ const OrderModal = () => {
       tier: values.tier.id,
     };
     createShipment(body);
-    setOpen(!open);
+    closeModal();
   };
-
-  console.log(tiers, countries);
 
   return (
     <>
-      <Button onClick={handleShowModal}>Open modal</Button>
       <Modal
-        open={open}
-        onClose={handleShowModal}
+        open={showModal}
+        onClose={() => closeModal()}
         aria-labelledby="new-shipment-modal"
         aria-describedby="modal-create-new-shipment"
         title="New shipment"
