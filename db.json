@@ -1,18 +1,58 @@
 {
   "shipments": [
     {
-      "recipient": "Seppo",
-      "tier": "Basic",
-      "color": "#892020",
-      "country": "FInland",
-      "id": 11
+      "recipient": "LOLXD",
+      "color": "#263e84",
+      "country": 3,
+      "tier": 1,
+      "id": 1
+    }
+  ],
+  "tiers": [
+    {
+      "name": "Basic",
+      "id": 1
     },
     {
-      "recipient": "ASdasdd",
-      "tier": "asddas",
-      "color": "#7d3030",
-      "country": "asdasd",
-      "id": 12
+      "name": "Humble",
+      "id": 2
+    },
+    {
+      "name": "Luxury",
+      "id": 3
+    },
+    {
+      "name": "Premium",
+      "id": 4
     }
-  ]
+  ],
+  "countries": [
+    {
+      "name": "Finland",
+      "id": 1
+    },
+    {
+      "name": "Sweden",
+      "id": 2
+    },
+    {
+      "name": "Norway",
+      "id": 3
+    },
+    {
+      "name": "Denmark",
+      "id": 4
+    },
+    {
+      "name": "Germany",
+      "id": 5
+    },
+    {
+      "name": "France",
+      "id": 6
+    }
+  ],
+  "price": {
+    "value": 12345
+  }
 }
