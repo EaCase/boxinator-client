@@ -13,8 +13,6 @@ const MuiSelectField = ({ label, options, ...props }) => {
   const hasErrors = Boolean(meta.touched) && Boolean(meta.error);
   const theme = useTheme();
 
-  console.log(options[0]);
-
   return (
     <>
       <Grid item xs={12} {...props}>

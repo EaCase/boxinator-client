@@ -3,26 +3,30 @@ import { useGetShipmentsQuery } from "../services/shipment";
 import OrderModal from "../components/Shipment/OrderModal";
 import SimpleSlider from "../components/layout/BoxesSlider";
 import CompletedOrder from "../components/Shipment/CompletedOrder";
+import { useState } from "react";
 
 const Shipment = () => {
-  const { data: shipments, isSuccess } = useGetShipmentsQuery();
+  const { data: shipments, isSuccess } = useGetShipmentsQuery({
+    accountId: 1,
+    from: "2023-01-01",
+    to: "2023-12-31",
+  });
 
-  if (!isSuccess)
-    return (
-      <>
-        <Typography>Shipments could not be loaded</Typography>
-      </>
-    );
+  const [showModal, setShowModal] = useState(false);
+  const closeModal = () => setShowModal(false);
+  const openModal = () => setShowModal(true);
 
   return (
     <>
-      <OrderModal />
+      <OrderModal showModal={showModal} closeModal={closeModal} />
 
       <Box>
         <Typography variant="h3" sx={{ mb: 3 }}>
           Pending orders
         </Typography>
-        <SimpleSlider shipments={shipments} />
+        {isSuccess && (
+          <SimpleSlider shipments={shipments} openModal={openModal} />
+        )}
       </Box>
 
       <Box>
@@ -31,9 +35,10 @@ const Shipment = () => {
         </Typography>
 
         <Grid container>
-          {shipments?.map((shipment) => (
-            <CompletedOrder key={shipment.id} {...shipment} />
-          ))}
+          {isSuccess &&
+            shipments?.map((shipment) => (
+              <CompletedOrder key={shipment.id} {...shipment} />
+            ))}
         </Grid>
       </Box>
     </>

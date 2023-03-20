@@ -22,21 +22,10 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithRetry,
   tagTypes: ['Auth', 'Account'],
-  endpoints: (build) => ({
-    getTiers: build.query({
-      query: () => ({ url: 'tiers' })
-    }),
-    getCountries: build.query({
-      query: () => ({ url: 'countries' })
-    }),
-    getPrice: build.query({
-      query: () => ({ url: 'price' })
-    }),
-  }),
+  endpoints: () => ({}),
 })
 
 export const {
   useGetTiersQuery,
   useGetCountriesQuery,
-  useGetPriceQuery
 } = api
