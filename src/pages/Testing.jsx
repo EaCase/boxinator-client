@@ -1,5 +1,7 @@
+import { useState } from "react";
 import {
   Button,
+  Box,
   Container,
   Paper,
   Table,
@@ -10,13 +12,12 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import { Box } from "@mui/system";
-import { useState } from "react";
 import {
   useGetShipmentsQuery,
   useAddShipmentMutation,
   useDeleteShipmentMutation,
 } from "../services/shipment";
+import OrderModal from "../components/Shipment/OrderModal";
 
 const Testing = () => {
   const { data, isSuccess } = useGetShipmentsQuery();
@@ -95,6 +96,8 @@ const Testing = () => {
           <Button onClick={addShipment}>Add shipment</Button>
         </Box>
       </Container>
+
+      <OrderModal />
     </>
   );
 };

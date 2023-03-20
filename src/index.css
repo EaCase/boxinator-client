@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+  /* the slides */
+  .slick-slide {
+    margin: 0 10px 0 0;
+}
+
+/* the parent */
+.slick-list {
+    margin: 0 -10px;
+}

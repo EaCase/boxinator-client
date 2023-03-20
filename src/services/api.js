@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react'
 
-// Create our baseQuery instance
 const baseQuery = fetchBaseQuery({
   baseUrl: 'http://localhost:3001/',
   prepareHeaders: (headers, { getState }) => {
@@ -19,5 +18,21 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithRetry,
   tagTypes: ['Auth', 'Account'],
-  endpoints: () => ({}),
+  endpoints: (build) => ({
+    getTiers: build.query({
+      query: () => ({ url: 'tiers' })
+    }),
+    getCountries: build.query({
+      query: () => ({ url: 'countries' })
+    }),
+    getPrice: build.query({
+      query: () => ({ url: 'price' })
+    }),
+  }),
 })
+
+export const {
+  useGetTiersQuery,
+  useGetCountriesQuery,
+  useGetPriceQuery
+} = api
