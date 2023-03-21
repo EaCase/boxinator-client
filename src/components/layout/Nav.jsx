@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -16,6 +17,7 @@ const pages = ["Login", "Register", "Shipments", "Account", "Admin"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [activePage, setActivePage] = useState(pages[0]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -23,6 +25,11 @@ function ResponsiveAppBar() {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const handlePageClick = (page) => {
+    setActivePage(page);
+    handleCloseNavMenu();
   };
 
   return (
@@ -72,13 +79,14 @@ function ResponsiveAppBar() {
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page} onClick={() => handlePageClick(page)}>
+                  <Typography
+                    sx={{ fontSize: activePage === page ? "1.2rem" : "1rem" }}
+                  >
+                    {page}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -104,7 +112,11 @@ function ResponsiveAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Link key={page} to={page.toLowerCase()}>
+              <Link
+                key={page}
+                to={page.toLowerCase()}
+                style={{ textDecoration: "none" }}
+              >
                 <Button
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
