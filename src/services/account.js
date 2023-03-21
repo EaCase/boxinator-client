@@ -4,8 +4,7 @@ import { api } from './api'
 export const accountApi = api.injectEndpoints({
   endpoints: (build) => ({
     getAccount: build.query({
-      query: (id) => `account/${id}`,
-      providesTags: (_account, _err, id) => [{ type: 'Account', id }],
+      query: () => `account/`,
     }),
     createAccount: build.mutation({
       query: (body) => ({

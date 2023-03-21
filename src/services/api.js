@@ -9,7 +9,7 @@ const baseQuery = fetchBaseQuery({
     //const { token } = keycloak
 
     if (token) {
-      headers.set('authentication', `Bearer ${token}`)
+      headers.set('Authorization', `Bearer ${token}`)
     }
 
     return headers
