@@ -10,8 +10,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
 } from "@mui/material";
+import React from 'react';   
 
 const Admin = () => {
 
@@ -21,6 +21,18 @@ const Admin = () => {
     isSuccess,
     isError,
   } = useGetShipmentsQuery();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  
+  if (isError) {
+    return <div>Error loading shipments</div>;
+  }
+  
+  if (!isSuccess) {
+    return null;
+  }
     
   return (
     <>
@@ -30,34 +42,34 @@ const Admin = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell align="right">Name</TableCell>
+                <TableCell align="right">Box Tier</TableCell>
+                <TableCell align="right">Box Color</TableCell>
+                <TableCell align="right">Recipient</TableCell>
                 <TableCell align="right">Country</TableCell>
-                <TableCell align="right">Status</TableCell>
-                <TableCell align="right">Date</TableCell>
-                <TableCell align="right">Edit</TableCell>
+                <TableCell align="right">Cost</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row) => (
+            {shipments && shipments.map((row) => (
                 <TableRow
-                  key={row.name}
+                  key={row.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="td">{row.id}</TableCell>
                   <TableCell component="td" align="right">
-                    {row.name}
+                    {row.boxTier}
+                  </TableCell>
+                  <TableCell component="td" align="right">
+                    {row.boxColor}
+                  </TableCell>
+                  <TableCell component="td" align="right">
+                    {row.recipient}
                   </TableCell>
                   <TableCell component="td" align="right">
                     {row.country}
                   </TableCell>
                   <TableCell component="td" align="right">
-                    {row.status}
-                  </TableCell>
-                  <TableCell component="td" align="right">
-                    {row.date}
-                  </TableCell>
-                  <TableCell component="td" align="right">
-                    {row.size}
+                    {row.cost}
                   </TableCell>
                   <TableCell component="td" align="right">
                     <Button> 

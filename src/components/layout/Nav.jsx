@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from 'react';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,12 +12,12 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
-import keycloak from "../../keycloak";
 
 const pages = ["Login", "Register", "Shipments", "Account", "Admin"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [activePage, setActivePage] = useState(pages[0]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -26,17 +27,22 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
+  const handlePageClick = (page) => {
+    setActivePage(page);
+    handleCloseNavMenu();
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Link to={"/"}>
+          <Link to={"/"} style={{ textDecoration: "none" }}>
             <Typography
               variant="h6"
               noWrap
               component="a"
-              href="/"
+              href="#"
               sx={{
                 mr: 2,
                 display: { xs: "none", md: "flex" },
@@ -75,15 +81,14 @@ function ResponsiveAppBar() {
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+          {pages.map((page) => (
+            <MenuItem key={page} onClick={() => handlePageClick(page)}>
+              <Typography sx={{ fontSize: activePage === page ? "1.2rem" : "1rem" }}>
+                {page}
+              </Typography>                
+              </MenuItem>
+                  ))}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -107,7 +112,7 @@ function ResponsiveAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Link key={page} to={page.toLowerCase()}>
+              <Link key={page} to={page.toLowerCase()} style={{ textDecoration: "none" }}>
                 <Button
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
@@ -116,13 +121,6 @@ function ResponsiveAppBar() {
                 </Button>
               </Link>
             ))}
-
-            <Button
-              sx={{ my: 2, color: "white", display: "block" }}
-              onClick={() => keycloak.login()}
-            >
-              LOGGAIN
-            </Button>
           </Box>
         </Toolbar>
       </Container>

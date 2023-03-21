@@ -6,7 +6,6 @@ import Shipment from "../../pages/Shipment";
 import Login from "../../pages/Login";
 import Registration from "../../pages/Registration";
 import ResponsiveAppBar from "./Nav";
-import Testing from "../../pages/Testing";
 
 const Main = () => {
   return (
@@ -15,7 +14,6 @@ const Main = () => {
 
       <Container>
         <Routes>
-          <Route path="/" element={<Testing />} />
           <Route path="/login" element={<Login />} />
           <Route
             path="/register"
