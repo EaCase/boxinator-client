@@ -6,10 +6,9 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers, { getState }) => {
     // By default, if we have a token in the store, let's use that for authenticated requests
     const token = (getState()).auth.token
-    //const { token } = keycloak
 
     if (token) {
-      headers.set('authentication', `Bearer ${token}`)
+      headers.set('authorization', `Bearer ${token}`)
     }
 
     return headers
