@@ -46,4 +46,5 @@ const SimpleSlider = ({ shipments, openModal }) => {
   );
 };
 
+
 export default SimpleSlider;
