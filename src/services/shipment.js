@@ -3,7 +3,8 @@ import { api } from './api'
 export const shipmentApi = api.injectEndpoints({
   endpoints: (build) => ({
     getShipments: build.query({
-      query: ({ accountId, from, to }) => ({ url: 'shipments/', params: { accountId, from, to } })
+      query: ({ accountId, from, to }) => ({ url: 'shipments/', params: { accountId, from, to } }),
+      providesTags: ["Shipments"]
     }),
     getShipment: build.query({
       query: (id) => `shipments/${id}`,
@@ -13,21 +14,25 @@ export const shipmentApi = api.injectEndpoints({
     }),
     addShipment: build.mutation({
       query: (body) => ({
-        url: `shipments`,
+        url: `shipments/`,
         method: 'POST',
         body,
       }),
+      invalidatesTags: ["Shipments"],
+      /* Get this working instead of tags
       // update getShipments query manually, avoids refetch
-      async onQueryStarted(args, { queryFulfilled, dispatch }) {
+      async onQueryStarted({ accountId, from, to }, { queryFulfilled, dispatch }) {
         try {
           const { data: newShipment } = await queryFulfilled;
-          dispatch(api.util.updateQueryData('getShipments', undefined, (shipments) => {
+          console.log("UPDATING")
+          // Get rid of hard coded values once details are available
+          dispatch(api.util.updateQueryData('getShipments', , (shipments) => {
             shipments?.push(newShipment);
           }))
         } catch (e) {
           console.log(e);
         }
-      }
+      }*/
     }),
     updateShipment: build.mutation({
       query(data) {
