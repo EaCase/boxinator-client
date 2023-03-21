@@ -1,60 +1,58 @@
 {
   "shipments": [
     {
-      "id": 2,
-      "name": "Box 2",
-      "country": "Finland",
-      "status": "Pending",
-      "date": "6.7.2016"
-    },
-    {
-      "id": 3,
-      "name": "Box 3",
-      "country": "Sweden",
-      "status": "Cancelled",
-      "date": "10.10.2020"
-    },
-    {
-      "id": 4,
-      "name": "Box 4",
-      "country": "Norway",
-      "status": "Completed",
-      "date": "19.1.2021"
-    },
-    {
-      "id": 5,
-      "name": "Box 5",
-      "country": "Germany ",
-      "status": "Pending",
-      "date": "27.5.2009"
-    },
-    {
-      "id": 6,
-      "name": "Box 6",
-      "country": "France",
-      "status": "Pending",
-      "date": "9.8.1999"
-    },
-    {
-      "id": 7,
-      "name": "Box 7",
-      "country": "Finland",
-      "status": "Pending",
-      "date": "9.8.2022"
-    },
-    {
-      "id": 8,
-      "name": "Box 8",
-      "country": "Germany",
-      "status": "Cancelled",
-      "date": "9.8.2000"
-    },
-    {
-      "name": "Box 9",
-      "country": "Finland",
-      "status": "Pending",
-      "date": "1.1.1970",
-      "id": 9
+      "recipient": "LOLXD",
+      "color": "#263e84",
+      "country": 3,
+      "tier": 1,
+      "id": 1
     }
-  ]
+  ],
+  "tiers": [
+    {
+      "name": "Basic",
+      "id": 1
+    },
+    {
+      "name": "Humble",
+      "id": 2
+    },
+    {
+      "name": "Luxury",
+      "id": 3
+    },
+    {
+      "name": "Premium",
+      "id": 4
+    }
+  ],
+  "countries": [
+    {
+      "name": "Finland",
+      "id": 1
+    },
+    {
+      "name": "Sweden",
+      "id": 2
+    },
+    {
+      "name": "Norway",
+      "id": 3
+    },
+    {
+      "name": "Denmark",
+      "id": 4
+    },
+    {
+      "name": "Germany",
+      "id": 5
+    },
+    {
+      "name": "France",
+      "id": 6
+    }
+  ],
+  "price": {
+    "value": 12345
+  }
 }

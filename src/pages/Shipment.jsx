@@ -1,154 +1,44 @@
-import { Grid, Button, Box, Table, Typography, useTheme } from "@mui/material";
-import { useState, useEffect } from "react";
+import { Grid, Box, Typography } from "@mui/material";
 import { useGetShipmentsQuery } from "../services/shipment";
-import BoxesSlider, { SimpleSlider } from "../components/layout/BoxesSlider";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import CheckCircleOutlineSharpIcon from "@mui/icons-material/CheckCircleOutlineSharp";
+import OrderModal from "../components/Shipment/OrderModal";
+import SimpleSlider from "../components/layout/BoxesSlider";
+import CompletedOrder from "../components/Shipment/CompletedOrder";
+import { useState } from "react";
 
 const Shipment = () => {
-  const theme = useTheme();
+  const { data: shipments, isSuccess } = useGetShipmentsQuery({
+    accountId: 1,
+    from: "2023-01-01",
+    to: "2023-12-31",
+  });
 
-  const {
-    data: shipments,
-    isLoading,
-    isSuccess,
-    isError,
-  } = useGetShipmentsQuery();
-
-  const boxes = [
-    {
-      id: 1,
-      title: "Box 1",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-    },
-    {
-      id: 2,
-      title: "Box 2",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-    },
-    {
-      id: 3,
-      title: "Box 3",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-    },
-    {
-      id: 4,
-      title: "Box 4",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-    },
-    {
-      id: 5,
-      title: "Box 5",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-    },
-    {
-      id: 6,
-      title: "Box 6",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-    },
-  ];
-
-  /*
-  const [shipments, setShipments] = useState([]);
-
-  useEffect(() => {
-    async function fetchShipments() {
-      const response = await fetch("");
-      const data = await response.json();
-      setShipments(data);
-    }
-    fetchShipments();
-  }, []);
- 
-
-  const inDelivery = shipments.filter(
-    (shipment) => shipment.status === "ordered"
-  );
-
-  //assuming that there is a status
-  const completed = shipments.filter(
-    (shipment) => shipment.status === "shipped"
-  );
-   */
+  const [showModal, setShowModal] = useState(false);
+  const closeModal = () => setShowModal(false);
+  const openModal = () => setShowModal(true);
 
   return (
     <>
-    <Box style={{ margin: "20px" }}>
-      <Grid container>
-        <Grid xs={12} 
-        item 
-        >
-        <Typography variant="h3">In Delivery</Typography>
-          <BoxesSlider shipments={boxes} style={{ overflowX: "hidden" }} />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 4, mb: 2 }}
-          >
-            + New Order
-          </Button>
-        </Grid>
-      </Grid>
+      <OrderModal showModal={showModal} closeModal={closeModal} />
+
+      <Box>
+        <Typography variant="h3" sx={{ mb: 3 }}>
+          Pending orders
+        </Typography>
+        {isSuccess && (
+          <SimpleSlider shipments={shipments} openModal={openModal} />
+        )}
       </Box>
 
-      <Typography variant="h3">Completed</Typography>
+      <Box>
+        <Typography variant="h3" sx={{ mb: 3 }}>
+          Completed orders
+        </Typography>
 
-      <Box style={{ maxHeight: "100vh", overflow: "auto" }}>
         <Grid container>
-          {shipments?.map((shipment) => {
-            return (
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-evenly"
-                alignItems="center"
-                component={Box}
-                sx={{
-                  boxShadow: 2,
-                  padding: 1,
-                  border: 1,
-                  borderColor: theme.palette.secondary.light,
-                  borderRadius: 2,
-                  marginBottom: 1,
-                  py: 2,
-                  minHeight: 65,
-                }}
-                item
-              >
-                <Grid
-                  item
-                  xs={1}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                  }}
-                >
-                  <CheckCircleOutlineSharpIcon
-                    style={{ verticalAlign: "middle", marginRight: 20 }}
-                  />
-                  <Typography fontWeight={700}>Basic</Typography>
-                </Grid>
-                <Grid item xs={1}></Grid>
-                <Grid item xs={3}>
-                  {shipment.status}
-                </Grid>
-                <Grid item xs={3}>
-                  {shipment.country}
-                </Grid>
-                <Grid item xs={3}>
-                  {shipment.date}
-                </Grid>
-              </Grid>
-            );
-          })}
+          {isSuccess &&
+            shipments?.map((shipment) => (
+              <CompletedOrder key={shipment.id} {...shipment} />
+            ))}
         </Grid>
       </Box>
     </>

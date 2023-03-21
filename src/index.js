@@ -5,8 +5,28 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from './state/store';
+import { initialize } from './keycloak';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+/*
+initialize()
+  .then(() => { // If No Keycloak Error occurred - Display the App
+    root.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
+  })
+.catch(() => {
+  root.render(
+    <React.StrictMode>
+      <p>Could Not Connect To Keycloak.</p>
+    </React.StrictMode>
+  );
+});
+*/
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>

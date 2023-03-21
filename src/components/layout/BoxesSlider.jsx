@@ -2,39 +2,47 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import PendingOrder from "../Shipment/PendingOrder";
+import { Button, useTheme } from "@mui/material";
+import { Add } from "@mui/icons-material";
 
-export const SimpleSlider = ({ shipments }) => {
+const SimpleSlider = ({ shipments, openModal }) => {
+  const theme = useTheme();
 
   const settings = {
     dots: true,
     infinite: true,
+    accessibility: false,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 2,
+    variableWidth: true,
   };
 
   return (
-    <div>
-      <Slider {...settings}>
-        {shipments.map((shipment) => {
-          return (
-            <Box sx={{ mx: 2 }}>
-              <Card sx={{ minWidth: 275, boxShadow: 3 }}>
-                <CardContent>
-                  <Typography variant="h5" component="div">
-                    {shipment.title}
-                  </Typography>
-                  <Typography variant="body2">
-                    {shipment.description}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Box>
-          );
-        })}
-      </Slider>
-    </div>
+    <Slider {...settings}>
+      <Button
+        onClick={() => openModal()}
+        sx={{
+          minWidth: 233,
+          minHeight: 157,
+          background: theme.palette.primary.main,
+          color: "white",
+          borderRadius: 2,
+          boxShadow: 3,
+          "&:hover": {
+            backgroundColor: theme.palette.primary.light,
+            color: "black",
+          },
+        }}
+      >
+        <Add />
+        NEW ORDER
+      </Button>
+      {shipments.map((shipment) => {
+        return <PendingOrder shipment={shipment} />;
+      })}
+    </Slider>
   );
 };
 
