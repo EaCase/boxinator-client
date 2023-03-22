@@ -42,8 +42,10 @@ export const shipmentApi = api.injectEndpoints({
           body,
         }
       },
+      invalidatesTags: ["Shipments"],
+ 
       // update allShipments and getShipment queries manually
-      async onQueryStarted(args, { queryFulfilled, dispatch }) {
+      /*async onQueryStarted(args, { queryFulfilled, dispatch }) {
         try {
           const { data: updatedShipment } = await queryFulfilled;
 
@@ -56,7 +58,7 @@ export const shipmentApi = api.injectEndpoints({
         } catch (e) {
           console.log(e);
         }
-      }
+      }*/
     }),
     deleteShipment: build.mutation({
       query(id) {
