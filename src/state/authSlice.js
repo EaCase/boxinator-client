@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 import { authApi } from '../services/auth'
 
 const initialState = {
-  user: null,
   token: null,
-  isAuthenticated: false,
+  refreshToken: null,
+  role: null,
 }
 
 const slice = createSlice({
@@ -20,8 +20,9 @@ const slice = createSlice({
       })
       .addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
         console.log('fulfilled', action)
-        state.user = action.payload.user
         state.token = action.payload.accessToken
+        state.refreshToken = action.payload.refreshToken
+        state.role = action.payload.accountType
       })
       .addMatcher(authApi.endpoints.login.matchRejected, (state, action) => {
         console.log('rejected', action)

@@ -6,13 +6,6 @@ export const accountApi = api.injectEndpoints({
     getAccount: build.query({
       query: () => `account/`,
     }),
-    createAccount: build.mutation({
-      query: (body) => ({
-        url: `account`,
-        method: 'POST',
-        body,
-      })
-    }),
     updateAccount: build.mutation({
       query(data) {
         const { id, ...body } = data
@@ -38,7 +31,6 @@ export const accountApi = api.injectEndpoints({
 
 export const {
   useGetAccountQuery,
-  useCreateAccountMutation,
   useDeleteAccountMutation,
   useUpdateAccountMutation,
 } = accountApi

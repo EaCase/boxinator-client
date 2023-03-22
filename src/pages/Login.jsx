@@ -10,25 +10,20 @@ import { useNavigate } from "react-router";
 
 const validationSchema = yup.object({
   username: yup
-    .string("Enter your username")
-    .email("Enter a valid username")
-    .required("Username is required"),
-  password: yup
-    .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
+    .string("Enter your email address")
+    .required("Email address is required"),
+  password: yup.string("Enter your password").required("Password is required"),
 });
 
 const Login = () => {
   const navigate = useNavigate();
-
   const [login, { isError: loginError }] = useLoginMutation();
 
   const handleLogin = async (values) => {
     await login({ ...values })
       .unwrap()
       .then(() => navigate("/shipments"))
-      .catch(() => console.log("Login failed"));
+      .catch((e) => console.log(e));
   };
 
   return (
@@ -43,7 +38,7 @@ const Login = () => {
           <Grid item sm={6} xs={12}>
             <Formik
               initialValues={{ username: "", password: "" }}
-              schema={validationSchema}
+              validationSchema={validationSchema}
               onSubmit={handleLogin}
             >
               <LoginForm loginError={loginError} />

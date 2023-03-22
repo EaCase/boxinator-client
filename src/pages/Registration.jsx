@@ -2,14 +2,22 @@ import { Grid } from "@mui/material";
 import { Container } from "@mui/system";
 import Register from "../components/Register/Register";
 import airplanelogo from "../assets/images/airplaneLogo.jpg";
-import { useCreateAccountMutation } from "../services/account";
+import { useCreateAccountMutation } from "../services/auth";
+import { useNavigate } from "react-router";
 
 const Registration = () => {
+  const navigate = useNavigate();
   const [createAccount] = useCreateAccountMutation();
 
-  const register = (values) => {
-    console.log(values);
-    createAccount({ ...values });
+  const register = async (values) => {
+    const body = { ...values, countryId: values.country.id };
+    delete body.passwordConfirmation;
+    delete body.country;
+
+    await createAccount(body)
+      .unwrap()
+      .then(() => navigate("/login"))
+      .catch((e) => console.log(e));
   };
 
   return (

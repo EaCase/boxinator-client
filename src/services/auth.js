@@ -15,8 +15,16 @@ export const authApi = api.injectEndpoints({
         },
       },
     }),
+    createAccount: build.mutation({
+      query: (body) => ({
+        url: `auth/register`,
+        method: 'POST',
+        body,
+        responseHandler: 'text',
+      })
+    }),
   }),
 })
 
-export const { useLoginMutation } = authApi
+export const { useLoginMutation, useCreateAccountMutation } = authApi
 export const { endpoints: { login } } = authApi
