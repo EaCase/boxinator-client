@@ -2,7 +2,7 @@ import { Formik } from "formik";
 import { useState } from 'react';
 import ReadOnlyAccountForm from "./ReadOnlyAccountForm";
 import EditAccountForm from "./EditAccountForm";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 
 const EditAccount = ({userData}) => {
     const [editing, setEditing] = useState(false);
