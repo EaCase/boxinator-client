@@ -3,7 +3,7 @@ import { api } from './api'
 export const shipmentApi = api.injectEndpoints({
   endpoints: (build) => ({
     getShipments: build.query({
-      query: ({ accountId, from, to }) => ({ url: 'shipments/', params: { accountId, from, to } })
+      query: () => ({ url: 'shipments/'})
     }),
     getShipment: build.query({
       query: (id) => `shipments/${id}`,
