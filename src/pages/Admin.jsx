@@ -12,8 +12,12 @@ import {
   TableRow,
 } from "@mui/material";
 import React from 'react';   
+import EditAndDeleteShipments from "../Admin/EditAndDeleteShipments";
+import { useNavigate } from "react-router";
 
 const Admin = () => {
+
+const navigate = useNavigate();
 
   const {
     data: shipments,
@@ -38,23 +42,21 @@ const Admin = () => {
   return (
     <>
       <Container maxWidth="lg">
+        <h2>All Orders</h2>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ minWidth: 650 }} style={{ alignItems: "center"}} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
                 <TableCell align="right">Box Tier</TableCell>                
                 <TableCell align="right">Box Weight</TableCell>
 
-
-                <TableCell align="right">Box Color</TableCell>
                 <TableCell align="right">Recipient</TableCell>
                 <TableCell align="right">Cost</TableCell>
                 <TableCell align="right">Country</TableCell>
 
                 <TableCell align="right">Status</TableCell>
-
-
+                <TableCell align="right">Admin Functionality</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -74,9 +76,6 @@ const Admin = () => {
                     </TableCell>
  
                   <TableCell component="td" align="right">
-                    {row.boxColor}
-                  </TableCell>
-                  <TableCell component="td" align="right">
                     {row.recipient}
                   </TableCell>
                   
@@ -93,8 +92,13 @@ const Admin = () => {
                     </TableCell> 
 
                   <TableCell component="td" align="right">
-                    <Button> 
-                    </Button>
+                  <Button
+                  fullWidth variant="contained"
+                  style={{ width: "80%" }}
+                  onClick={() => { navigate(`/shipment/${row.id}`) }}
+                  >
+                  Update & Delete
+              </Button>
                   </TableCell>
                 </TableRow>
               ))}

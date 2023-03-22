@@ -6,6 +6,7 @@ import Shipment from "../../pages/Shipment";
 import Login from "../../pages/Login";
 import Registration from "../../pages/Registration";
 import ResponsiveAppBar from "./Nav";
+import EditAndDeleteShipments from "../../Admin/EditAndDeleteShipments";
 
 const Main = () => {
   return (
@@ -27,6 +28,7 @@ const Main = () => {
             caseSensitive={false}
           />
           <Route path="/account" element={<Account />} caseSensitive={false} />
+          <Route path="/shipment/:id" element={<EditAndDeleteShipments />} caseSensitive={false} />
         </Routes>
       </Container>
     </Container>

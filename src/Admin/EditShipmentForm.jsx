@@ -3,10 +3,26 @@ import { Form } from "formik";
 import { Button } from "@mui/material";
 import MuiFormWrapper from "../components/common/forms/MuiFormWrapper";
 import MuiTextInput from "../components/common/forms/MuiTextInput";
+import { useUpdateShipmentMutation } from "../services/shipment";
+import { Formik } from "formik";
 
-const EditShipmentForm = () => {
+
+const EditShipmentForm = ({shipment}) => {
+
+  const shipmentData = {
+    shipmentId: shipment.id,
+    boxTier: shipment.boxTier.name,
+    boxWeight: shipment.boxTier.weight,
+    recipientName: shipment.recipient,
+    cost: shipment.cost,
+    country: shipment.country.name,
+    status: shipment.statuses[0].status,
+    }
+
+  const [updateShipment] = useUpdateShipmentMutation();
 
     return (
+      <Formik initialValues={shipmentData}>
         <Form>
           <MuiFormWrapper headerText="Edit">
             <Grid container spacing={2}>
@@ -69,6 +85,7 @@ const EditShipmentForm = () => {
               </Grid>
             </MuiFormWrapper>
           </Form>
+          </Formik>
     );
   }
 
