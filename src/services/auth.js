@@ -20,6 +20,7 @@ export const authApi = api.injectEndpoints({
         url: `auth/register`,
         method: 'POST',
         body,
+        responseHandler: 'text',
       })
     }),
   }),

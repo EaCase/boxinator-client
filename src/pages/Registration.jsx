@@ -14,11 +14,9 @@ const Registration = () => {
     delete body.passwordConfirmation;
     delete body.country;
 
-    console.log(body);
-
-    await createAccount({ ...body })
+    await createAccount(body)
       .unwrap()
-      .then(() => navigate("/shipments"))
+      .then(() => navigate("/login"))
       .catch((e) => console.log(e));
   };
 

@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react'
-import keycloak from '../keycloak'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: 'http://localhost:8080/',
@@ -19,7 +18,7 @@ const baseQueryWithRetry = retry(baseQuery, { maxRetries: 1 })
 
 export const api = createApi({
   reducerPath: 'api',
-  baseQuery,
+  baseQuery: baseQueryWithRetry,
   tagTypes: ['Auth', 'Account'],
   endpoints: () => ({}),
 })

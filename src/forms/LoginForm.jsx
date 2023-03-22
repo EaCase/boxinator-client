@@ -11,7 +11,7 @@ const LoginForm = ({ loginError }) => {
       <Form>
         <MuiFormWrapper headerText="User Login">
           <Grid container spacing={2}>
-            <MuiTextInput name="username" type="text" label="Username" />
+            <MuiTextInput name="username" type="text" label="Email address" />
 
             <MuiTextInput name="password" type="password" label="Password" />
           </Grid>
