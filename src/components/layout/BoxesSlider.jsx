@@ -11,7 +11,7 @@ const SimpleSlider = ({ shipments, openModal }) => {
 
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     accessibility: false,
     speed: 500,
     slidesToShow: 4,
@@ -45,6 +45,5 @@ const SimpleSlider = ({ shipments, openModal }) => {
     </Slider>
   );
 };
-
 
 export default SimpleSlider;

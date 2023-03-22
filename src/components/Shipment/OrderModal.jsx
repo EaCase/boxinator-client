@@ -46,14 +46,18 @@ const OrderModal = ({ showModal, closeModal }) => {
     useGetCountriesQuery();
   const [createShipment] = useAddShipmentMutation();
 
-  const handleCreateShipment = (values) => {
+  const handleCreateShipment = async (values) => {
     const body = {
-      ...values,
-      country: values.country.id,
-      tier: values.tier.id,
+      recipient: values.recipient,
+      boxColor: values.color,
+      countryId: values.country.id,
+      boxTierId: values.tier.id,
     };
-    createShipment(body);
-    closeModal();
+
+    await createShipment(body)
+      .unwrap()
+      .then(() => closeModal())
+      .catch((e) => console.log("Something went wrong", e));
   };
 
   return (

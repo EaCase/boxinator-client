@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import RegisterForm from "./RegisterForm";
-import Account from "../../pages/Account";
 
 const initialValues = {
   firstName: "",
@@ -31,18 +30,13 @@ const validationSchema = Yup.object().shape({
   phone: Yup.string().required("Contact number is required"),
 });
 
-const Register = () => {
-  const handleRegister = (values) => {
-    <Account userData = {values} />
-    console.log(values);
-  };
-
+const Register = (handleRegister) => {
   return (
     <Box>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={handleRegister}
+        onSubmit={(values) => handleRegister(values)}
       >
         <RegisterForm />
       </Formik>
