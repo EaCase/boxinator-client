@@ -33,7 +33,8 @@ const Admin = () => {
   if (!isSuccess) {
     return null;
   }
-    
+  console.log(shipments);
+
   return (
     <>
       <Container maxWidth="lg">
@@ -42,11 +43,18 @@ const Admin = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell align="right">Box Tier</TableCell>
+                <TableCell align="right">Box Tier</TableCell>                
+                <TableCell align="right">Box Weight</TableCell>
+
+
                 <TableCell align="right">Box Color</TableCell>
                 <TableCell align="right">Recipient</TableCell>
-                <TableCell align="right">Country</TableCell>
                 <TableCell align="right">Cost</TableCell>
+                <TableCell align="right">Country</TableCell>
+
+                <TableCell align="right">Status</TableCell>
+
+
               </TableRow>
             </TableHead>
             <TableBody>
@@ -56,21 +64,34 @@ const Admin = () => {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="td">{row.id}</TableCell>
-                  <TableCell component="td" align="right">
-                    {row.boxTier}
-                  </TableCell>
+
+                    <TableCell component="td" align="right">
+                      {row.boxTier.name ? row.boxTier.name : 'not found'}
+                    </TableCell>
+
+                    <TableCell component="td" align="right">
+                      {row.boxTier.weight ? row.boxTier.weight : 'not found'}
+                    </TableCell>
+ 
                   <TableCell component="td" align="right">
                     {row.boxColor}
                   </TableCell>
                   <TableCell component="td" align="right">
                     {row.recipient}
                   </TableCell>
-                  <TableCell component="td" align="right">
-                    {row.country}
-                  </TableCell>
+                  
                   <TableCell component="td" align="right">
                     {row.cost}
                   </TableCell>
+
+                  <TableCell component="td" align="right">
+                      {row.country.name ? row.country.name : 'not found'}
+                    </TableCell>
+
+                    <TableCell component="td" align="right">
+                        {row.statuses[0]?.status ? row.statuses[0].status : 'not found'}
+                    </TableCell> 
+
                   <TableCell component="td" align="right">
                     <Button> 
                     </Button>
