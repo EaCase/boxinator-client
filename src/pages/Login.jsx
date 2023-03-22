@@ -21,14 +21,13 @@ const validationSchema = yup.object({
 
 const Login = () => {
   const navigate = useNavigate();
-
   const [login, { isError: loginError }] = useLoginMutation();
 
   const handleLogin = async (values) => {
     await login({ ...values })
       .unwrap()
       .then(() => navigate("/shipments"))
-      .catch(() => console.log("Login failed"));
+      .catch((e) => console.log(e));
   };
 
   return (

@@ -1,6 +1,7 @@
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { useGetCountriesQuery } from "../../services/settings";
 import RegisterForm from "./RegisterForm";
 
 const initialValues = {
@@ -11,8 +12,8 @@ const initialValues = {
   passwordConfirmation: "",
   dateOfBirth: "",
   country: "",
-  postal: "",
-  phone: "",
+  zipCode: "",
+  contactNumber: "",
 };
 
 const validationSchema = Yup.object().shape({
@@ -25,12 +26,20 @@ const validationSchema = Yup.object().shape({
     "Passwords must match"
   ),
   dateOfBirth: Yup.date().required("Date of birth is required"),
-  country: Yup.string().required("Country is required"),
-  postal: Yup.string().required("Postal code is required"),
-  phone: Yup.string().required("Contact number is required"),
+  country: Yup.object().shape({
+    id: Yup.number().required("Required"),
+    name: Yup.string().required("Required"),
+  }),
+  zipCode: Yup.string().required("Postal code is required"),
+  contactNumber: Yup.string().required("Contact number is required"),
 });
 
-const Register = (handleRegister) => {
+const Register = ({ handleRegister }) => {
+  const { data: countries, isSuccess: countriesFetched } =
+    useGetCountriesQuery();
+
+  if (!countriesFetched) return <CircularProgress />;
+
   return (
     <Box>
       <Formik
@@ -38,7 +47,7 @@ const Register = (handleRegister) => {
         validationSchema={validationSchema}
         onSubmit={(values) => handleRegister(values)}
       >
-        <RegisterForm />
+        <RegisterForm countries={countries} />
       </Formik>
     </Box>
   );
