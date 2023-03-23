@@ -81,6 +81,7 @@ function ResponsiveAppBar() {
               onClose={handleCloseNavMenu}
             >
               {pages.map((page) => (
+                //if (page === Admin) {
                 <MenuItem key={page} onClick={() => handlePageClick(page)}>
                   <Typography
                     sx={{ fontSize: activePage === page ? "1.2rem" : "1rem" }}
