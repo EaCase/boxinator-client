@@ -3,11 +3,6 @@ import { Grid, Typography } from "@mui/material";
 const ReadOnlyAccountForm = ({ userInfo }) => {
 
 
-  /*<Grid item xs={5}>
-          <Typography variant="h5">Email:</Typography>
-          <Typography variant="body1">{userInfo.email}</Typography>
-        </Grid>*/
-
     return(
     <>
       <Typography variant="h4">Your Account Details</Typography>

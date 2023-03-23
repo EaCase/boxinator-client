@@ -8,14 +8,15 @@ export const accountApi = api.injectEndpoints({
     }),
     updateAccount: build.mutation({
       query(data) {
-        const { id, ...body } = data
+        const { values } = data
+        console.log(values)
+
         return {
-          url: `account/${id}`,
+          url: `account/`,
           method: 'PUT',
-          body,
+          body:values,
         }
       },
-      invalidatesTags: (account) => [{ type: 'Account', id: account?.id }],
     }),
     deleteAccount: build.mutation({
       query(id) {

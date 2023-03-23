@@ -25,7 +25,6 @@ const EditAccount = ({userData}) => {
         zipCode: userData.zipCode,
         contactNumber: userData.contactNumber
       };
-      //email??
 
       const handleCancelClick = () => {
         setEditing(false);
