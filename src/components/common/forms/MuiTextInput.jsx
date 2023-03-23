@@ -2,7 +2,7 @@ import { Grid, InputLabel, TextField, Typography } from "@mui/material";
 import { useField } from "formik";
 import { useTheme } from "@emotion/react";
 
-const MuiTextInput = ({ label, type, ...props }) => {
+const MuiTextInput = ({ label, type, disabled, ...props }) => {
   const [field, meta] = useField(props);
   const hasErrors = Boolean(meta.touched) && Boolean(meta.error);
   const theme = useTheme();
@@ -18,6 +18,7 @@ const MuiTextInput = ({ label, type, ...props }) => {
             borderRadius: 2,
           }}
           required
+          disabled={disabled}
           fullWidth
           size="small"
           variant="outlined"

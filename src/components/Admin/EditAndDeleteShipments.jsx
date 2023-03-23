@@ -1,48 +1,58 @@
-
-import { Grid } from "@mui/material";
+import { Typography } from "@mui/material";
 import EditShipmentForm from "./EditShipmentForm";
-import { useParams } from "react-router";
-import { useGetShipmentQuery, useUpdateShipmentMutation } from "../../services/shipment";
-import { useNavigate } from "react-router";
+import { useParams, useNavigate } from "react-router";
+import {
+  useGetShipmentQuery,
+  useUpdateShipmentMutation,
+} from "../../services/shipment";
+import {
+  useGetCountriesQuery,
+  useGetTiersQuery,
+} from "../../services/settings";
+import { Container } from "@mui/system";
 
 const EditAndDeleteShipments = () => {
-
   const navigate = useNavigate();
+  const { id } = useParams();
 
-    const { id } = useParams();
+  const { data: tiers, isSuccess: tiersFetched } = useGetTiersQuery();
+  const { data: countries, isSuccess: countriesFetched } =
+    useGetCountriesQuery();
+  const { data: shipment, isSuccess: shipmentFetched } =
+    useGetShipmentQuery(id);
 
-    const {data: shipment, isSuccess, isLoading, isError } = useGetShipmentQuery();
+  const [updateShipmentDetails] = useUpdateShipmentMutation(id);
 
-    const [ updateShipment ] = useUpdateShipmentMutation(id);
+  if (!shipmentFetched || !countriesFetched || !tiersFetched) {
+    return <Typography>Details couldn't be fetched from the server</Typography>;
+  }
 
-    if (isLoading) {
-      return <div>Loading...</div>;
-    }
-    
-    if (isError) {  
-      return <div>Error loading</div>;
-    }
-  
-    if (!isSuccess) {
-      return null;
-    }
+  const updateShipment = async (values) => {
+    const body = {
+      recipient: values.recipient,
+      boxColor: values.color,
+      countryId: values.country.id,
+      boxTierId: values.tier.id,
+    };
 
-    const update = async (values) => {
-      const body = { values };
-    await updateShipment({shipmentId:id, body})
+    await updateShipmentDetails({ shipmentId: id, body })
       .unwrap()
-      .then(() => navigate("/Admin"))
+      .then(() => navigate("/admin"))
       .catch((e) => console.log(e));
   };
 
-          return (
-            <>
-            <Grid item xs={12}>
-              <EditShipmentForm shipment = {shipment} handleUpdate={update} />
-          </Grid>
-          </>
-        )
-    }
-
+  return (
+    <>
+      <Container maxWidth="sm">
+        <EditShipmentForm
+          shipment={shipment}
+          handleUpdate={updateShipment}
+          tiers={tiers}
+          countries={countries}
+        />
+      </Container>
+    </>
+  );
+};
 
 export default EditAndDeleteShipments;

@@ -6,8 +6,6 @@ import MuiTextInput from "../components/common/forms/MuiTextInput";
 
 const EditAccountForm = ({ handleCancelClick }) => {
 
-  // add emai?
-
   return (
       <Form>
         <MuiFormWrapper headerText="Your Account Details">
