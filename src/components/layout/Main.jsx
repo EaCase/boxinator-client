@@ -28,7 +28,11 @@ const Main = () => {
             caseSensitive={false}
           />
           <Route path="/account" element={<Account />} caseSensitive={false} />
-          <Route path="/shipment/:id" element={<EditAndDeleteShipments />} caseSensitive={false} />
+          <Route
+            path="/shipment/:id"
+            element={<EditAndDeleteShipments />}
+            caseSensitive={false}
+          />
         </Routes>
       </Container>
     </Container>

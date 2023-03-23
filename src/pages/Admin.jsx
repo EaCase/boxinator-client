@@ -1,5 +1,8 @@
-import { useDeleteShipmentMutation, useGetShipmentsQuery } from "../services/shipment";
-
+import { useNavigate } from "react-router";
+import {
+  useDeleteShipmentMutation,
+  useGetShipmentsQuery,
+} from "../services/shipment";
 import {
   Button,
   Container,
@@ -11,14 +14,11 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React from 'react';   
-import { useNavigate } from "react-router";
 
 const Admin = () => {
+  const navigate = useNavigate();
 
-const navigate = useNavigate();
-
-const [ deleteShipment ] = useDeleteShipmentMutation();
+  const [deleteShipment] = useDeleteShipmentMutation();
 
   const {
     data: shipments,
@@ -30,11 +30,11 @@ const [ deleteShipment ] = useDeleteShipmentMutation();
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  
+
   if (isError) {
     return <div>Error loading shipments</div>;
   }
-  
+
   if (!isSuccess) {
     return null;
   }
@@ -56,11 +56,15 @@ const [ deleteShipment ] = useDeleteShipmentMutation();
       <Container maxWidth="lg">
         <h2>All Orders</h2>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} style={{ alignItems: "center"}} aria-label="simple table">
+          <Table
+            sx={{ minWidth: 650 }}
+            style={{ alignItems: "center" }}
+            aria-label="simple table"
+          >
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell align="right">Box Tier</TableCell>                
+                <TableCell align="right">Box Tier</TableCell>
                 <TableCell align="right">Box Weight</TableCell>
 
                 <TableCell align="right">Recipient</TableCell>
@@ -72,59 +76,70 @@ const [ deleteShipment ] = useDeleteShipmentMutation();
               </TableRow>
             </TableHead>
             <TableBody>
-            {shipments && shipments.map((row) => (
-                <TableRow
-                  key={row.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="td" id="rowid">{row.id}</TableCell>
-
-                    <TableCell component="td" align="right">
-                      {row.boxTier.name ? row.boxTier.name : 'not found'}
-                    </TableCell>
-
-                    <TableCell component="td" align="right">
-                      {row.boxTier.weight ? row.boxTier.weight : 'not found'}
-                    </TableCell>
- 
-                  <TableCell component="td" align="right">
-                    {row.recipient}
-                  </TableCell>
-                  
-                  <TableCell component="td" align="right">
-                    {row.cost}
-                  </TableCell>
-
-                  <TableCell component="td" align="right">
-                      {row.country.name ? row.country.name : 'not found'}
-                    </TableCell>
-
-                    <TableCell component="td" align="right">
-                        {row.statuses[0]?.status ? row.statuses[0].status : 'not found'}
-                    </TableCell> 
-
-                  <TableCell component="td" align="right">
-                  <Button
-                  fullWidth variant="contained"
-                  style={{ width: "80%" }}
-                  onClick={() => { navigate(`/shipment/${row.id}`) }}
+              {shipments &&
+                shipments.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                  Edit
-              </Button>
-              <Button 
-                fullWidth variant="contained"
-                style={{ width: "80%" }}
-                onClick={() => handleDeleteClick(row.id)}>
-                Delete
-              </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+                    <TableCell component="td" id="rowid">
+                      {row.id}
+                    </TableCell>
+
+                    <TableCell component="td" align="right">
+                      {row.boxTier.name ? row.boxTier.name : "not found"}
+                    </TableCell>
+
+                    <TableCell component="td" align="right">
+                      {row.boxTier.weight ? row.boxTier.weight : "not found"}
+                    </TableCell>
+
+                    <TableCell component="td" align="right">
+                      {row.recipient}
+                    </TableCell>
+
+                    <TableCell component="td" align="right">
+                      {row.cost}
+                    </TableCell>
+
+                    <TableCell component="td" align="right">
+                      {row.country.name ? row.country.name : "not found"}
+                    </TableCell>
+
+                    <TableCell component="td" align="right">
+                      {row.statuses[0]?.status
+                        ? row.statuses[0].status
+                        : "not found"}
+                    </TableCell>
+
+                    <TableCell component="td" align="right">
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        style={{ width: "80%" }}
+                        onClick={() => {
+                          navigate(`/shipment/${row.id}`);
+                        }}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        style={{ width: "80%" }}
+                        onClick={() => handleDeleteClick(row.id)}
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
-</Container>
-</>
-)}
+      </Container>
+    </>
+  );
+};
 
 export default Admin;
