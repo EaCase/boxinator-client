@@ -35,15 +35,14 @@ export const shipmentApi = api.injectEndpoints({
     }),
     updateShipment: build.mutation({
       query(data) {
-        const { id, ...body } = data
+        console.log(data);
+        const { shipmentId, ...body } = data
         return {
-          url: `shipments/${id}`,
+          url: `shipments/update/${shipmentId}`,
           method: 'PUT',
-          body,
+          data
         }
-      },
-      invalidatesTags: ["Shipments"],
- 
+      }, 
       // update allShipments and getShipment queries manually
       /*async onQueryStarted(args, { queryFulfilled, dispatch }) {
         try {

@@ -13,7 +13,7 @@ const EditAndDeleteShipments = () => {
 
     const {data: shipment, isSuccess, isLoading, isError } = useGetShipmentQuery(id);
 
-    const [updateShipment] = useUpdateShipmentMutation();
+    const [updateShipment] = useUpdateShipmentMutation(id);
 
     if (isLoading) {
       return <div>Loading...</div>;
@@ -27,12 +27,9 @@ const EditAndDeleteShipments = () => {
       return null;
     }
 
-    console.log(" hhhhÖ "+shipment.boxTier.name);
-
     const update = async (values) => {
-      const body = { ...values};
-      console.log("body"+body);
-    await updateShipment({id, body})
+      const body = { values };
+    await updateShipment({shipmentId:id, body})
       .unwrap()
       .then(() => navigate("/Admin"))
       .catch((e) => console.log(e));

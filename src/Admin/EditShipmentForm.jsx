@@ -9,13 +9,12 @@ const EditShipmentForm = ({shipment, handleUpdate}) => {
   
     const shipmentData = {
       shipmentId: shipment.id,
-      boxTier: shipment.boxTier.name,
-      boxWeight: shipment.boxTier.weight,
-      recipientName: shipment.recipient,
-      cost: shipment.cost,
-      country: shipment.country.name,
+      boxTierId: shipment.boxTier.name,
+      recipient: shipment.recipient,
+      countryId: shipment.country.name,
       status: shipment.statuses[0].status,
       }
+      console.log(shipmentData);
 
     return (
       <Formik 
@@ -23,44 +22,26 @@ const EditShipmentForm = ({shipment, handleUpdate}) => {
       onSubmit={(values) => handleUpdate(values)}
       >
         <Form>
-          <MuiFormWrapper headerText="Edit">
+          <MuiFormWrapper headerText="Update a shipment">
             <Grid container spacing={2}>
+
             <MuiTextInput
-                  name="shipmentId"
-                  type="text"
-                  label="Shipment Id"
-                />
-                <MuiTextInput
-                  name="boxTier"
-                  type="text"
-                  label="Box tier"
-                />
-                <MuiTextInput
-                  name="boxWeight"
-                  type="text"
-                  label="Box Weight"
-                />
-                <MuiTextInput
-                  name="recipientName"
+                  name="recipient"
                   type="text"
                   label="Recipient Name"
                 />
-                <MuiTextInput
-                  name="cost"
-                  type="text"
-                  label="cost"
-                />
-                <MuiTextInput
-                  name="country"
-                  type="text"
-                  label="country"
-                />
-                <MuiTextInput
-                  name="status"
-                  type="text"
-                  label="Status"
-                />
 
+                <MuiTextInput
+                  name="boxTierId"
+                  type="text"
+                  label="Box tier"
+                />
+                
+                <MuiTextInput
+                  name="countryId"
+                  type="text"
+                  label="country id"
+                />
             </Grid>
             <Grid container
               style={{

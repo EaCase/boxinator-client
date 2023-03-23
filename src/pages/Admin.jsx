@@ -37,7 +37,6 @@ const navigate = useNavigate();
   if (!isSuccess) {
     return null;
   }
-  console.log(shipments);
 
   return (
     <>
