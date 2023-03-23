@@ -66,7 +66,7 @@ export const shipmentApi = api.injectEndpoints({
           method: 'DELETE',
         }
       },
-      async onQueryStarted(id, { queryFulfilled, dispatch }) {
+      /*async onQueryStarted(id, { queryFulfilled, dispatch }) {
         try {
           await queryFulfilled;
           dispatch(api.util.updateQueryData('getShipments', undefined, (shipments) => {
@@ -75,7 +75,7 @@ export const shipmentApi = api.injectEndpoints({
         } catch (e) {
           console.log(e);
         }
-      }
+      }*/
     }),
   }),
 })

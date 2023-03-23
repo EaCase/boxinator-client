@@ -1,8 +1,8 @@
 import { Grid } from "@mui/material";
 import { Form } from "formik";
 import { Button } from "@mui/material";
-import MuiFormWrapper from "../components/common/forms/MuiFormWrapper";
-import MuiTextInput from "../components/common/forms/MuiTextInput";
+import MuiFormWrapper from "../common/forms/MuiFormWrapper";
+import MuiTextInput from "../common/forms/MuiTextInput";
 import { Formik } from "formik";
 
 const EditShipmentForm = ({shipment, handleUpdate}) => {

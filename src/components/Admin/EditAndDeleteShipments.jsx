@@ -2,7 +2,7 @@
 import { Grid } from "@mui/material";
 import EditShipmentForm from "./EditShipmentForm";
 import { useParams } from "react-router";
-import { useGetShipmentQuery, useUpdateShipmentMutation } from "../services/shipment";
+import { useDeleteShipmentMutation, useGetShipmentQuery, useUpdateShipmentMutation } from "../../services/shipment";
 import { useNavigate } from "react-router";
 
 const EditAndDeleteShipments = () => {
@@ -11,9 +11,11 @@ const EditAndDeleteShipments = () => {
 
     const { id } = useParams();
 
-    const {data: shipment, isSuccess, isLoading, isError } = useGetShipmentQuery(id);
+    const {data: shipment, isSuccess, isLoading, isError } = useGetShipmentQuery();
 
-    const [updateShipment] = useUpdateShipmentMutation(id);
+    const [ updateShipment ] = useUpdateShipmentMutation(id);
+
+    const [ deleteShipment ] = useDeleteShipmentMutation(id);
 
     if (isLoading) {
       return <div>Loading...</div>;
@@ -34,6 +36,14 @@ const EditAndDeleteShipments = () => {
       .then(() => navigate("/Admin"))
       .catch((e) => console.log(e));
   };
+
+    /* const handleDeleteClick = async (id) => {
+        alert("Are you sure?")
+          deleteShipment({shipmentId:id})
+          .unwrap()
+          .then(() => navigate("/Admin"))
+          .catch((e) => console.log(e));
+    };*/
 
           return (
             <>
