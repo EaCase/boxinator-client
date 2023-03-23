@@ -6,7 +6,7 @@ import Shipment from "../../pages/Shipment";
 import Login from "../../pages/Login";
 import Registration from "../../pages/Registration";
 import ResponsiveAppBar from "./Nav";
-import EditAndDeleteShipments from "../../Admin/EditAndDeleteShipments";
+import EditAndDeleteShipments from "../Admin/EditAndDeleteShipments";
 
 const Main = () => {
   return (

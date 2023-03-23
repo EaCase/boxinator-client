@@ -2,7 +2,7 @@
 import { Grid } from "@mui/material";
 import EditShipmentForm from "./EditShipmentForm";
 import { useParams } from "react-router";
-import { useDeleteShipmentMutation, useGetShipmentQuery, useUpdateShipmentMutation } from "../../services/shipment";
+import { useGetShipmentQuery, useUpdateShipmentMutation } from "../../services/shipment";
 import { useNavigate } from "react-router";
 
 const EditAndDeleteShipments = () => {
@@ -34,14 +34,6 @@ const EditAndDeleteShipments = () => {
       .then(() => navigate("/Admin"))
       .catch((e) => console.log(e));
   };
-
-    /* const handleDeleteClick = async (id) => {
-        alert("Are you sure?")
-          deleteShipment({shipmentId:id})
-          .unwrap()
-          .then(() => navigate("/Admin"))
-          .catch((e) => console.log(e));
-    };*/
 
           return (
             <>
