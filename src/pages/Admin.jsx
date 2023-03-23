@@ -1,4 +1,4 @@
-import { useGetShipmentsQuery } from "../services/shipment";
+import { useDeleteShipmentMutation, useGetShipmentsQuery } from "../services/shipment";
 
 import {
   Button,
@@ -12,12 +12,13 @@ import {
   TableRow,
 } from "@mui/material";
 import React from 'react';   
-import EditAndDeleteShipments from "../Admin/EditAndDeleteShipments";
 import { useNavigate } from "react-router";
 
 const Admin = () => {
 
 const navigate = useNavigate();
+
+const [ deleteShipment ] = useDeleteShipmentMutation();
 
   const {
     data: shipments,
@@ -37,7 +38,18 @@ const navigate = useNavigate();
   if (!isSuccess) {
     return null;
   }
-  console.log(shipments);
+
+  const handleDeleteClick = async (id) => {
+    const confirmed = window.confirm("Are you sure?");
+    if (confirmed) {
+      try {
+        await deleteShipment(id).unwrap();
+        navigate("/Admin");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <>
@@ -65,7 +77,7 @@ const navigate = useNavigate();
                   key={row.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell component="td">{row.id}</TableCell>
+                  <TableCell component="td" id="rowid">{row.id}</TableCell>
 
                     <TableCell component="td" align="right">
                       {row.boxTier.name ? row.boxTier.name : 'not found'}
@@ -97,7 +109,13 @@ const navigate = useNavigate();
                   style={{ width: "80%" }}
                   onClick={() => { navigate(`/shipment/${row.id}`) }}
                   >
-                  Update & Delete
+                  Edit
+              </Button>
+              <Button 
+                fullWidth variant="contained"
+                style={{ width: "80%" }}
+                onClick={() => handleDeleteClick(row.id)}>
+                Delete
               </Button>
                   </TableCell>
                 </TableRow>
