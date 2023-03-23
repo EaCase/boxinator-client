@@ -3,7 +3,7 @@ import { api } from './api'
 export const shipmentApi = api.injectEndpoints({
   endpoints: (build) => ({
     getShipments: build.query({
-      query: () => ({ url: 'shipments/'})
+      query: () => ({ url: 'shipments/' })
     }),
     getShipment: build.query({
       query: (id) => `shipments/${id}`,
@@ -35,14 +35,14 @@ export const shipmentApi = api.injectEndpoints({
     }),
     updateShipment: build.mutation({
       query(data) {
-        console.log(data);
-        const { shipmentId, ...body } = data
+        console.log("SERVICE:", data);
+        const { shipmentId, body } = data
         return {
           url: `shipments/update/${shipmentId}`,
           method: 'PUT',
-          data
+          body
         }
-      }, 
+      },
       // update allShipments and getShipment queries manually
       /*async onQueryStarted(args, { queryFulfilled, dispatch }) {
         try {

@@ -1,15 +1,20 @@
 import { Grid } from "@mui/material";
-import { useGetAccountQuery } from '../services/account';
+import { useGetAccountQuery } from "../services/account";
 import { Box } from "@mui/material";
-import EditAccount from '../Account/EditAccount';
+import EditAccount from "../components/Account/EditAccount";
 
 const Account = () => {
-  const { data: userData, isError, isLoading, isSuccess } = useGetAccountQuery();
+  const {
+    data: userData,
+    isError,
+    isLoading,
+    isSuccess,
+  } = useGetAccountQuery();
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  
+
   if (isError) {
     console.log(userData);
 
@@ -22,13 +27,17 @@ const Account = () => {
 
   return (
     <Box>
-      <Grid container spacing={1} textAlign="center" margin="auto" maxWidth="600px">
-          <EditAccount userData = {userData}/>
+      <Grid
+        container
+        spacing={1}
+        textAlign="center"
+        margin="auto"
+        maxWidth="600px"
+      >
+        <EditAccount userData={userData} />
       </Grid>
     </Box>
   );
 };
-
-
 
 export default Account;
