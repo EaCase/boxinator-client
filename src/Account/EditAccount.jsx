@@ -3,19 +3,29 @@ import { useState } from 'react';
 import ReadOnlyAccountForm from "./ReadOnlyAccountForm";
 import EditAccountForm from "./EditAccountForm";
 import { Button, Grid } from "@mui/material";
+import { useUpdateAccountMutation } from "../services/account";
+import { useNavigate } from "react-router";
+
 
 const EditAccount = ({userData}) => {
+
+    const navigate = useNavigate();
+
     const [editing, setEditing] = useState(false);
+
+    const [ updateAccountData ] = useUpdateAccountMutation();
+
+    console.log(userData);
 
     const userInfo = {
         firstName: userData.firstName,
         lastName: userData.lastName,
-        email: userData.email,
         dateOfBirth: userData.dob,
-        country: userData.countryId,
-        postal: userData.zipCode,
-        phone: userData.contactNumber
+        countryId: userData.countryId,
+        zipCode: userData.zipCode,
+        contactNumber: userData.contactNumber
       };
+      //email??
 
       const handleCancelClick = () => {
         setEditing(false);
@@ -24,16 +34,21 @@ const EditAccount = ({userData}) => {
       const showEditing = () => {
         setEditing(true);
       };
-    
-      const saveEdit = (values) => {
-        console.log(values)
-        setEditing(false);
+
+      const updateAccount = async (values) => {
+          try {
+            await updateAccountData({id:userData.id, values}).unwrap();
+            navigate("/Account");
+            setEditing(false);
+          } catch (error) {
+            console.log(error);
+        }
       };
     
 
     return (
         <Grid item xs={12}>
-        <Formik initialValues={userInfo} onSubmit={saveEdit}>
+        <Formik initialValues={userInfo} onSubmit={updateAccount}>
         {editing ? (
           <EditAccountForm handleCancelClick={handleCancelClick} />
         ) : (

@@ -14,7 +14,6 @@ const EditShipmentForm = ({shipment, handleUpdate}) => {
       countryId: shipment.country.name,
       status: shipment.statuses[0].status,
       }
-      console.log(shipmentData);
 
     return (
       <Formik 

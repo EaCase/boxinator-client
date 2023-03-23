@@ -6,6 +6,8 @@ import MuiTextInput from "../components/common/forms/MuiTextInput";
 
 const EditAccountForm = ({ handleCancelClick }) => {
 
+  // add emai?
+
   return (
       <Form>
         <MuiFormWrapper headerText="Your Account Details">
@@ -20,38 +22,24 @@ const EditAccountForm = ({ handleCancelClick }) => {
                 type="text"
                 label="Last Name"
               />
-              <MuiTextInput
-                name="password"
-                type="password"
-                label="Password"
-              />
-              <MuiTextInput
-                name="passwordConfirmation"
-                type="password"
-                label="Confirm Password"
-              />
-              <MuiTextInput
-                name="email"
-                type="email"
-                label="Email"
-              />
+
               <MuiTextInput
                 name="dateOfBirth"
                 type="date"
                 label="Date of Birth"
               />
               <MuiTextInput
-                name="country"
+                name="countryId"
                 type="text"
                 label="Country of residence"
               />
               <MuiTextInput
-                name="postal"
+                name="zipCode"
                 type="text"
                 label="Postal code"
               />
               <MuiTextInput
-                name="phone"
+                name="contactNumber"
                 type="tel"
                 label="Phone number"
               />
