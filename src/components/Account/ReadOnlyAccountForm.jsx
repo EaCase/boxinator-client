@@ -1,17 +1,14 @@
 import { Grid, Typography } from "@mui/material";
 
 const ReadOnlyAccountForm = ({ userInfo }) => {
-
-
-  /*<Grid item xs={5}>
-          <Typography variant="h5">Email:</Typography>
-          <Typography variant="body1">{userInfo.email}</Typography>
-        </Grid>*/
-
-    return(
+  return (
     <>
       <Typography variant="h4">Your Account Details</Typography>
-      <Grid container spacing={6} sx={{ gap: 3 }} style={{ verticalAlign: "middle", marginRight: 100, marginTop: 30}}
+      <Grid
+        container
+        spacing={6}
+        sx={{ gap: 3 }}
+        style={{ verticalAlign: "middle", marginRight: 100, marginTop: 30 }}
       >
         <Grid item xs={5}>
           <Typography variant="h5">First Name:</Typography>
@@ -40,7 +37,7 @@ const ReadOnlyAccountForm = ({ userInfo }) => {
         </Grid>
       </Grid>
     </>
-);
+  );
 };
 
 export default ReadOnlyAccountForm;

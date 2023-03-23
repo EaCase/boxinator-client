@@ -11,21 +11,15 @@ const EditAccountForm = ({ handleCancelClick }) => {
         <Grid container spacing={2}>
           <MuiTextInput name="firstName" type="text" label="First Name" />
           <MuiTextInput name="lastName" type="text" label="Last Name" />
-          <MuiTextInput name="password" type="password" label="Password" />
-          <MuiTextInput
-            name="passwordConfirmation"
-            type="password"
-            label="Confirm Password"
-          />
-          <MuiTextInput name="email" type="email" label="Email" />
+
           <MuiTextInput name="dateOfBirth" type="date" label="Date of Birth" />
           <MuiTextInput
-            name="country"
+            name="countryId"
             type="text"
             label="Country of residence"
           />
-          <MuiTextInput name="postal" type="text" label="Postal code" />
-          <MuiTextInput name="phone" type="tel" label="Phone number" />
+          <MuiTextInput name="zipCode" type="text" label="Postal code" />
+          <MuiTextInput name="contactNumber" type="tel" label="Phone number" />
         </Grid>
         <Grid
           container
