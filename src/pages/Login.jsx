@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LoginForm from "../forms/LoginForm";
-import { Button, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { Container } from "@mui/system";
 import airplanelogo from "../assets/images/airplaneLogo.jpg";
 import { useLoginMutation } from "../services/auth";
@@ -8,7 +8,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router";
 import OrderModal from "../components/Shipment/OrderModal";
-import OrderForm from "../components/Shipment/OrderForm";
+import GuestOrderForm from "../components/Shipment/GuestOrderForm";
 
 const validationSchema = yup.object({
   username: yup
@@ -36,7 +36,7 @@ const Login = () => {
     <>
       <Container maxWidth="lg">
         <OrderModal showModal={showModal} closeModal={closeModal}>
-          <OrderForm />
+          <GuestOrderForm />
         </OrderModal>
 
         <Grid
@@ -51,7 +51,7 @@ const Login = () => {
               validationSchema={validationSchema}
               onSubmit={handleLogin}
             >
-              <LoginForm loginError={loginError} />
+              <LoginForm loginError={loginError} openModal={openModal} />
             </Formik>
           </Grid>
 

@@ -11,7 +11,7 @@ const Registration = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [token, setToken] = useState(null);
-  const [createAccount] = useCreateAccountMutation();
+  const [createAccount, isError] = useCreateAccountMutation();
 
   useEffect(() => {
     const claim = searchParams.get("token");
@@ -23,11 +23,14 @@ const Registration = () => {
   }, []);
 
   const register = async (values) => {
-    const body = { ...values, countryId: values.country.id, token: token };
+    const params = {};
+    const body = { ...values, countryId: values.country.id };
     delete body.passwordConfirmation;
     delete body.country;
 
-    await createAccount(body)
+    if (token) params["token"] = token;
+
+    await createAccount({ body, params })
       .unwrap()
       .then(() => navigate("/login"))
       .catch((e) => console.log(e));
@@ -43,7 +46,11 @@ const Registration = () => {
           alignItems="center"
         >
           <Grid item sm={6} xs={12}>
-            <Register handleRegister={register} isClaiming={Boolean(token)} />
+            <Register
+              handleRegister={register}
+              isClaiming={Boolean(token)}
+              registerError={isError}
+            />
           </Grid>
           <Grid item sm={6} xs={0} alignItems="center" justifyContent="center">
             <img src={airplanelogo} alt="logo" />

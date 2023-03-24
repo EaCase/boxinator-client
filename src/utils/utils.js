@@ -8,3 +8,15 @@ export const getTokenFields = (response) => {
 
   return data
 }
+
+export const getShipmentFields = (values) => {
+  const data =
+  {
+    boxTierId: values.tier.id,
+    countryId: values.country.id,
+    recipient: values.recipient,
+    boxColor: values.color,
+  }
+
+  return data
+}
