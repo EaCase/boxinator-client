@@ -4,10 +4,16 @@ import MuiFormWrapper from "../common/forms/MuiFormWrapper";
 import MuiTextInput from "../common/forms/MuiTextInput";
 import MuiSelectField from "../common/forms/MuiSelectField";
 
-const RegisterForm = ({ countries }) => {
+const RegisterForm = ({ countries, isClaiming }) => {
   return (
     <Form>
-      <MuiFormWrapper headerText="Sign up">
+      <MuiFormWrapper
+        headerText={
+          isClaiming
+            ? "Sign up view your shipment details"
+            : "Register new account"
+        }
+      >
         <Grid container columnSpacing={2}>
           <MuiTextInput
             name="firstName"

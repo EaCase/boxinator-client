@@ -34,7 +34,7 @@ const validationSchema = Yup.object().shape({
   contactNumber: Yup.string().required("Contact number is required"),
 });
 
-const Register = ({ handleRegister }) => {
+const Register = ({ handleRegister, isClaiming }) => {
   const { data: countries, isSuccess: countriesFetched } =
     useGetCountriesQuery();
 
@@ -47,7 +47,7 @@ const Register = ({ handleRegister }) => {
         validationSchema={validationSchema}
         onSubmit={(values) => handleRegister(values)}
       >
-        <RegisterForm countries={countries} />
+        <RegisterForm countries={countries} isClaiming={isClaiming} />
       </Formik>
     </Box>
   );

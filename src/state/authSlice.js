@@ -15,24 +15,21 @@ const slice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(logout, () => initialState)
+      .addCase(logout, (state) => {
+        localStorage.removeItem("auth")
+        state = initialState
+      })
       .addCase(tokensReceived, (state, action) => {
-        state.token = action.payload.accessToken
-        state.refreshToken = action.payload.refreshToken
-        state.role = action.payload.accountType
-      })
-      .addMatcher(authApi.endpoints.login.matchPending, (state, action) => {
-        console.log('pending', action)
-      })
-      .addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
-        console.log('fulfilled', action)
         localStorage.setItem("auth", JSON.stringify(getTokenFields(action.payload)))
         state.token = action.payload.accessToken
         state.refreshToken = action.payload.refreshToken
         state.role = action.payload.accountType
       })
-      .addMatcher(authApi.endpoints.login.matchRejected, (state, action) => {
-        console.log('rejected', action)
+      .addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
+        localStorage.setItem("auth", JSON.stringify(getTokenFields(action.payload)))
+        state.token = action.payload.accessToken
+        state.refreshToken = action.payload.refreshToken
+        state.role = action.payload.accountType
       })
   },
 })
