@@ -15,13 +15,11 @@ const LoginForm = ({ loginError }) => {
 
             <MuiTextInput name="password" type="password" label="Password" />
           </Grid>
-
           {loginError && (
             <Typography mt={2} color="red">
               Login information is incorrect
             </Typography>
           )}
-
           <Button
             type="submit"
             fullWidth
@@ -30,7 +28,6 @@ const LoginForm = ({ loginError }) => {
           >
             Login
           </Button>
-
           <Grid
             container
             direction="row"

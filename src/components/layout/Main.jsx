@@ -17,7 +17,7 @@ const Main = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route
-            path="/register"
+            path="/register/:token?"
             element={<Registration />}
             caseSensitive={false}
           />

@@ -7,6 +7,7 @@ import {
   useGetCountriesQuery,
   useGetTiersQuery,
 } from "../../services/settings";
+import React from "react";
 
 const initialValues = {
   recipient: "",
@@ -40,7 +41,7 @@ const style = {
   borderRadius: 4,
 };
 
-const OrderModal = ({ showModal, closeModal }) => {
+const OrderModal = ({ showModal, closeModal, children }) => {
   const { data: tiers, isSuccess: tiersFetched } = useGetTiersQuery();
   const { data: countries, isSuccess: countriesFetched } =
     useGetCountriesQuery();
@@ -76,7 +77,10 @@ const OrderModal = ({ showModal, closeModal }) => {
               validationSchema={validationSchema}
               onSubmit={handleCreateShipment}
             >
-              <OrderForm countries={countries} tiers={tiers} />
+              {React.cloneElement(children, {
+                tiers: tiers,
+                countries: countries,
+              })}
             </Formik>
           </Box>
         ) : (
@@ -88,3 +92,5 @@ const OrderModal = ({ showModal, closeModal }) => {
 };
 
 export default OrderModal;
+
+// <OrderForm countries={countries} tiers={tiers} />

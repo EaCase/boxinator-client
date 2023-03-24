@@ -17,7 +17,7 @@ const App = () => {
     if (auth) {
       dispatch(tokensReceived(auth))
     }
-  })
+  }, [])
 
   return (
     <BrowserRouter>

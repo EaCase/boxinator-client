@@ -4,6 +4,7 @@ import OrderModal from "../components/Shipment/OrderModal";
 import SimpleSlider from "../components/layout/BoxesSlider";
 import CompletedOrder from "../components/Shipment/CompletedOrder";
 import { useState } from "react";
+import OrderForm from "../components/Shipment/OrderForm";
 
 const Shipment = () => {
   const { data: shipments, isSuccess } = useGetShipmentsQuery({
@@ -18,7 +19,9 @@ const Shipment = () => {
 
   return (
     <>
-      <OrderModal showModal={showModal} closeModal={closeModal} />
+      <OrderModal showModal={showModal} closeModal={closeModal}>
+        <OrderForm />
+      </OrderModal>
 
       <Box>
         <Typography variant="h3" sx={{ mb: 3 }}>
