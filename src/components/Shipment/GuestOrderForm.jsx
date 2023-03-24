@@ -5,7 +5,7 @@ import MuiSelectField from "../common/forms/MuiSelectField";
 import MuiTextInput from "../common/forms/MuiTextInput";
 import ShippingCost from "./ShipmentCost";
 
-const OrderForm = ({ countries, tiers, hasError }) => {
+const GuestOrderForm = ({ countries, tiers, hasError }) => {
   return (
     <>
       <Form>
@@ -15,7 +15,13 @@ const OrderForm = ({ countries, tiers, hasError }) => {
               Create a new order
             </Typography>
           </Box>
+
           <Grid container>
+            <MuiTextInput
+              name="email"
+              type="email"
+              label="Your email address"
+            />
             <MuiTextInput name="recipient" type="text" label="Recipient" />
             <MuiSelectField sm={5} name="tier" label="Tier" options={tiers} />
             <Grid item sm={1} />
@@ -34,6 +40,12 @@ const OrderForm = ({ countries, tiers, hasError }) => {
 
           <Divider sx={{ my: 2 }} />
 
+          {hasError && (
+            <Typography my={1} align="center" color="red" fontSize={18}>
+              {hasError.data.message}
+            </Typography>
+          )}
+
           <Button
             fullWidth
             variant="contained"
@@ -48,4 +60,4 @@ const OrderForm = ({ countries, tiers, hasError }) => {
   );
 };
 
-export default OrderForm;
+export default GuestOrderForm;

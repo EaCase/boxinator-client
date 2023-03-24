@@ -16,10 +16,11 @@ export const authApi = api.injectEndpoints({
       },
     }),
     createAccount: build.mutation({
-      query: (body) => ({
+      query: (args) => ({
         url: `auth/register`,
         method: 'POST',
-        body,
+        body: args.body,
+        params: args.params,
         responseHandler: 'text',
       })
     }),
