@@ -44,7 +44,7 @@ const RegisterForm = ({ countries, isClaiming, registerError }) => {
           />
         </Grid>
 
-        {registerError && (
+        {registerError.error && (
           <Typography my={1} align="center" color="red" fontSize={18}>
             {registerError.error.data}
           </Typography>
