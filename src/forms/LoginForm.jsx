@@ -38,7 +38,6 @@ const LoginForm = ({ loginError }) => {
             alignItems="center"
           >
             <Link to="/Register">Register instead</Link>
-            <Link to="/ForgotPasswordForm">Forgot Password</Link>
           </Grid>
         </MuiFormWrapper>
       </Form>
