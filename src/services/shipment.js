@@ -13,10 +13,11 @@ export const shipmentApi = api.injectEndpoints({
       query: ({ boxTierId, countryId }) => ({ url: 'shipments/cost', params: { boxTierId, countryId } })
     }),
     addShipment: build.mutation({
-      query: (body) => ({
+      query: (args) => ({
         url: `shipments/`,
         method: 'POST',
-        body,
+        body: args.body,
+        params: args.params
       }),
       invalidatesTags: ["Shipments"],
       /* Get this working instead of tags

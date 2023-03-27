@@ -2,16 +2,18 @@ import { Box, CircularProgress, Modal } from "@mui/material";
 import { Formik } from "formik";
 import { useAddShipmentMutation } from "../../services/shipment";
 import * as Yup from "yup";
-import OrderForm from "./OrderForm";
 import {
   useGetCountriesQuery,
   useGetTiersQuery,
 } from "../../services/settings";
+import React from "react";
+import { getShipmentFields } from "../../utils/utils";
 
 const initialValues = {
   recipient: "",
   color: "",
   country: "",
+  email: "",
 };
 
 const validationSchema = Yup.object().shape({
@@ -40,21 +42,22 @@ const style = {
   borderRadius: 4,
 };
 
-const OrderModal = ({ showModal, closeModal }) => {
+const OrderModal = ({ showModal, closeModal, children }) => {
   const { data: tiers, isSuccess: tiersFetched } = useGetTiersQuery();
   const { data: countries, isSuccess: countriesFetched } =
     useGetCountriesQuery();
-  const [createShipment] = useAddShipmentMutation();
+  const [createShipment, isError] = useAddShipmentMutation();
 
   const handleCreateShipment = async (values) => {
-    const body = {
-      recipient: values.recipient,
-      boxColor: values.color,
-      countryId: values.country.id,
-      boxTierId: values.tier.id,
-    };
+    const body = getShipmentFields(values);
+    const params = {};
 
-    await createShipment(body)
+    if (values.email) {
+      console.log(values.email);
+      params["email"] = values.email;
+    }
+
+    await createShipment({ body, params })
       .unwrap()
       .then(() => closeModal())
       .catch((e) => console.log("Something went wrong", e));
@@ -76,7 +79,11 @@ const OrderModal = ({ showModal, closeModal }) => {
               validationSchema={validationSchema}
               onSubmit={handleCreateShipment}
             >
-              <OrderForm countries={countries} tiers={tiers} />
+              {React.cloneElement(children, {
+                tiers: tiers,
+                countries: countries,
+                hasError: isError.error,
+              })}
             </Formik>
           </Box>
         ) : (

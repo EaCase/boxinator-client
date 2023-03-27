@@ -3,9 +3,9 @@ import { Form } from "formik";
 import { Link } from "react-router-dom";
 import MuiFormWrapper from "../components/common/forms/MuiFormWrapper";
 import MuiTextInput from "../components/common/forms/MuiTextInput";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Divider, Grid, Typography } from "@mui/material";
 
-const LoginForm = ({ loginError }) => {
+const LoginForm = ({ loginError, openModal }) => {
   return (
     <>
       <Form>
@@ -15,29 +15,54 @@ const LoginForm = ({ loginError }) => {
 
             <MuiTextInput name="password" type="password" label="Password" />
           </Grid>
-
           {loginError && (
             <Typography mt={2} color="red">
               Login information is incorrect
             </Typography>
           )}
-
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 4, mb: 4, height: 50 }}
           >
             Login
           </Button>
 
           <Grid
             container
+            columns={15}
             direction="row"
-            justifyContent="space-evenly"
+            justifyContent="space-between"
             alignItems="center"
           >
-            <Link to="/Register">Register instead</Link>
+            <Divider style={{ width: "100%", marginBottom: 10 }}>
+              You can also
+            </Divider>
+            <Grid item xs={6}>
+              <Link to="/Register">
+                <Button
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2, height: 60 }}
+                >
+                  Register
+                </Button>
+              </Link>
+            </Grid>
+            <Grid item xs={3}>
+              <Typography align="center">OR</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                onClick={openModal}
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2, height: 60 }}
+              >
+                Send a shipment
+              </Button>
+            </Grid>
           </Grid>
         </MuiFormWrapper>
       </Form>

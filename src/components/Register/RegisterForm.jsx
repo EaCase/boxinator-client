@@ -1,13 +1,19 @@
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { Form } from "formik";
 import MuiFormWrapper from "../common/forms/MuiFormWrapper";
 import MuiTextInput from "../common/forms/MuiTextInput";
 import MuiSelectField from "../common/forms/MuiSelectField";
 
-const RegisterForm = ({ countries }) => {
+const RegisterForm = ({ countries, isClaiming, registerError }) => {
   return (
     <Form>
-      <MuiFormWrapper headerText="Sign up">
+      <MuiFormWrapper
+        headerText={
+          isClaiming
+            ? "Sign up view your shipment details"
+            : "Register new account"
+        }
+      >
         <Grid container columnSpacing={2}>
           <MuiTextInput
             name="firstName"
@@ -38,11 +44,17 @@ const RegisterForm = ({ countries }) => {
           />
         </Grid>
 
+        {registerError.error && (
+          <Typography my={1} align="center" color="red" fontSize={18}>
+            {registerError.error.data}
+          </Typography>
+        )}
+
         <Button
           type="submit"
           fullWidth
           variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+          sx={{ mt: 3, mb: 2, height: 50 }}
         >
           Register
         </Button>

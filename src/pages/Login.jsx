@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LoginForm from "../forms/LoginForm";
 import { Grid } from "@mui/material";
 import { Container } from "@mui/system";
@@ -7,6 +7,8 @@ import { useLoginMutation } from "../services/auth";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router";
+import OrderModal from "../components/Shipment/OrderModal";
+import GuestOrderForm from "../components/Shipment/GuestOrderForm";
 
 const validationSchema = yup.object({
   username: yup
@@ -17,6 +19,10 @@ const validationSchema = yup.object({
 
 const Login = () => {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const closeModal = () => setShowModal(false);
+  const openModal = () => setShowModal(true);
+
   const [login, { isError: loginError }] = useLoginMutation();
 
   const handleLogin = async (values) => {
@@ -29,6 +35,10 @@ const Login = () => {
   return (
     <>
       <Container maxWidth="lg">
+        <OrderModal showModal={showModal} closeModal={closeModal}>
+          <GuestOrderForm />
+        </OrderModal>
+
         <Grid
           container
           direction="row"
@@ -41,7 +51,7 @@ const Login = () => {
               validationSchema={validationSchema}
               onSubmit={handleLogin}
             >
-              <LoginForm loginError={loginError} />
+              <LoginForm loginError={loginError} openModal={openModal} />
             </Formik>
           </Grid>
 
