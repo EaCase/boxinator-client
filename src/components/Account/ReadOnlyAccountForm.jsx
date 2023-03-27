@@ -5,8 +5,7 @@ const ReadOnlyAccountForm = ({ userInfo }) => {
     <>
     <Container style={{ marginTop: 50,display: "flex",
         flexDirection: "column",
-        alignItems: "center",
-        fontFamily: "Inter, sans-serif" }}>
+        alignItems: "center"}}>
       <Typography variant="h4">Your Account Details</Typography>
       <Grid
         container
