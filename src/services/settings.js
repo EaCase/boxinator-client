@@ -3,7 +3,8 @@ import { api } from './api'
 export const settingsApi = api.injectEndpoints({
   endpoints: (build) => ({
     getCountries: build.query({
-      query: () => ({ url: 'settings/countries' })
+      query: () => ({ url: 'settings/countries' }),
+      providesTags: ["Countries"]
     }),
     getTiers: build.query({
       query: () => ({ url: 'boxes/tiers' })
@@ -14,17 +15,19 @@ export const settingsApi = api.injectEndpoints({
         method: 'POST',
         body
       }),
+      invalidatesTags: ["Countries"]
     }),
     updateCountry: build.mutation({
       query(data) {
         const { countryId, body } = data
         return {
-          url: `settings/countries/update/${countryId}`,
+          url: `settings/countries/${countryId}`,
           method: 'PUT',
           body
         }
       },
-    }),
+      invalidatesTags: ["Countries"]
+    })
   })
 })
 

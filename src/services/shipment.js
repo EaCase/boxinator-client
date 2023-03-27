@@ -19,21 +19,7 @@ export const shipmentApi = api.injectEndpoints({
         body: args.body,
         params: args.params
       }),
-      invalidatesTags: ["Shipments"],
-      /* Get this working instead of tags
-      // update getShipments query manually, avoids refetch
-      async onQueryStarted({ accountId, from, to }, { queryFulfilled, dispatch }) {
-        try {
-          const { data: newShipment } = await queryFulfilled;
-          console.log("UPDATING")
-          // Get rid of hard coded values once details are available
-          dispatch(api.util.updateQueryData('getShipments', , (shipments) => {
-            shipments?.push(newShipment);
-          }))
-        } catch (e) {
-          console.log(e);
-        }
-      }*/
+      invalidatesTags: ["Shipments"]
     }),
     updateShipment: build.mutation({
       query(data) {
@@ -44,21 +30,7 @@ export const shipmentApi = api.injectEndpoints({
           body
         }
       },
-      // update allShipments and getShipment queries manually
-      /*async onQueryStarted(args, { queryFulfilled, dispatch }) {
-        try {
-          const { data: updatedShipment } = await queryFulfilled;
-
-          dispatch(api.util.updateQueryData('getShipments', undefined, (shipments) => {
-            shipments?.map(item => item.id === args.id ? updatedShipment : item);
-          }))
-          dispatch(api.util.updateQueryData('getShipment', undefined, (shipment) => {
-            Object.assign(shipment, updatedShipment)
-          }))
-        } catch (e) {
-          console.log(e);
-        }
-      }*/
+      invalidatesTags: ["Shipments"]
     }),
     deleteShipment: build.mutation({
       query(id) {
@@ -67,16 +39,7 @@ export const shipmentApi = api.injectEndpoints({
           method: 'DELETE',
         }
       },
-      /*async onQueryStarted(id, { queryFulfilled, dispatch }) {
-        try {
-          await queryFulfilled;
-          dispatch(api.util.updateQueryData('getShipments', undefined, (shipments) => {
-            return shipments?.filter(shipment => shipment.id !== id)
-          }))
-        } catch (e) {
-          console.log(e);
-        }
-      }*/
+      invalidatesTags: ["Shipments"]
     }),
   }),
 })

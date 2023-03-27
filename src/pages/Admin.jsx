@@ -24,7 +24,7 @@ const Admin = () => {
     setTabValue(newValue);
   };
 
-  if (!countriesFetched && !shipmentsFetched) {
+  if (!countriesFetched || !shipmentsFetched) {
     return <CircularProgress />;
   }
 
@@ -53,7 +53,6 @@ const Admin = () => {
           label="SHIPMENTS"
         />
       </Tabs>
-
       {
         {
           0: <CountriesTable countries={countries} />,

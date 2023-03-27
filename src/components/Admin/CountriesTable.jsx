@@ -28,7 +28,7 @@ const Row = ({ row, handleShow }) => {
         {row.name}
       </TableCell>
       <TableCell component="th" scope="row" align="right">
-        {row.modifier}01293
+        {row.shippingMultiplier}
       </TableCell>
       <TableCell component="th" scope="row" align="right">
         <Button
@@ -44,15 +44,22 @@ const Row = ({ row, handleShow }) => {
 };
 
 const EditableRow = ({ row, handleShow }) => {
-  const [multiplier, setMultiplier] = useState(123);
+  const [multiplier, setMultiplier] = useState(0);
   const [error, setError] = useState("");
   const [updateCountry] = useUpdateCountryMutation();
 
-  const handleUpdate = async ({ row }) => {
+  const handleUpdate = async (row) => {
+    console.log(row);
     if (isNaN(multiplier)) {
       setError("Modifier needs to be a number");
       return;
     }
+
+    const body = { name: row.name, shippingMultiplier: multiplier };
+
+    await updateCountry({ countryId: row.id, body })
+      .unwrap()
+      .then(() => handleShow(0));
   };
 
   return (
@@ -63,7 +70,7 @@ const EditableRow = ({ row, handleShow }) => {
         <TextField
           name="modifier"
           size="small"
-          defaultValue={row.modifier}
+          defaultValue={row.shippingMultiplier}
           onChange={(e) => setMultiplier(e.target.value)}
           error={error}
           helperText={error}
