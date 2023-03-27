@@ -18,6 +18,7 @@ const slice = createSlice({
       .addCase(logout, (state) => {
         localStorage.removeItem("auth")
         state = initialState
+        console.log(state)
       })
       .addCase(tokensReceived, (state, action) => {
         localStorage.setItem("auth", JSON.stringify(getTokenFields(action.payload)))

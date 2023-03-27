@@ -8,8 +8,21 @@ import Registration from "../../pages/Registration";
 import ResponsiveAppBar from "./Nav";
 import EditAndDeleteShipments from "../Admin/EditAndDeleteShipments";
 import SingleShipment from "../Shipment/SingleShipment";
+import Protected from "../../routes/Protected";
+import { useSelector } from 'react-redux';
+import { findNonSerializableValue } from "@reduxjs/toolkit";
 
 const Main = () => {
+
+  const hasRole = useSelector((state) => state.auth['accountType']);
+  let hasRoleoolena = Boolean;
+
+  if (hasRole === 'admin') {
+    hasRoleoolena = true;
+  }
+
+  console.log("hasrole"+hasRole)
+  console.log("fds"+hasRoleoolena)
 
   return (
     <Container maxWidth={false} disableGutters>
@@ -29,7 +42,9 @@ const Main = () => {
             element={<Shipment />}
             caseSensitive={false}
           />
-          <Route path="/account" element={<Account />} caseSensitive={false} />
+         <Route path="/Account" 
+       caseSensitive={false} 
+       element={<Protected isLoggedIn={hasRoleoolena}><Account /></Protected>} />
           <Route
             path="/shipment/:id"
             element={<EditAndDeleteShipments />}
