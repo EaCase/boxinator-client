@@ -27,6 +27,26 @@ export const theme = createTheme({
           },
         }
       }
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          width: 200,
+          fontSize: 16,
+          backgroundColor: '#F4F4F2',
+          '&.Mui-selected': {
+            background: '#495464',
+            color: 'white'
+          }
+        }
+      },
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        head: {
+          fontWeight: 700,
+        },
+      }
     }
   }
 });

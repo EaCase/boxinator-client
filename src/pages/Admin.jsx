@@ -1,144 +1,66 @@
-import { useNavigate } from "react-router";
+import { useState } from "react";
+import { useGetShipmentsQuery } from "../services/shipment";
+import { useGetCountriesQuery } from "../services/settings";
 import {
-  useDeleteShipmentMutation,
-  useGetShipmentsQuery,
-} from "../services/shipment";
-import {
-  Button,
+  CircularProgress,
   Container,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
+  Tab,
+  Tabs,
+  Typography,
 } from "@mui/material";
+import CountriesTable from "../components/Admin/CountriesTable";
+import PublicIcon from "@mui/icons-material/Public";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import ShipmentsTable from "../components/Admin/ShipmentsTable";
 
 const Admin = () => {
-  const navigate = useNavigate();
+  const { data: countries, isSuccess: countriesFetched } =
+    useGetCountriesQuery();
+  const { data: shipments, isSuccess: shipmentsFetched } =
+    useGetShipmentsQuery();
 
-  const [deleteShipment] = useDeleteShipmentMutation();
-
-  const {
-    data: shipments,
-    isLoading,
-    isSuccess,
-    isError,
-  } = useGetShipmentsQuery();
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>Error loading shipments</div>;
-  }
-
-  if (!isSuccess) {
-    return null;
-  }
-
-  const handleDeleteClick = async (id) => {
-    const confirmed = window.confirm("Are you sure?");
-    if (confirmed) {
-      try {
-        await deleteShipment(id).unwrap();
-        navigate("/Admin");
-      } catch (error) {
-        console.log(error);
-      }
-    }
+  const [tabValue, setTabValue] = useState(0);
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
   };
 
+  if (!countriesFetched && !shipmentsFetched) {
+    return <CircularProgress />;
+  }
+
   return (
-    <>
-      <Container maxWidth="lg">
-        <h2>All Orders</h2>
-        <TableContainer component={Paper}>
-          <Table
-            sx={{ minWidth: 650 }}
-            style={{ alignItems: "center" }}
-            aria-label="simple table"
-          >
-            <TableHead>
-              <TableRow>
-                <TableCell>Id</TableCell>
-                <TableCell align="right">Box Tier</TableCell>
-                <TableCell align="right">Box Weight</TableCell>
+    <Container maxWidth="lg">
+      <Typography variant="h3" marginY={4}>
+        Boxinator dashboard
+      </Typography>
+      <Tabs
+        value={tabValue}
+        onChange={handleTabChange}
+        TabIndicatorProps={{
+          style: {
+            backgroundColor: "black",
+          },
+        }}
+      >
+        <Tab
+          icon={<PublicIcon fontSize="large" />}
+          iconPosition="start"
+          label="COUNTRIES"
+        />
+        <Tab
+          icon={<LocalShippingIcon fontSize="large" />}
+          iconPosition="start"
+          label="SHIPMENTS"
+        />
+      </Tabs>
 
-                <TableCell align="right">Recipient</TableCell>
-                <TableCell align="right">Cost</TableCell>
-                <TableCell align="right">Country</TableCell>
-
-                <TableCell align="right">Status</TableCell>
-                <TableCell align="right">Admin Functionality</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {shipments &&
-                shipments.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="td" id="rowid">
-                      {row.id}
-                    </TableCell>
-
-                    <TableCell component="td" align="right">
-                      {row.boxTier.name ? row.boxTier.name : "not found"}
-                    </TableCell>
-
-                    <TableCell component="td" align="right">
-                      {row.boxTier.weight ? row.boxTier.weight : "not found"}
-                    </TableCell>
-
-                    <TableCell component="td" align="right">
-                      {row.recipient}
-                    </TableCell>
-
-                    <TableCell component="td" align="right">
-                      {row.cost}
-                    </TableCell>
-
-                    <TableCell component="td" align="right">
-                      {row.country.name ? row.country.name : "not found"}
-                    </TableCell>
-
-                    <TableCell component="td" align="right">
-                      {row.statuses[0]?.status
-                        ? row.statuses[0].status
-                        : "not found"}
-                    </TableCell>
-
-                    <TableCell component="td" align="right">
-                      <Button
-                        fullWidth
-                        variant="contained"
-                        style={{ width: "80%" }}
-                        onClick={() => {
-                          navigate(`/shipment/${row.id}`);
-                        }}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        fullWidth
-                        variant="contained"
-                        style={{ width: "80%" }}
-                        onClick={() => handleDeleteClick(row.id)}
-                      >
-                        Delete
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Container>
-    </>
+      {
+        {
+          0: <CountriesTable countries={countries} />,
+          1: <ShipmentsTable shipments={shipments} />,
+        }[tabValue]
+      }
+    </Container>
   );
 };
 
