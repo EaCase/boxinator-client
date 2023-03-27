@@ -6,7 +6,7 @@ import { logout, tokensReceived } from './actions'
 const initialState = {
   token: null,
   refreshToken: null,
-  role: null,
+  accountType: null,
 }
 
 const slice = createSlice({
@@ -23,13 +23,13 @@ const slice = createSlice({
         localStorage.setItem("auth", JSON.stringify(getTokenFields(action.payload)))
         state.token = action.payload.accessToken
         state.refreshToken = action.payload.refreshToken
-        state.role = action.payload.accountType
+        state.accountType = action.payload.accountType
       })
       .addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
         localStorage.setItem("auth", JSON.stringify(getTokenFields(action.payload)))
         state.token = action.payload.accessToken
         state.refreshToken = action.payload.refreshToken
-        state.role = action.payload.accountType
+        state.accountType = action.payload.accountType
       })
   },
 })

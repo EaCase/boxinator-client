@@ -3,7 +3,7 @@ export const getTokenFields = (response) => {
   {
     accessToken: response.accessToken,
     refreshToken: response.refreshToken,
-    role: response.accountType
+    accountType: response.accountType
   }
 
   return data
