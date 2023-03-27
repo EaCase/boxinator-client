@@ -3,12 +3,19 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import MuiTextInput from "../common/forms/MuiTextInput";
 import MuiSelectField from "../common/forms/MuiSelectField";
 import MuiColorPicker from "../common/forms/MuiColorPicker";
+import { useNavigate } from "react-router";
 
 const EditShipmentForm = ({ shipment, tiers, countries, handleUpdate }) => {
   const initialValues = {
     recipient: shipment.recipient,
     tier: tiers.find((item) => item.id === shipment.boxTier.id),
     country: countries.find((item) => item.id === shipment.country.id),
+  };
+
+  const navigate = useNavigate();
+
+  const handleCancel = () => {
+    navigate("/Admin");
   };
 
   return (
@@ -50,7 +57,7 @@ const EditShipmentForm = ({ shipment, tiers, countries, handleUpdate }) => {
             </Grid>
             <Grid item xs={1} />
             <Grid item xs={6}>
-              <Button fullWidth variant="contained" sx={{ minHeight: 40 }}>
+              <Button fullWidth variant="contained" sx={{ minHeight: 40 }} onClick={handleCancel}>
                 Cancel
               </Button>
             </Grid>

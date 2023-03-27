@@ -50,14 +50,14 @@ const EditAccount = ({ userData }) => {
         )}
       </Formik>
       <Button
-        fullWidth
-        variant="contained"
+        fullWidth variant="contained"
         onClick={showEditing}
         disabled={editing}
-        sx={{ mt: 3, mb: 2, width: "100px", height: "50px" }}
-        size="small"
+        sx={{ mt: 3, mb: 2, width: "30%", height: "50px" }}
+        style= {{ marginTop: "60px" }}
+        size="medium"
       >
-        Edit
+        Edit Details
       </Button>
     </Grid>
   );
