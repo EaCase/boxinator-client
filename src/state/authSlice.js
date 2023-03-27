@@ -17,7 +17,9 @@ const slice = createSlice({
     builder
       .addCase(logout, (state) => {
         localStorage.removeItem("auth")
-        state = initialState
+        state.token = null
+        state.refreshToken = null
+        state.accountType = null
       })
       .addCase(tokensReceived, (state, action) => {
         localStorage.setItem("auth", JSON.stringify(getTokenFields(action.payload)))

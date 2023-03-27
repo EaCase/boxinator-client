@@ -4,26 +4,24 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { login } from "../../services/auth";
+import { logout } from "../../state/actions";
+import { useDispatch } from "react-redux";
 
 const pages = ["Login", "Register", "Shipments", "Account", "Admin"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [activePage, setActivePage] = useState(pages[0]);
+  const dispatch = useDispatch();
 
   const getRole = useSelector((state) => state.auth["accountType"]);
-
-  console.log(getRole);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -36,6 +34,11 @@ function ResponsiveAppBar() {
   const handlePageClick = ({ page }) => {
     setActivePage(page);
     handleCloseNavMenu();
+  };
+
+  const handleLogout = () => {
+    console.log("logout button activateddd");
+    dispatch(logout());
   };
 
   return (
@@ -77,6 +80,8 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
+               {getRole === undefined && (
+              <>
               <MenuItem>
                 <Link
                   to="/login"
@@ -93,9 +98,10 @@ function ResponsiveAppBar() {
                 >
                   Register
                 </Link>
-              </MenuItem>
-
-              {getRole !== null && (
+              </MenuItem></>)}
+              
+              {getRole && (
+                <>
                 <MenuItem>
                   <Link
                     to="/shipments"
@@ -104,9 +110,8 @@ function ResponsiveAppBar() {
                     Shipments
                   </Link>
                 </MenuItem>
-              )}
+              
 
-              {getRole !== null && (
                 <MenuItem>
                   <Link
                     to="/account"
@@ -115,6 +120,7 @@ function ResponsiveAppBar() {
                     Account
                   </Link>
                 </MenuItem>
+                </>
               )}
               {getRole === "ADMIN" && (
                 <MenuItem>
@@ -138,33 +144,37 @@ function ResponsiveAppBar() {
               display: { xs: "none", md: "flex" },
             }}
           >
-            <Link
-              to="/login"
-              style={{ color: "white", textDecoration: "none" }}
-            >
-              Login
-            </Link>
-            <Link
-              to="/register"
-              style={{ color: "white", textDecoration: "none" }}
-            >
-              Register
-            </Link>
-            {getRole !== null && (
-              <Link
-                to="/shipments"
-                style={{ color: "white", textDecoration: "none" }}
-              >
-                Shipments
-              </Link>
+            {getRole === undefined && (
+              <>
+                <Link
+                  to="/login"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  Register
+                </Link>
+              </>
             )}
-            {getRole !== null && (
-              <Link
-                to="/account"
-                style={{ color: "white", textDecoration: "none" }}
-              >
-                Account
-              </Link>
+            {getRole && (
+              <>
+                <Link
+                  to="/shipments"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  Shipments
+                </Link>
+                <Link
+                  to="/account"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  Account
+                </Link>{" "}
+              </>
             )}
             {getRole === "ADMIN" && (
               <Link
@@ -173,6 +183,17 @@ function ResponsiveAppBar() {
               >
                 Admin
               </Link>
+            )}
+            {getRole && (
+              <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                style={{ width: "5%" }}
+                onClick={handleLogout}
+              >
+                Log Out
+              </Button>
             )}
           </Container>
         </Toolbar>
