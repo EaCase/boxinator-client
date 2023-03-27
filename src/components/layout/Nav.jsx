@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -9,16 +8,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { logout } from "../../state/actions";
 import { useDispatch } from "react-redux";
 
-const pages = ["Login", "Register", "Shipments", "Account", "Admin"];
-
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [activePage, setActivePage] = useState(pages[0]);
   const dispatch = useDispatch();
 
   const getRole = useSelector((state) => state.auth["accountType"]);
@@ -31,13 +27,7 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
-  const handlePageClick = ({ page }) => {
-    setActivePage(page);
-    handleCloseNavMenu();
-  };
-
   const handleLogout = () => {
-    console.log("logout button activateddd");
     dispatch(logout());
   };
 
@@ -164,13 +154,13 @@ function ResponsiveAppBar() {
               <>
                 <Link
                   to="/shipments"
-                  style={{ color: "white", textDecoration: "none" }}
+                  style={{ color: "white", textDecoration: "none", marginTop: "0.5rem" }}
                 >
                   Shipments
                 </Link>
                 <Link
                   to="/account"
-                  style={{ color: "white", textDecoration: "none" }}
+                  style={{ color: "white", textDecoration: "none", marginTop: "0.5rem" }}
                 >
                   Account
                 </Link>{" "}
@@ -179,7 +169,7 @@ function ResponsiveAppBar() {
             {getRole === "ADMIN" && (
               <Link
                 to="/admin"
-                style={{ color: "white", textDecoration: "none" }}
+                style={{ color: "white", textDecoration: "none", marginTop: "0.5rem" }}
               >
                 Admin
               </Link>
@@ -189,7 +179,7 @@ function ResponsiveAppBar() {
                 type="button"
                 fullWidth
                 variant="contained"
-                style={{ width: "5%" }}
+                style={{ width: "10%" }}
                 onClick={handleLogout}
               >
                 Log Out

@@ -1,14 +1,12 @@
 import { Container, Grid, Typography } from "@mui/material";
-import { styled } from "@mui/system";
-
 
 const ReadOnlyAccountForm = ({ userInfo }) => {
   return (
     <>
     <Container style={{ marginTop: 50,display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  fontFamily: "Inter, sans-serif" }}>
+        flexDirection: "column",
+        alignItems: "center",
+        fontFamily: "Inter, sans-serif" }}>
       <Typography variant="h4">Your Account Details</Typography>
       <Grid
         container
