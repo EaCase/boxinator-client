@@ -80,6 +80,8 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
+               {getRole === undefined && (
+              <>
               <MenuItem>
                 <Link
                   to="/login"
@@ -96,9 +98,10 @@ function ResponsiveAppBar() {
                 >
                   Register
                 </Link>
-              </MenuItem>
-
-              {getRole !== null && (
+              </MenuItem></>)}
+              
+              {getRole && (
+                <>
                 <MenuItem>
                   <Link
                     to="/shipments"
@@ -107,9 +110,8 @@ function ResponsiveAppBar() {
                     Shipments
                   </Link>
                 </MenuItem>
-              )}
+              
 
-              {getRole !== null && (
                 <MenuItem>
                   <Link
                     to="/account"
@@ -118,6 +120,7 @@ function ResponsiveAppBar() {
                     Account
                   </Link>
                 </MenuItem>
+                </>
               )}
               {getRole === "ADMIN" && (
                 <MenuItem>

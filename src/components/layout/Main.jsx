@@ -26,10 +26,14 @@ const Main = () => {
             element={<Registration />}
             caseSensitive={false}
           />
-          <Route path="/admin" element={<Admin />} caseSensitive={false} />
+          <Route path="/admin"  
+          caseSensitive={false}
+          element={
+              <Protected isLoggedIn={hasRole}><Admin /></Protected>}/>
           <Route
             path="/shipments"
-            element={<Shipment />}
+            element={
+              <Protected isLoggedIn={hasRole}><Shipment /></Protected>}
             caseSensitive={false}
           />
           <Route
