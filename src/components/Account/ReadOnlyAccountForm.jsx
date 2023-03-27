@@ -22,7 +22,6 @@ const ReadOnlyAccountForm = ({ userInfo }) => {
           <Typography variant="h5">Last Name</Typography>
           <Typography variant="body3">{userInfo.lastName}</Typography>
         </Grid>
-
         <Grid item xs={5}>
           <Typography variant="h5">Date of Birth</Typography>
           <Typography variant="body3">{userInfo.dateOfBirth}</Typography>
