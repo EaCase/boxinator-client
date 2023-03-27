@@ -23,9 +23,8 @@ const Shipment = () => {
       <OrderModal showModal={showModal} closeModal={closeModal}>
         <OrderForm />
       </OrderModal>
-
       <Box>
-        <Typography variant="h3" sx={{ mb: 3 }}>
+        <Typography variant="h4" sx={{ mb: 3, marginTop: "20px" }}>
           Pending orders
         </Typography>
         {isSuccess && (
@@ -34,7 +33,7 @@ const Shipment = () => {
       </Box>
 
       <Box>
-        <Typography variant="h3" sx={{ mb: 3 }}>
+        <Typography variant="h4" sx={{ mb: 3, marginTop: "20px" }}>
           Completed orders
         </Typography>
 
