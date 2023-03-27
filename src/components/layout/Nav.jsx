@@ -10,9 +10,9 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, Navigate } from "react-router-dom";
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 import { logout } from "../../state/actions";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 
 const pages = ["Login", "Register", "Shipments", "Account", "Admin"];
 
@@ -21,7 +21,7 @@ function ResponsiveAppBar() {
   const [activePage, setActivePage] = useState(pages[0]);
   const dispatch = useDispatch();
 
-  const getRole = useSelector((state) => state.auth['accountType']);
+  const getRole = useSelector((state) => state.auth["accountType"]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -31,23 +31,27 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
-  const handlePageClick = ({page}) => {
+  const handlePageClick = ({ page }) => {
     setActivePage(page);
     handleCloseNavMenu();
   };
 
   const handleLogout = () => {
     console.log("logout button activateddd");
-    dispatch(logout())
+    dispatch(logout());
   };
-
-  
 
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-        <Box sx={{ flexGrow: 1, flexDirection: "column", display: { xs: 'flex', md: 'none' } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              flexDirection: "column",
+              display: { xs: "flex", md: "none" },
+            }}
+          >
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -62,82 +66,133 @@ function ResponsiveAppBar() {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
             >
               <MenuItem>
-                <Link to="/login" style={{color: 'black', textDecoration: 'none'}}>
-                Login
-                </Link></MenuItem>
-
-                <MenuItem><Link to="/register" style={{color: 'black', textDecoration: 'none'}}>
-                Register
-                </Link></MenuItem>
-
-                {getRole !== null && 
-                 <MenuItem><Link to="/shipments" style={{color: 'black', textDecoration: 'none'}}>
-                Shipments
-                </Link></MenuItem>}
-
-                {getRole !== null && 
-               <MenuItem><Link to="/account" style={{color: 'black', textDecoration: 'none'}}>
-                Account
-              </Link></MenuItem>}
-              {getRole === 'ADMIN' &&
-               <MenuItem><Link to="/admin" style={{color: 'black', textDecoration: 'none'}}>
-                Admin
-              </Link></MenuItem>}
-           </Menu>
-          </Box>
-          <Container sx={{ 
-                flexGrow: 1, 
-                fontSize: "1rem", 
-                letterSpacing: ".2rem", 
-                color: "inherit", 
-                justifyContent: "space-around", 
-                display: { xs: "none", md: "flex" } 
-            }}>
-               {getRole === undefined &&
-               <>
-                <Link to="/login" style={{color: 'white', textDecoration: 'none'}}>
-                    Login
+                <Link
+                  to="/login"
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  Login
                 </Link>
-                <Link to="/register" style={{color: 'white', textDecoration: 'none'}}>
-                    Register
-                </Link></>}
-                {getRole &&
-                <>
-                <Link to="/shipments" style={{color: 'white', textDecoration: 'none'}}>
+              </MenuItem>
+
+              <MenuItem>
+                <Link
+                  to="/register"
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  Register
+                </Link>
+              </MenuItem>
+
+              {getRole !== null && (
+                <MenuItem>
+                  <Link
+                    to="/shipments"
+                    style={{ color: "black", textDecoration: "none" }}
+                  >
                     Shipments
-                </Link>
-                
-                <Link to="/account" style={{color: 'white', textDecoration: 'none'}}>
+                  </Link>
+                </MenuItem>
+              )}
+
+              {getRole !== null && (
+                <MenuItem>
+                  <Link
+                    to="/account"
+                    style={{ color: "black", textDecoration: "none" }}
+                  >
                     Account
-                </Link> </>}
-                {getRole === 'ADMIN' &&
-              <Link to="/admin" style={{color: 'white', textDecoration: 'none'}}>
+                  </Link>
+                </MenuItem>
+              )}
+              {getRole === "ADMIN" && (
+                <MenuItem>
+                  <Link
+                    to="/admin"
+                    style={{ color: "black", textDecoration: "none" }}
+                  >
+                    Admin
+                  </Link>
+                </MenuItem>
+              )}
+            </Menu>
+          </Box>
+          <Container
+            sx={{
+              flexGrow: 1,
+              fontSize: "1rem",
+              letterSpacing: ".2rem",
+              color: "inherit",
+              justifyContent: "space-around",
+              display: { xs: "none", md: "flex" },
+            }}
+          >
+            {getRole === undefined && (
+              <>
+                <Link
+                  to="/login"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  Register
+                </Link>
+              </>
+            )}
+            {getRole && (
+              <>
+                <Link
+                  to="/shipments"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  Shipments
+                </Link>
+                <Link
+                  to="/account"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  Account
+                </Link>{" "}
+              </>
+            )}
+            {getRole === "ADMIN" && (
+              <Link
+                to="/admin"
+                style={{ color: "white", textDecoration: "none" }}
+              >
                 Admin
-              </Link>}
-              {getRole &&
+              </Link>
+            )}
+            {getRole && (
               <Button
-              type="button"
-              fullWidth variant="contained"
-              style={{ width: "5%" }}
-              onClick={handleLogout}>
+                type="button"
+                fullWidth
+                variant="contained"
+                style={{ width: "5%" }}
+                onClick={handleLogout}
+              >
                 Log Out
-                  </Button>}
-            </Container>
+              </Button>
+            )}
+          </Container>
         </Toolbar>
       </Container>
     </AppBar>
