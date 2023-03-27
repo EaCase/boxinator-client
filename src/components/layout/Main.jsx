@@ -19,7 +19,7 @@ const Main = () => {
       <ResponsiveAppBar />
       <Container>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login />} hasRole="false"/>
           <Route
             path="/register/:token?"
             element={<Registration />}
