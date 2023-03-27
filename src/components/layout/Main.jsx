@@ -7,8 +7,10 @@ import Login from "../../pages/Login";
 import Registration from "../../pages/Registration";
 import ResponsiveAppBar from "./Nav";
 import EditAndDeleteShipments from "../Admin/EditAndDeleteShipments";
+import SingleShipment from "../Shipment/SingleShipment";
 
 const Main = () => {
+
   return (
     <Container maxWidth={false} disableGutters>
       <ResponsiveAppBar />
@@ -33,6 +35,7 @@ const Main = () => {
             element={<EditAndDeleteShipments />}
             caseSensitive={false}
           />
+          <Route path="/oneShipment/:id" element={<SingleShipment />} />
         </Routes>
       </Container>
     </Container>

@@ -1,6 +1,10 @@
-import { Box, Chip, Grid, Typography, useTheme } from "@mui/material";
+import { Box, ButtonBase, Chip, Grid, Typography, useTheme } from "@mui/material";
+import { useNavigate } from "react-router";
 
 const PendingOrder = ({ shipment }) => {
+
+  const navigate = useNavigate();
+
   const theme = useTheme();
 
   return (
@@ -15,6 +19,10 @@ const PendingOrder = ({ shipment }) => {
           p: 2,
         }}
       >
+            <ButtonBase onClick={() =>
+                  navigate(`/oneShipment/${shipment.id}`)
+                  }
+  >
         <Grid container direction="row" justifyContent="space-between">
           <Grid item>
             <Grid container display="flex" flexDirection="column">
@@ -50,6 +58,8 @@ const PendingOrder = ({ shipment }) => {
             <Typography>{shipment.cost}</Typography>
           </Grid>
         </Grid>
+        </ButtonBase>
+
       </Box>
     </>
   );

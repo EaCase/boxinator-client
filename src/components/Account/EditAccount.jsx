@@ -13,8 +13,6 @@ const EditAccount = ({ userData }) => {
 
   const [updateAccountData] = useUpdateAccountMutation();
 
-  console.log(userData);
-
   const userInfo = {
     firstName: userData.firstName,
     lastName: userData.lastName,
