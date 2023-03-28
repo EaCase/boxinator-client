@@ -1,3 +1,5 @@
+import { AddBox, Factory, LocalShipping, AssignmentTurnedIn, DisabledByDefault, HelpCenter } from '@mui/icons-material';
+
 export const getTokenFields = (response) => {
   const data =
   {
@@ -20,3 +22,18 @@ export const getShipmentFields = (values) => {
 
   return data
 }
+
+export const StatusIcon = ({ status }) => {
+  switch (status) {
+    case "CREATED": return AddBox
+    case "RECEIVED": return Factory
+    case "INTRANSIT": return LocalShipping
+    case "COMPLETED": return AssignmentTurnedIn
+    case "CANCELLED": return DisabledByDefault
+    default: return HelpCenter
+  }
+}
+
+export const statusOptions = [
+  "COMPLETED", "INTRANSIT", "RECEIVED", "CREATED", "CANCELLED"
+]

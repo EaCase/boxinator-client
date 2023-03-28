@@ -33,6 +33,7 @@ const ShipmentsTable = ({ shipments }) => {
         sx={{ minWidth: 650 }}
         style={{ alignItems: "center" }}
         aria-label="simple table"
+        size="small"
       >
         <TableHead>
           <TableRow>

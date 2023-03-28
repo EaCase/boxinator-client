@@ -3,14 +3,15 @@ import { api } from './api'
 export const shipmentApi = api.injectEndpoints({
   endpoints: (build) => ({
     getShipments: build.query({
-      query: () => ({ url: 'shipments/' }),
+      query: () => ({ url: "shipments/" }),
       providesTags: ["Shipments"],
     }),
     getShipment: build.query({
       query: (id) => `shipments/${id}`,
+      providesTags: (result, error, id) => [{ type: "Shipment", id }],
     }),
     getShipmentCost: build.query({
-      query: ({ boxTierId, countryId }) => ({ url: 'shipments/cost', params: { boxTierId, countryId } })
+      query: ({ boxTierId, countryId }) => ({ url: "shipments/cost", params: { boxTierId, countryId } })
     }),
     addShipment: build.mutation({
       query: (args) => ({
@@ -30,7 +31,7 @@ export const shipmentApi = api.injectEndpoints({
           body
         }
       },
-      invalidatesTags: ["Shipments"]
+      invalidatesTags: (result, error, arg) => ["Shipments", { type: "Shipment", id: arg.id }],
     }),
     deleteShipment: build.mutation({
       query(id) {
@@ -41,7 +42,18 @@ export const shipmentApi = api.injectEndpoints({
       },
       invalidatesTags: ["Shipments"]
     }),
-  }),
+    updateShipmentStatus: build.mutation({
+      query(data) {
+        const { shipmentId, status } = data
+        return {
+          url: `shipments/${shipmentId}`,
+          method: 'PUT',
+          body: status
+        }
+      },
+      invalidatesTags: (result, error, arg) => ["Shipments", { type: "Shipment", id: arg.id }],
+    }),
+  })
 })
 
 export const {
@@ -50,7 +62,8 @@ export const {
   useGetShipmentQuery,
   useGetShipmentsQuery,
   useGetShipmentCostQuery,
-  useUpdateShipmentMutation
+  useUpdateShipmentMutation,
+  useUpdateShipmentStatusMutation
 } = shipmentApi
 
 export const {
