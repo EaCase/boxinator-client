@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import { Container } from "@mui/system";
 import Register from "../components/Register/Register";
-import airplanelogo from "../assets/images/airplaneLogo.jpg";
+import icoon from "../assets/images/icoon.png";
 import { useCreateAccountMutation } from "../services/auth";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
@@ -53,7 +53,7 @@ const Registration = () => {
             />
           </Grid>
           <Grid item sm={6} xs={0} alignItems="center" justifyContent="center">
-            <img src={airplanelogo} alt="logo" />
+            <img src={icoon}  width={600} height={550} style={{marginLeft: 70}} alt="logo" />
           </Grid>
         </Grid>
       </Container>

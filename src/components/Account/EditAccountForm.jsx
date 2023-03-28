@@ -5,6 +5,7 @@ import MuiFormWrapper from "../common/forms/MuiFormWrapper";
 import MuiTextInput from "../common/forms/MuiTextInput";
 
 const EditAccountForm = ({ handleCancelClick }) => {
+
   return (
     <Form>
       <MuiFormWrapper headerText="Your Account Details">
@@ -13,11 +14,9 @@ const EditAccountForm = ({ handleCancelClick }) => {
           <MuiTextInput name="lastName" type="text" label="Last Name" />
 
           <MuiTextInput name="dateOfBirth" type="date" label="Date of Birth" />
-          <MuiTextInput
-            name="countryId"
-            type="text"
-            label="Country of residence"
-          />
+          <MuiTextInput name="countryId" type="date" label="Date of Birth" />
+
+          
           <MuiTextInput name="zipCode" type="text" label="Postal code" />
           <MuiTextInput name="contactNumber" type="tel" label="Phone number" />
         </Grid>

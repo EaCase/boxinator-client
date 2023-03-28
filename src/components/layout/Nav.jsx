@@ -13,16 +13,18 @@ import { useSelector } from "react-redux";
 import { logout } from "../../state/actions";
 import { useDispatch } from "react-redux";
 import { useLocation } from 'react-router-dom';
-
+import { useNavigate } from "react-router";
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  
   const dispatch = useDispatch();
-
   const getRole = useSelector((state) => state.auth["accountType"]);
-
   const location = useLocation();
+  const navigate = useNavigate();
+
   const isLoginPage = location.pathname === '/login' || location.pathname === '/Login';
+  const isRegisterPage = location.pathname === '/rehister' || location.pathname === '/Register';
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -34,9 +36,10 @@ function ResponsiveAppBar() {
 
   const handleLogout = () => {
     dispatch(logout());
+    navigate('/login');
   };
 
-  if (isLoginPage) {
+  if (isLoginPage || isRegisterPage) {
     return null; 
   }
 

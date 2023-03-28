@@ -1,4 +1,4 @@
-import { Grid, Box, Typography, Link } from "@mui/material";
+import { Grid, Box, Typography } from "@mui/material";
 import { useGetShipmentsQuery } from "../services/shipment";
 import OrderModal from "../components/Shipment/OrderModal";
 import SimpleSlider from "../components/layout/BoxesSlider";

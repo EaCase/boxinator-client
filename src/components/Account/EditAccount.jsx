@@ -3,18 +3,27 @@ import { useState } from "react";
 import ReadOnlyAccountForm from "./ReadOnlyAccountForm";
 import EditAccountForm from "./EditAccountForm";
 import { Button, Grid } from "@mui/material";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import { useUpdateAccountMutation } from "../../services/account";
 import { useGetCountryNameQuery } from "../../services/settings";
 
 const EditAccount = ({ userData }) => {
   const navigate = useNavigate();
 
-  const { data: countryName, isSuccess, isError } = useGetCountryNameQuery(userData.countryId);
+  const { data: countryName, isError, isLoading } = useGetCountryNameQuery(userData.countryId);
 
   const [editing, setEditing] = useState(false);
 
   const [updateAccountData] = useUpdateAccountMutation();
+
+  if (isError) {
+    return <div>Error loading account data</div>;
+  }
+
+  if (isLoading) {
+    return <div>Loading account data</div>;
+   }
+
   
   const userInfo = {
     firstName: userData.firstName,

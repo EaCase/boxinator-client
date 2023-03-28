@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import LoginForm from "../forms/LoginForm";
 import { Grid } from "@mui/material";
 import { Container } from "@mui/system";
-import airplanelogo from "../assets/images/airplaneLogo.jpg";
+import icoon from "../assets/images/icoon.png";
 import { useLoginMutation } from "../services/auth";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -45,7 +45,7 @@ const Login = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Grid item sm={6} xs={12}>
+          <Grid item sm={6} xs={12} style={{marginTop: 90}}>
             <Formik
               initialValues={{ username: "", password: "" }}
               validationSchema={validationSchema}
@@ -56,7 +56,7 @@ const Login = () => {
           </Grid>
 
           <Grid item sm={6} xs={0} alignItems="center" justifyContent="center">
-            <img src={airplanelogo} alt="logo" />
+            <img src={icoon} width={500} height={450} style={{marginLeft: 110, marginTop: 60}} alt="logo" />
           </Grid>
         </Grid>
       </Container>
