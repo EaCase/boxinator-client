@@ -8,16 +8,12 @@ import { useNavigate } from "react-router";
 const RegisterForm = ({ countries, isClaiming, registerError }) => {
   const navigate = useNavigate();
 
-  const handleCancel = () => {
-    return navigate("/login")
-  }
-
   return (
     <Form>
       <MuiFormWrapper
         headerText={
           isClaiming
-            ? "Sign up view your shipment details"
+            ? "Sign up to claim your shipment"
             : "Register a new account"
         }
       >
@@ -53,7 +49,7 @@ const RegisterForm = ({ countries, isClaiming, registerError }) => {
 
         {registerError.error && (
           <Typography my={1} align="center" color="red" fontSize={18}>
-            {registerError.error.data}
+            {registerError.error.data.message}
           </Typography>
         )}
 
@@ -66,11 +62,12 @@ const RegisterForm = ({ countries, isClaiming, registerError }) => {
           Register
         </Button>
         <Button
-          fullWidth variant="contained"
+          fullWidth
+          variant="contained"
           sx={{ mt: 3, mb: 2, height: 50, marginTop: 1 }}
-          onClick={handleCancel}
+          onClick={() => navigate("/login")}
         >
-          Cancel
+          Back to login
         </Button>
       </MuiFormWrapper>
     </Form>

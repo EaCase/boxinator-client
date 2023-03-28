@@ -6,6 +6,7 @@ export const InfoRow = ({ field, value }) => {
 
   return (
     <Grid
+      item
       container
       display="flex"
       direction="column"

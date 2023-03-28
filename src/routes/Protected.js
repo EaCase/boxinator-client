@@ -4,10 +4,10 @@ const Protected = (props) => {
   const allow = Boolean(props.isLoggedIn)
 
   if (!allow) {
-    return <Navigate to="/" replace />
+    return <Navigate to="/login" replace />
   }
 
-  return props.children;
+  return { ...props.children };
 };
 
 export default Protected;

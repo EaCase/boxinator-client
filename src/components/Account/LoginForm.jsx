@@ -1,9 +1,9 @@
 import React from "react";
 import { Form } from "formik";
 import { Link } from "react-router-dom";
-import MuiFormWrapper from "../components/common/forms/MuiFormWrapper";
-import MuiTextInput from "../components/common/forms/MuiTextInput";
 import { Button, Divider, Grid, Typography } from "@mui/material";
+import MuiFormWrapper from "../common/forms/MuiFormWrapper";
+import MuiTextInput from "../common/forms/MuiTextInput";
 
 const LoginForm = ({ loginError, openModal }) => {
   return (
@@ -40,7 +40,7 @@ const LoginForm = ({ loginError, openModal }) => {
               You can also
             </Divider>
             <Grid item xs={6}>
-              <Link to="/Register" style={{textDecoration: "none"}}> 
+              <Link to="/Register" style={{ textDecoration: "none" }}>
                 <Button
                   fullWidth
                   variant="contained"

@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import { useGetAccountQuery } from "../services/account";
+import { useGetMyAccountQuery } from "../services/account";
 import { Box } from "@mui/material";
 import EditAccount from "../components/Account/EditAccount";
 
@@ -9,7 +9,7 @@ const Account = () => {
     isError,
     isLoading,
     isSuccess,
-  } = useGetAccountQuery();
+  } = useGetMyAccountQuery();
 
   if (isLoading) {
     return <div>Loading...</div>;

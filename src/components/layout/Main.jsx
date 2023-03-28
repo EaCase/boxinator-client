@@ -6,12 +6,11 @@ import Shipment from "../../pages/Shipment";
 import Login from "../../pages/Login";
 import Registration from "../../pages/Registration";
 import ResponsiveAppBar from "./Nav";
-import EditAndDeleteShipments from "../Admin/EditAndDeleteShipments";
-import SingleShipment from "../Shipment/SingleShipment";
+import SingleShipment from "../Shipment/SingleShipments/SingleShipment";
 import Protected from "../../routes/Protected";
 import { useSelector } from "react-redux";
 
-const Main = () => {
+const Main = (role) => {
   const hasRole = useSelector((state) => state.auth["accountType"]);
 
   return (
@@ -25,18 +24,26 @@ const Main = () => {
             element={<Registration />}
             caseSensitive={false}
           />
-          <Route path="/admin"  
-          caseSensitive={false}
-          element={
-              <Protected isLoggedIn={hasRole}><Admin /></Protected>}/>
+          <Route
+            path="/admin"
+            caseSensitive={false}
+            element={
+              <Protected isLoggedIn={hasRole}>
+                <Admin />
+              </Protected>
+            }
+          />
           <Route
             path="/shipments"
             element={
-              <Protected isLoggedIn={hasRole}><Shipment /></Protected>}
+              <Protected isLoggedIn={hasRole}>
+                <Shipment />
+              </Protected>
+            }
             caseSensitive={false}
           />
           <Route
-            path="/Account"
+            path="/account"
             caseSensitive={false}
             element={
               <Protected isLoggedIn={hasRole}>
@@ -46,10 +53,9 @@ const Main = () => {
           />
           <Route
             path="/shipment/:id"
-            element={<EditAndDeleteShipments />}
+            element={<SingleShipment />}
             caseSensitive={false}
           />
-          <Route path="/oneShipment/:id" element={<SingleShipment />} />
         </Routes>
       </Container>
     </Container>

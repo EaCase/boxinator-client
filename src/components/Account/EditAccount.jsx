@@ -10,7 +10,11 @@ import { useGetCountryNameQuery } from "../../services/settings";
 const EditAccount = ({ userData }) => {
   const navigate = useNavigate();
 
-  const { data: countryName, isError, isLoading } = useGetCountryNameQuery(userData.countryId);
+  const {
+    data: countryName,
+    isError,
+    isLoading,
+  } = useGetCountryNameQuery(userData.countryId);
 
   const [editing, setEditing] = useState(false);
 
@@ -22,9 +26,8 @@ const EditAccount = ({ userData }) => {
 
   if (isLoading) {
     return <div>Loading account data</div>;
-   }
+  }
 
-  
   const userInfo = {
     firstName: userData.firstName,
     lastName: userData.lastName,
@@ -62,11 +65,12 @@ const EditAccount = ({ userData }) => {
         )}
       </Formik>
       <Button
-        fullWidth variant="contained"
+        fullWidth
+        variant="contained"
         onClick={showEditing}
         disabled={editing}
         sx={{ mt: 3, mb: 2, width: "30%", height: "50px" }}
-        style= {{ marginTop: "80px" }}
+        style={{ marginTop: "80px" }}
         size="medium"
       >
         Edit Details

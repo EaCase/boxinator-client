@@ -53,7 +53,13 @@ const Registration = () => {
             />
           </Grid>
           <Grid item sm={6} xs={0} alignItems="center" justifyContent="center">
-            <img src={icoon}  width={600} height={550} style={{marginLeft: 70}} alt="logo" />
+            <img
+              src={icoon}
+              width={600}
+              height={550}
+              style={{ marginLeft: 70 }}
+              alt="logo"
+            />
           </Grid>
         </Grid>
       </Container>
