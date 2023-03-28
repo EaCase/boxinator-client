@@ -5,11 +5,18 @@ import MuiSelectField from "../common/forms/MuiSelectField";
 import MuiColorPicker from "../common/forms/MuiColorPicker";
 import { useNavigate } from "react-router";
 
-const EditShipmentForm = ({ shipment, tiers, countries, handleUpdate }) => {
+const EditShipmentForm = ({
+  shipment,
+  tiers,
+  countries,
+  closeModal,
+  handleUpdate,
+}) => {
   const initialValues = {
     recipient: shipment.recipient,
     tier: tiers.find((item) => item.id === shipment.boxTier.id),
     country: countries.find((item) => item.id === shipment.country.id),
+    color: shipment.boxColor,
   };
 
   const navigate = useNavigate();
@@ -41,7 +48,10 @@ const EditShipmentForm = ({ shipment, tiers, countries, handleUpdate }) => {
               label="Destination country"
               options={countries}
             />
-            <MuiColorPicker label="Pick a color" />
+            <MuiColorPicker
+              label="Pick a color"
+              originalColor={shipment.boxColor}
+            />
           </Grid>
 
           <Grid container sx={{ mt: 3 }}>
@@ -57,7 +67,12 @@ const EditShipmentForm = ({ shipment, tiers, countries, handleUpdate }) => {
             </Grid>
             <Grid item xs={1} />
             <Grid item xs={6}>
-              <Button fullWidth variant="contained" sx={{ minHeight: 40 }} onClick={handleCancel}>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{ minHeight: 40 }}
+                onClick={() => closeModal()}
+              >
                 Cancel
               </Button>
             </Grid>

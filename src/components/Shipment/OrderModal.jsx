@@ -42,7 +42,7 @@ const style = {
   borderRadius: 4,
 };
 
-const OrderModal = ({ showModal, closeModal, children }) => {
+const OrderModal = ({ showModal, closeModal, originalColor, children }) => {
   const { data: tiers, isSuccess: tiersFetched } = useGetTiersQuery();
   const { data: countries, isSuccess: countriesFetched } =
     useGetCountriesQuery();
@@ -70,7 +70,6 @@ const OrderModal = ({ showModal, closeModal, children }) => {
         onClose={() => closeModal()}
         aria-labelledby="new-shipment-modal"
         aria-describedby="modal-create-new-shipment"
-        title="New shipment"
       >
         {tiersFetched && countriesFetched ? (
           <Box sx={style}>
