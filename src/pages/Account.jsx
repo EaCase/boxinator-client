@@ -16,8 +16,6 @@ const Account = () => {
   }
 
   if (isError) {
-    console.log(userData);
-
     return <div>Error loading account data</div>;
   }
 

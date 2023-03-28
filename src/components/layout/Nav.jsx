@@ -12,12 +12,17 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { logout } from "../../state/actions";
 import { useDispatch } from "react-redux";
+import { useLocation } from 'react-router-dom';
+
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const dispatch = useDispatch();
 
   const getRole = useSelector((state) => state.auth["accountType"]);
+
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/login' || location.pathname === '/Login';
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -30,6 +35,10 @@ function ResponsiveAppBar() {
   const handleLogout = () => {
     dispatch(logout());
   };
+
+  if (isLoginPage) {
+    return null; 
+  }
 
   return (
     <AppBar position="static">

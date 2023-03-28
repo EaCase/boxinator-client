@@ -3,21 +3,24 @@ import { useState } from "react";
 import ReadOnlyAccountForm from "./ReadOnlyAccountForm";
 import EditAccountForm from "./EditAccountForm";
 import { Button, Grid } from "@mui/material";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useUpdateAccountMutation } from "../../services/account";
+import { useGetCountryNameQuery } from "../../services/settings";
 
 const EditAccount = ({ userData }) => {
   const navigate = useNavigate();
 
+  const { data: countryName, isSuccess, isError } = useGetCountryNameQuery(userData.countryId);
+
   const [editing, setEditing] = useState(false);
 
   const [updateAccountData] = useUpdateAccountMutation();
-
+  
   const userInfo = {
     firstName: userData.firstName,
     lastName: userData.lastName,
     dateOfBirth: userData.dob,
-    countryId: userData.countryId,
+    countryId: countryName.name,
     zipCode: userData.zipCode,
     contactNumber: userData.contactNumber,
   };
@@ -54,7 +57,7 @@ const EditAccount = ({ userData }) => {
         onClick={showEditing}
         disabled={editing}
         sx={{ mt: 3, mb: 2, width: "30%", height: "50px" }}
-        style= {{ marginTop: "60px" }}
+        style= {{ marginTop: "80px" }}
         size="medium"
       >
         Edit Details

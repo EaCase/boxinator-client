@@ -6,6 +6,9 @@ export const settingsApi = api.injectEndpoints({
       query: () => ({ url: 'settings/countries' }),
       providesTags: ["Countries"]
     }),
+    getCountryName: build.query({
+      query: (id) => ({ url: `settings/countries/${id}` }),
+    }),
     getTiers: build.query({
       query: () => ({ url: 'boxes/tiers' })
     }),
@@ -31,4 +34,4 @@ export const settingsApi = api.injectEndpoints({
   })
 })
 
-export const { useGetCountriesQuery, useGetTiersQuery, useAddCountryMutation, useUpdateCountryMutation } = settingsApi
+export const { useGetCountriesQuery, useGetCountryNameQuery, useGetTiersQuery, useAddCountryMutation, useUpdateCountryMutation } = settingsApi
