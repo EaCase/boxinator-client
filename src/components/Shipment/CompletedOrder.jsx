@@ -1,6 +1,5 @@
-import { Box, ButtonBase, Grid, Typography, useTheme } from "@mui/material";
+import { Box, Grid, Typography, useTheme } from "@mui/material";
 import CheckCircleOutlineSharpIcon from "@mui/icons-material/CheckCircleOutlineSharp";
-
 
 const CompletedOrder = ({ recipient, boxTier, cost, country, color }) => {
   const theme = useTheme();

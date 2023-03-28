@@ -40,7 +40,7 @@ const LoginForm = ({ loginError, openModal }) => {
               You can also
             </Divider>
             <Grid item xs={6}>
-              <Link to="/Register">
+              <Link to="/Register" style={{textDecoration: "none"}}> 
                 <Button
                   fullWidth
                   variant="contained"

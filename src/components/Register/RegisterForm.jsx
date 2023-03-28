@@ -3,15 +3,22 @@ import { Form } from "formik";
 import MuiFormWrapper from "../common/forms/MuiFormWrapper";
 import MuiTextInput from "../common/forms/MuiTextInput";
 import MuiSelectField from "../common/forms/MuiSelectField";
+import { useNavigate } from "react-router";
 
 const RegisterForm = ({ countries, isClaiming, registerError }) => {
+  const navigate = useNavigate();
+
+  const handleCancel = () => {
+    return navigate("/login")
+  }
+
   return (
     <Form>
       <MuiFormWrapper
         headerText={
           isClaiming
             ? "Sign up view your shipment details"
-            : "Register new account"
+            : "Register a new account"
         }
       >
         <Grid container columnSpacing={2}>
@@ -54,9 +61,16 @@ const RegisterForm = ({ countries, isClaiming, registerError }) => {
           type="submit"
           fullWidth
           variant="contained"
-          sx={{ mt: 3, mb: 2, height: 50 }}
+          sx={{ mt: 3, mb: 2, height: 50, textDecoration: "none" }}
         >
           Register
+        </Button>
+        <Button
+          fullWidth variant="contained"
+          sx={{ mt: 3, mb: 2, height: 50, marginTop: 1 }}
+          onClick={handleCancel}
+        >
+          Cancel
         </Button>
       </MuiFormWrapper>
     </Form>
