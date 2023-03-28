@@ -6,7 +6,6 @@ import { Button, Grid } from "@mui/material";
 import { useUpdateAccountMutation } from "../services/account";
 import { useNavigate } from "react-router";
 
-
 const EditAccount = ({userData}) => {
 
     const navigate = useNavigate();
