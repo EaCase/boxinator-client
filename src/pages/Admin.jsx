@@ -43,20 +43,20 @@ const Admin = () => {
         }}
       >
         <Tab
-          icon={<PublicIcon fontSize="large" />}
-          iconPosition="start"
-          label="COUNTRIES"
-        />
-        <Tab
           icon={<LocalShippingIcon fontSize="large" />}
           iconPosition="start"
           label="SHIPMENTS"
         />
+        <Tab
+          icon={<PublicIcon fontSize="large" />}
+          iconPosition="start"
+          label="COUNTRIES"
+        />
       </Tabs>
       {
         {
-          0: <CountriesTable countries={countries} />,
-          1: <ShipmentsTable shipments={shipments} />,
+          0: <ShipmentsTable shipments={shipments} />,
+          1: <CountriesTable countries={countries} />,
         }[tabValue]
       }
     </Container>

@@ -4,14 +4,21 @@ import { useEffect, useState } from "react";
 import { ChromePicker } from "react-color";
 import MuiColorBox from "./MuiColorBox";
 
-const MuiColorPicker = ({ label }) => {
+const MuiColorPicker = ({ label, originalColor }) => {
   const formikProps = useFormikContext();
   const [color, setColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}`
   );
 
+  console.log(originalColor);
+
   useEffect(() => {
-    formikProps.setFieldValue("color", color);
+    if (originalColor) {
+      setColor(originalColor);
+      formikProps.setFieldValue("color", originalColor);
+    } else {
+      formikProps.setFieldValue("color", color);
+    }
   }, []);
 
   return (

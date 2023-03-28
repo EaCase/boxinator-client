@@ -1,13 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { Mutex } from 'async-mutex';
 import { logout, tokensReceived } from '../state/actions';
+import { API_BASE_URL } from '../constants';
 
 // Create a new mutex
 const mutex = new Mutex();
-const baseUrl = `${process.env.REACT_APP_SERVER_ENDPOINT}/api/`;
+const baseUrl = API_BASE_URL
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:8080/',
+  baseUrl: baseUrl,
   prepareHeaders: (headers, { getState, endpoint }) => {
     // By default, if we have a token in the store, let's use that for authenticated requests
     const token = (getState()).auth.token

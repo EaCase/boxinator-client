@@ -5,14 +5,14 @@ import MuiSelectField from "../common/forms/MuiSelectField";
 import MuiTextInput from "../common/forms/MuiTextInput";
 import ShippingCost from "./ShipmentCost";
 
-const OrderForm = ({ countries, tiers, hasError }) => {
+const OrderForm = ({ countries, tiers, title, hasError }) => {
   return (
     <>
       <Form>
         <Box>
           <Box display="flex" mb={3}>
             <Typography margin="auto" variant="h4">
-              Create a new order
+              {title}
             </Typography>
           </Box>
           <Grid container>

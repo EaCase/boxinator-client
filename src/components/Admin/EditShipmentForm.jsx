@@ -4,11 +4,18 @@ import MuiTextInput from "../common/forms/MuiTextInput";
 import MuiSelectField from "../common/forms/MuiSelectField";
 import MuiColorPicker from "../common/forms/MuiColorPicker";
 
-const EditShipmentForm = ({ shipment, tiers, countries, handleUpdate }) => {
+const EditShipmentForm = ({
+  shipment,
+  tiers,
+  countries,
+  closeModal,
+  handleUpdate,
+}) => {
   const initialValues = {
     recipient: shipment.recipient,
     tier: tiers.find((item) => item.id === shipment.boxTier.id),
     country: countries.find((item) => item.id === shipment.country.id),
+    color: shipment.boxColor,
   };
 
   return (
@@ -34,7 +41,10 @@ const EditShipmentForm = ({ shipment, tiers, countries, handleUpdate }) => {
               label="Destination country"
               options={countries}
             />
-            <MuiColorPicker label="Pick a color" />
+            <MuiColorPicker
+              label="Pick a color"
+              originalColor={shipment.boxColor}
+            />
           </Grid>
 
           <Grid container sx={{ mt: 3 }}>
@@ -50,7 +60,12 @@ const EditShipmentForm = ({ shipment, tiers, countries, handleUpdate }) => {
             </Grid>
             <Grid item xs={1} />
             <Grid item xs={6}>
-              <Button fullWidth variant="contained" sx={{ minHeight: 40 }}>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{ minHeight: 40 }}
+                onClick={() => closeModal()}
+              >
                 Cancel
               </Button>
             </Grid>

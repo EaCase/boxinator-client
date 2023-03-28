@@ -21,7 +21,7 @@ const Shipment = () => {
   return (
     <>
       <OrderModal showModal={showModal} closeModal={closeModal}>
-        <OrderForm />
+        <OrderForm title="Create a new order" />
       </OrderModal>
 
       <Box>

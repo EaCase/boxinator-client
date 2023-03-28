@@ -19,6 +19,7 @@ import { useGetAccountQuery } from "../../services/account";
 import {
   useDeleteShipmentMutation,
   useGetShipmentQuery,
+  useUpdateShipmentMutation,
 } from "../../services/shipment";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
@@ -27,26 +28,41 @@ import { ShipmentDetails } from "./SingleShipments/ShipmentDetails";
 import { SenderDetails } from "./SingleShipments/SenderDetails";
 import { useState } from "react";
 import { StatusButtonGroup } from "./SingleShipments/StatusButtonGroup";
+import { useGetTiersQuery } from "../../services/settings";
+import OrderModal from "./OrderModal";
+import EditShipmentForm from "../Admin/EditShipmentForm";
 
 const SingleShipment = () => {
   const navigate = useNavigate();
-  const [showStatusOptions, setShowStatusOptions] = useState(false);
-  const role = useSelector((state) => state.auth["accountType"]);
   const { id } = useParams();
+  const role = useSelector((state) => state.auth["accountType"]);
+
+  const [showStatusOptions, setShowStatusOptions] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
   const { data: shipment, isSuccess: shipmentFetched } =
     useGetShipmentQuery(id);
   const { data: account, isSuccess: accountFetched } = useGetAccountQuery();
-  const [deleteShipment] = useDeleteShipmentMutation();
+  const { data: countries, isSuccess: countriesFetched } = useGetTiersQuery();
+  const { data: tiers, isSuccess: tiersFetched } = useGetTiersQuery();
 
-  if (!shipmentFetched || !accountFetched) {
+  const [deleteShipment] = useDeleteShipmentMutation();
+  const [updateShipmentDetails] = useUpdateShipmentMutation();
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
+  const toggleStatusOptions = () => setShowStatusOptions(!showStatusOptions);
+
+  if (
+    !shipmentFetched ||
+    !accountFetched ||
+    !countriesFetched ||
+    !tiersFetched
+  ) {
     return <LinearProgress />;
   }
 
-  const handleShowStatusOptions = () => {
-    setShowStatusOptions(!showStatusOptions);
-  };
-
-  const handleCancel = async (id) => {
+  const handleDelete = async (id) => {
     const confirmed = window.confirm("Are you sure? This cannot be undone.");
 
     if (confirmed) {
@@ -57,11 +73,35 @@ const SingleShipment = () => {
     }
   };
 
+  const updateShipment = async (values) => {
+    const body = {
+      recipient: values.recipient,
+      boxColor: values.color,
+      countryId: values.country.id,
+      boxTierId: values.tier.id,
+    };
+
+    await updateShipmentDetails({ shipmentId: id, body })
+      .unwrap()
+      .then(() => closeModal())
+      .catch((e) => console.log(e));
+  };
+
   return (
     <Container
       component={Paper}
       sx={{ py: 3, mt: 4, borderRadius: 4, boxShadow: 3 }}
     >
+      <OrderModal showModal={showModal} closeModal={closeModal}>
+        <EditShipmentForm
+          shipment={shipment}
+          handleUpdate={updateShipment}
+          closeModal={closeModal}
+          tiers={tiers}
+          countries={countries}
+        />
+      </OrderModal>
+
       <Typography variant="h3" mb={3}>
         Shipment details
       </Typography>
@@ -130,7 +170,7 @@ const SingleShipment = () => {
                       variant="contained"
                       color="success"
                       size="large"
-                      onClick={handleShowStatusOptions}
+                      onClick={toggleStatusOptions}
                       sx={{ mx: 1 }}
                     >
                       Update status
@@ -140,7 +180,7 @@ const SingleShipment = () => {
                       variant="contained"
                       color="success"
                       size="large"
-                      onClick={() => handleCancel(shipment.id)}
+                      onClick={() => openModal()}
                       sx={{ mx: 1 }}
                     >
                       Edit
@@ -150,7 +190,7 @@ const SingleShipment = () => {
                       variant="contained"
                       color="error"
                       size="large"
-                      onClick={() => handleCancel(shipment.id)}
+                      onClick={() => handleDelete(shipment.id)}
                       sx={{ mx: 1 }}
                     >
                       Delete
@@ -159,19 +199,14 @@ const SingleShipment = () => {
                   </>
                 ) : (
                   <StatusButtonGroup
-                    handleShowStatusOptions={handleShowStatusOptions}
+                    handleShowStatusOptions={toggleStatusOptions}
                     id={shipment.id}
                   />
                 )}
               </>
             )}
-            {!showStatusOptions && (
-              <Button
-                variant="contained"
-                size="large"
-                onClick={() => handleCancel(shipment.id)}
-                sx={{ mx: 1 }}
-              >
+            {role === "REGISTERED_USER" && (
+              <Button variant="contained" size="large" sx={{ mx: 1 }}>
                 Cancel
                 <ClearIcon sx={{ ml: 1 }} />
               </Button>
