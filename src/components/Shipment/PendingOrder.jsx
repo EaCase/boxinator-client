@@ -20,7 +20,9 @@ const PendingOrder = ({ shipment }) => {
         width: "100%",
         height: "100%",
         boxShadow: 3,
-        borderRadius: 2,
+        border: 1,
+        borderRadius: 3,
+        borderBottomRightRadius: 0,
         p: 2,
         position: "relative",
         "&::before,&::after": {

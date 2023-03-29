@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  ButtonBase,
-  Grid,
-  Link,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Grid, Typography, useTheme } from "@mui/material";
 import CheckCircleOutlineSharpIcon from "@mui/icons-material/CheckCircleOutlineSharp";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useNavigate } from "react-router";
@@ -22,8 +14,6 @@ const CompletedOrder = ({
 }) => {
   const theme = useTheme();
   const navigate = useNavigate();
-
-  console.log(boxColor);
 
   return (
     <Box

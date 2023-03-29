@@ -3,8 +3,9 @@ import { Form } from "formik";
 import { Button } from "@mui/material";
 import MuiFormWrapper from "../common/forms/MuiFormWrapper";
 import MuiTextInput from "../common/forms/MuiTextInput";
+import MuiSelectField from "../common/forms/MuiSelectField";
 
-const EditAccountForm = ({ handleCancelClick }) => {
+const EditAccountForm = ({ countries, handleCancelClick }) => {
   return (
     <Form>
       <MuiFormWrapper headerText="Your Account Details">
@@ -13,7 +14,11 @@ const EditAccountForm = ({ handleCancelClick }) => {
           <MuiTextInput name="lastName" type="text" label="Last Name" />
 
           <MuiTextInput name="dateOfBirth" type="date" label="Date of Birth" />
-          <MuiTextInput name="countryId" type="date" label="Date of Birth" />
+          <MuiSelectField
+            name="countryId"
+            label="Country of residence"
+            options={countries}
+          />
 
           <MuiTextInput name="zipCode" type="text" label="Postal code" />
           <MuiTextInput name="contactNumber" type="tel" label="Phone number" />

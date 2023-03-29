@@ -39,7 +39,7 @@ const Row = ({ row }) => {
       <TableCell>{row.boxTier.name}</TableCell>
       <TableCell>{row.boxTier.weight} kg</TableCell>
       <TableCell>{row.recipient}</TableCell>
-      <TableCell>{row.cost}</TableCell>
+      <TableCell>{row.cost} Kr</TableCell>
       <TableCell>{row.country.name}</TableCell>
       <TableCell>{row.statuses.at(-1).status}</TableCell>
       <TableCell align="right">

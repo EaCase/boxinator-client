@@ -1,5 +1,5 @@
 import { Container } from "@mui/system";
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import Account from "../../pages/Account";
 import Admin from "../../pages/Admin";
 import Shipment from "../../pages/Shipment";
@@ -10,7 +10,7 @@ import SingleShipment from "../Shipment/SingleShipments/SingleShipment";
 import Protected from "../../routes/Protected";
 import { useSelector } from "react-redux";
 
-const Main = (role) => {
+const Main = () => {
   const hasRole = useSelector((state) => state.auth["accountType"]);
 
   return (
@@ -18,7 +18,7 @@ const Main = (role) => {
       <ResponsiveAppBar />
       <Container>
         <Routes>
-          <Route path="/login" element={<Login />} hasRole="false" />
+          <Route path="/login" element={<Login />} />
           <Route
             path="/register/:token?"
             element={<Registration />}
@@ -54,6 +54,11 @@ const Main = (role) => {
           <Route
             path="/shipment/:id"
             element={<SingleShipment />}
+            caseSensitive={false}
+          />
+          <Route
+            path="*"
+            element={<Navigate to="/login" />}
             caseSensitive={false}
           />
         </Routes>

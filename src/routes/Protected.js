@@ -1,13 +1,16 @@
 import { Navigate } from "react-router-dom";
 
-const Protected = (props) => {
-  const allow = Boolean(props.isLoggedIn)
+const Protected = ({ children }) => {
+  const auth = JSON.parse(localStorage.getItem("auth"))
+  const hasRole = auth?.accountType
+
+  const allow = Boolean(hasRole)
 
   if (!allow) {
     return <Navigate to="/login" replace />
   }
 
-  return { ...props.children };
+  return children
 };
 
 export default Protected;

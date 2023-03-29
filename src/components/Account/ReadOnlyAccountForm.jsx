@@ -61,7 +61,9 @@ const ReadOnlyAccountForm = ({ userInfo }) => {
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography variant="body1">{userInfo.countryId}</Typography>
+                <Typography variant="body1">
+                  {userInfo.countryId.name}
+                </Typography>
               </TableCell>
             </TableRow>
             <TableRow>
