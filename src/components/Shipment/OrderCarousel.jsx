@@ -41,7 +41,7 @@ const OrderCarousel = ({ shipments, openModal }) => {
         NEW ORDER
       </Button>
       {shipments.map((shipment) => {
-        return <PendingOrder shipment={shipment} />;
+        return <PendingOrder key={shipment.id} shipment={shipment} />;
       })}
     </Slider>
   );

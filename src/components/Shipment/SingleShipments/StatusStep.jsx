@@ -5,7 +5,7 @@ export const StatusStep = ({ index, status }) => {
   const icon = StatusIcon(status);
 
   return (
-    <Step key={status.ts} index={index} completed>
+    <Step key={status.ts} index={index} completed={true}>
       <StepLabel
         StepIconProps={{ fontSize: "large", mt: 2 }}
         StepIconComponent={icon}

@@ -28,6 +28,9 @@ const Registration = () => {
     delete body.passwordConfirmation;
     delete body.country;
 
+    // Omit blank fields
+    Object.keys(body).forEach((k) => !body[k] && delete body[k]);
+
     if (token) params["token"] = token;
 
     await createAccount({ body, params })

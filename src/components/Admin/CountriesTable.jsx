@@ -1,8 +1,4 @@
-import { Edit } from "@mui/icons-material";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
 import {
-  Button,
   Paper,
   Table,
   TableBody,
@@ -12,95 +8,12 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  TextField,
 } from "@mui/material";
 import { useState } from "react";
-import { useUpdateCountryMutation } from "../../services/settings";
 import { TablePaginationActions } from "./PaginationMenu";
-
-const Row = ({ row, handleShow }) => {
-  return (
-    <TableRow key={row.id} sx={{ height: 73 }}>
-      <TableCell component="th" scope="row">
-        {row.id}
-      </TableCell>
-      <TableCell component="th" scope="row">
-        {row.name}
-      </TableCell>
-      <TableCell component="th" scope="row" align="right">
-        {row.shippingMultiplier}
-      </TableCell>
-      <TableCell component="th" scope="row" align="right">
-        <Button
-          size="small"
-          onClick={() => handleShow(row.id)}
-          variant="contained"
-        >
-          <Edit size="large" />
-        </Button>
-      </TableCell>
-    </TableRow>
-  );
-};
-
-const EditableRow = ({ row, handleShow }) => {
-  const [multiplier, setMultiplier] = useState(0);
-  const [error, setError] = useState("");
-  const [updateCountry] = useUpdateCountryMutation();
-
-  const handleUpdate = async (row) => {
-    console.log(row);
-    if (isNaN(multiplier)) {
-      setError("Modifier needs to be a number");
-      return;
-    }
-
-    const body = { name: row.name, shippingMultiplier: multiplier };
-
-    await updateCountry({ countryId: row.id, body })
-      .unwrap()
-      .then(() => handleShow(0));
-  };
-
-  return (
-    <TableRow key={row.id} sx={{ height: 65 }}>
-      <TableCell>{row.id}</TableCell>
-      <TableCell>{row.name}</TableCell>
-      <TableCell align="right">
-        <TextField
-          name="modifier"
-          size="small"
-          defaultValue={row.shippingMultiplier}
-          onChange={(e) => setMultiplier(e.target.value)}
-          error={error}
-          helperText={error}
-          inputProps={{
-            inputMode: "numeric",
-            pattern: "[0-9]*",
-            style: { textAlign: "right" },
-          }}
-          sx={{ width: 100 }}
-        />
-      </TableCell>
-      <TableCell align="right">
-        <Button
-          color="success"
-          variant="contained"
-          onClick={() => handleUpdate(row)}
-        >
-          <CheckIcon />
-        </Button>
-        <Button
-          variant="contained"
-          onClick={() => handleShow(0)}
-          sx={{ marginLeft: 2 }}
-        >
-          <CloseIcon />
-        </Button>
-      </TableCell>
-    </TableRow>
-  );
-};
+import Row from "./Row";
+import EditableRow from "./EditableRow";
+import AddCountryRow from "./AddCountryRow";
 
 const CountriesTable = ({ countries }) => {
   const [page, setPage] = useState(0);
@@ -163,6 +76,7 @@ const CountriesTable = ({ countries }) => {
               <Row row={row} handleShow={setEditRow} />
             )
           )}
+          <AddCountryRow />
 
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>

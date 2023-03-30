@@ -17,7 +17,6 @@ const MuiTextInput = ({ label, type, disabled, ...props }) => {
             backgroundColor: theme.palette.triadic.light,
             borderRadius: 2,
           }}
-          required
           disabled={disabled}
           fullWidth
           size="small"

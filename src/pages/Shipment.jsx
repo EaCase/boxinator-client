@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Grid, Box, Typography, Paper, Divider } from "@mui/material";
+import { Grid, Box, Typography, Divider } from "@mui/material";
 import {
   useGetCancelledShipmentsQuery,
   useGetCompletedShipmentsQuery,
@@ -14,17 +14,23 @@ import { useTheme } from "@emotion/react";
 const Shipment = () => {
   const theme = useTheme();
   const { data: pendingShipments, isSuccess: pendingShipmentsFetched } =
-    useGetShipmentsQuery({});
-  const { data: completedShipments, isSuccess: completedShipmentsFetched } =
-    useGetCompletedShipmentsQuery();
-  const { data: cancelledShipments, isSuccess: cancelledShipmentsFetched } =
-    useGetCancelledShipmentsQuery();
+    useGetShipmentsQuery(undefined, { refetchOnMountOrArgChange: true });
+  const { data: completedShipments } = useGetCompletedShipmentsQuery(
+    undefined,
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
+  const { data: cancelledShipments } = useGetCancelledShipmentsQuery(
+    undefined,
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
 
   const [showModal, setShowModal] = useState(false);
   const closeModal = () => setShowModal(false);
   const openModal = () => setShowModal(true);
-
-  console.log(completedShipments);
 
   return (
     <Box mt={5}>
