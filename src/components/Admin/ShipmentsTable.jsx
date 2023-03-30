@@ -1,116 +1,147 @@
+import { DeleteForever, Edit } from "@mui/icons-material";
 import {
+  Box,
   Button,
   Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
   TableHead,
+  TablePagination,
   TableRow,
 } from "@mui/material";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useDeleteShipmentMutation } from "../../services/shipment";
+import { TablePaginationActions } from "./PaginationMenu";
 
-const ShipmentsTable = ({ shipments }) => {
+const Row = ({ row }) => {
   const navigate = useNavigate();
   const [deleteShipment] = useDeleteShipmentMutation();
 
-  const handleDeleteClick = async (id) => {
-    const confirmed = window.confirm("Are you sure?");
+  const handleDelete = async (id) => {
+    const confirmed = window.confirm(
+      "Are you sure? This action will delete the shipment."
+    );
+
     if (confirmed) {
-      try {
-        await deleteShipment(id).unwrap();
-        navigate("/Admin");
-      } catch (error) {
-        console.log(error);
-      }
+      await deleteShipment(id)
+        .unwrap()
+        .catch((e) => console.log(e));
     }
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table
-        sx={{ minWidth: 650 }}
-        style={{ alignItems: "center" }}
-        aria-label="simple table"
-        size="small"
-      >
-        <TableHead>
-          <TableRow>
-            <TableCell>Id</TableCell>
-            <TableCell align="right">Box Tier</TableCell>
-            <TableCell align="right">Box Weight</TableCell>
+    <TableRow key={row.id}>
+      <TableCell align="left">{row.id}</TableCell>
+      <TableCell>{row.boxTier.name}</TableCell>
+      <TableCell>{row.boxTier.weight} kg</TableCell>
+      <TableCell>{row.recipient}</TableCell>
+      <TableCell>{row.cost} Kr</TableCell>
+      <TableCell>{row.country.name}</TableCell>
+      <TableCell>{row.statuses.at(-1).status}</TableCell>
+      <TableCell align="right">
+        <Box display="flex">
+          <Button
+            variant="contained"
+            size="small"
+            sx={{ mr: 1 }}
+            onClick={() => {
+              navigate(`/shipment/${row.id}`);
+            }}
+          >
+            <Edit fontSize="small" />
+          </Button>
+          <Button
+            variant="contained"
+            size="small"
+            color="error"
+            onClick={() => {
+              handleDelete(row.id);
+            }}
+          >
+            <DeleteForever fontSize="small" />
+          </Button>
+        </Box>
+      </TableCell>
+    </TableRow>
+  );
+};
 
-            <TableCell align="right">Recipient</TableCell>
-            <TableCell align="right">Cost</TableCell>
-            <TableCell align="right">Country</TableCell>
+const ShipmentsTable = ({ shipments }) => {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
-            <TableCell align="right">Status</TableCell>
-            <TableCell align="right">Admin Functionality</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {shipments &&
-            shipments.map((row) => (
-              <TableRow
-                key={row.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="td" id="rowid">
-                  {row.id}
-                </TableCell>
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - shipments.length) : 0;
 
-                <TableCell component="td" align="right">
-                  {row.boxTier.name ? row.boxTier.name : "not found"}
-                </TableCell>
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
-                <TableCell component="td" align="right">
-                  {row.boxTier.weight ? row.boxTier.weight : "not found"}
-                </TableCell>
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
-                <TableCell component="td" align="right">
-                  {row.recipient}
-                </TableCell>
-
-                <TableCell component="td" align="right">
-                  {row.cost}
-                </TableCell>
-
-                <TableCell component="td" align="right">
-                  {row.country.name ? row.country.name : "not found"}
-                </TableCell>
-
-                <TableCell component="td" align="right">
-                  {row.statuses[0]?.status
-                    ? row.statuses[0].status
-                    : "not found"}
-                </TableCell>
-
-                <TableCell component="td" align="right">
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    style={{ width: "80%" }}
-                    onClick={() => {
-                      navigate(`/shipment/${row.id}`);
-                    }}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    style={{ width: "80%" }}
-                    onClick={() => handleDeleteClick(row.id)}
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
+  return (
+    <>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 500 }} aria-label="Countries table">
+          <TableHead>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell>Box tier</TableCell>
+              <TableCell>Weight</TableCell>
+              <TableCell>Recipient</TableCell>
+              <TableCell>Cost</TableCell>
+              <TableCell>Destination</TableCell>
+              <TableCell>Last status</TableCell>
+              <TableCell align="right">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {(rowsPerPage > 0
+              ? shipments.slice(
+                  page * rowsPerPage,
+                  page * rowsPerPage + rowsPerPage
+                )
+              : shipments
+            ).map((row) => (
+              <Row row={row} />
             ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[10, 20, 50, { label: "All", value: -1 }]}
+                colSpan={3}
+                count={shipments.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: {
+                    "aria-label": "rows per page",
+                  },
+                  native: true,
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
+    </>
   );
 };
 

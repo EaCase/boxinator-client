@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import LoginForm from "../forms/LoginForm";
+import { useState } from "react";
 import { Grid } from "@mui/material";
 import { Container } from "@mui/system";
 import icoon from "../assets/images/icoon.png";
@@ -9,6 +8,7 @@ import * as yup from "yup";
 import { useNavigate } from "react-router";
 import OrderModal from "../components/Shipment/OrderModal";
 import GuestOrderForm from "../components/Shipment/GuestOrderForm";
+import LoginForm from "../components/Account/LoginForm";
 
 const validationSchema = yup.object({
   username: yup
@@ -45,7 +45,7 @@ const Login = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Grid item sm={6} xs={12} style={{marginTop: 90}}>
+          <Grid item sm={6} xs={12} style={{ marginTop: 90 }}>
             <Formik
               initialValues={{ username: "", password: "" }}
               validationSchema={validationSchema}
@@ -56,7 +56,13 @@ const Login = () => {
           </Grid>
 
           <Grid item sm={6} xs={0} alignItems="center" justifyContent="center">
-            <img src={icoon} width={500} height={450} style={{marginLeft: 110, marginTop: 60}} alt="logo" />
+            <img
+              src={icoon}
+              width={500}
+              height={450}
+              style={{ marginLeft: 110, marginTop: 60 }}
+              alt="logo"
+            />
           </Grid>
         </Grid>
       </Container>

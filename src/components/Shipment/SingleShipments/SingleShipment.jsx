@@ -15,22 +15,23 @@ import ClearIcon from "@mui/icons-material/Clear";
 import EditIcon from "@mui/icons-material/Edit";
 import SystemUpdateAltIcon from "@mui/icons-material/SystemUpdateAlt";
 import { useParams } from "react-router";
-import { useGetAccountQuery } from "../../services/account";
+import { useGetAccountQuery } from "../../../services/account";
 import {
   useDeleteShipmentMutation,
   useGetShipmentQuery,
   useUpdateShipmentMutation,
-} from "../../services/shipment";
+} from "../../../services/shipment";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
-import { StatusStep } from "./SingleShipments/StatusStep";
-import { ShipmentDetails } from "./SingleShipments/ShipmentDetails";
-import { SenderDetails } from "./SingleShipments/SenderDetails";
+import { StatusStep } from "./StatusStep";
+import { ShipmentDetails } from "./ShipmentDetails";
+import { SenderDetails } from "./SenderDetails";
 import { useState } from "react";
-import { StatusButtonGroup } from "./SingleShipments/StatusButtonGroup";
-import { useGetTiersQuery } from "../../services/settings";
-import OrderModal from "./OrderModal";
-import EditShipmentForm from "../Admin/EditShipmentForm";
+import { StatusButtonGroup } from "./StatusButtonGroup";
+import { useGetTiersQuery } from "../../../services/settings";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
+import OrderModal from "../OrderModal";
+import EditShipmentForm from "./EditShipmentForm";
 
 const SingleShipment = () => {
   const navigate = useNavigate();
@@ -42,9 +43,11 @@ const SingleShipment = () => {
 
   const { data: shipment, isSuccess: shipmentFetched } =
     useGetShipmentQuery(id);
-  const { data: account, isSuccess: accountFetched } = useGetAccountQuery();
   const { data: countries, isSuccess: countriesFetched } = useGetTiersQuery();
   const { data: tiers, isSuccess: tiersFetched } = useGetTiersQuery();
+  const { data: account, isSuccess: accountFetched } = useGetAccountQuery(
+    shipmentFetched ? shipment.accountId : skipToken
+  );
 
   const [deleteShipment] = useDeleteShipmentMutation();
   const [updateShipmentDetails] = useUpdateShipmentMutation();
@@ -55,9 +58,9 @@ const SingleShipment = () => {
 
   if (
     !shipmentFetched ||
-    !accountFetched ||
     !countriesFetched ||
-    !tiersFetched
+    !tiersFetched ||
+    !accountFetched
   ) {
     return <LinearProgress />;
   }
@@ -153,7 +156,7 @@ const SingleShipment = () => {
           }
         >
           {shipment.statuses.map((status, index) => (
-            <StatusStep index={index} status={status} />
+            <StatusStep key={index} index={index} status={status} />
           ))}
         </Stepper>
       </Box>
@@ -205,12 +208,14 @@ const SingleShipment = () => {
                 )}
               </>
             )}
-            {role === "REGISTERED_USER" && (
-              <Button variant="contained" size="large" sx={{ mx: 1 }}>
-                Cancel
-                <ClearIcon sx={{ ml: 1 }} />
-              </Button>
-            )}
+            {role === "REGISTERED_USER" &&
+              shipment.statuses.at(0).status !==
+                ("COMPLETED" || "CANCELLED") && (
+                <Button variant="contained" size="large" sx={{ mx: 1 }}>
+                  Cancel
+                  <ClearIcon sx={{ ml: 1 }} />
+                </Button>
+              )}
           </Box>
         </Box>
       </Box>

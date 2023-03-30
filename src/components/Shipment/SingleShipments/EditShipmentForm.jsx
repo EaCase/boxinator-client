@@ -1,9 +1,8 @@
 import { Formik, Form } from "formik";
 import { Box, Button, Grid, Typography } from "@mui/material";
-import MuiTextInput from "../common/forms/MuiTextInput";
-import MuiSelectField from "../common/forms/MuiSelectField";
-import MuiColorPicker from "../common/forms/MuiColorPicker";
-import { useNavigate } from "react-router";
+import MuiTextInput from "../../common/forms/MuiTextInput";
+import MuiSelectField from "../../common/forms/MuiSelectField";
+import MuiColorPicker from "../../common/forms/MuiColorPicker";
 
 const EditShipmentForm = ({
   shipment,
@@ -17,12 +16,6 @@ const EditShipmentForm = ({
     tier: tiers.find((item) => item.id === shipment.boxTier.id),
     country: countries.find((item) => item.id === shipment.country.id),
     color: shipment.boxColor,
-  };
-
-  const navigate = useNavigate();
-
-  const handleCancel = () => {
-    navigate("/Admin");
   };
 
   return (

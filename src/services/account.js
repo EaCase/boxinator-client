@@ -2,20 +2,22 @@ import { api } from './api'
 
 export const accountApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getAccount: build.query({
+    getMyAccount: build.query({
       query: () => `account/`,
-      providesTags: ['account'],
+      providesTags: ['Account'],
+    }),
+    getAccount: build.query({
+      query: (id) => `account/${id}`,
     }),
     updateAccount: build.mutation({
-      query(data) {
-        const { values } = data
+      query(body) {
         return {
           url: `account/`,
           method: 'PUT',
-          body:values,
+          body
         }
       },
-      invalidatesTags: ['account'],
+      invalidatesTags: ['Account'],
     }),
     deleteAccount: build.mutation({
       query(id) {
@@ -31,6 +33,7 @@ export const accountApi = api.injectEndpoints({
 
 export const {
   useGetAccountQuery,
+  useGetMyAccountQuery,
   useDeleteAccountMutation,
   useUpdateAccountMutation,
 } = accountApi

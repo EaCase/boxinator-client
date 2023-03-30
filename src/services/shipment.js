@@ -6,6 +6,14 @@ export const shipmentApi = api.injectEndpoints({
       query: () => ({ url: "shipments/" }),
       providesTags: ["Shipments"],
     }),
+    getCompletedShipments: build.query({
+      query: () => ({ url: "shipments/complete" }),
+      providesTags: ["CompletedShipments"],
+    }),
+    getCancelledShipments: build.query({
+      query: () => ({ url: "shipments/cancelled" }),
+      providesTags: ["CancelledShipments"],
+    }),
     getShipment: build.query({
       query: (id) => `shipments/${id}`,
       providesTags: (result, error, id) => [{ type: "Shipment", id }],
@@ -31,7 +39,7 @@ export const shipmentApi = api.injectEndpoints({
           body
         }
       },
-      invalidatesTags: (result, error, arg) => ["Shipments", { type: "Shipment", id: arg.id }],
+      invalidatesTags: (result, error, arg) => ["Shipments", "CompletedShipments", "CancelledShipments", { type: "Shipment", id: arg.id }],
     }),
     deleteShipment: build.mutation({
       query(id) {
@@ -40,7 +48,7 @@ export const shipmentApi = api.injectEndpoints({
           method: 'DELETE',
         }
       },
-      invalidatesTags: ["Shipments"]
+      invalidatesTags: ["Shipments", "CompletedShipments", "CancelledShipments"]
     }),
     updateShipmentStatus: build.mutation({
       query(data) {
@@ -51,7 +59,7 @@ export const shipmentApi = api.injectEndpoints({
           body: status
         }
       },
-      invalidatesTags: (result, error, arg) => ["Shipments", { type: "Shipment", id: arg.id }],
+      invalidatesTags: (result, error, arg) => ["Shipments", "CompletedShipments", "CancelledShipments", { type: "Shipment", id: arg.id }],
     }),
   })
 })
@@ -61,6 +69,8 @@ export const {
   useDeleteShipmentMutation,
   useGetShipmentQuery,
   useGetShipmentsQuery,
+  useGetCompletedShipmentsQuery,
+  useGetCancelledShipmentsQuery,
   useGetShipmentCostQuery,
   useUpdateShipmentMutation,
   useUpdateShipmentStatusMutation
