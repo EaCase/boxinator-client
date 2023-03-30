@@ -8,11 +8,9 @@ import Registration from "../../pages/Registration";
 import ResponsiveAppBar from "./Nav";
 import SingleShipment from "../Shipment/SingleShipments/SingleShipment";
 import Protected from "../../routes/Protected";
-import { useSelector } from "react-redux";
+import AdminRoute from "../../routes/AdminRoute";
 
 const Main = () => {
-  const hasRole = useSelector((state) => state.auth["accountType"]);
-
   return (
     <Container maxWidth={false} disableGutters>
       <ResponsiveAppBar />
@@ -28,15 +26,15 @@ const Main = () => {
             path="/admin"
             caseSensitive={false}
             element={
-              <Protected isLoggedIn={hasRole}>
+              <AdminRoute>
                 <Admin />
-              </Protected>
+              </AdminRoute>
             }
           />
           <Route
             path="/shipments"
             element={
-              <Protected isLoggedIn={hasRole}>
+              <Protected>
                 <Shipment />
               </Protected>
             }
@@ -46,7 +44,7 @@ const Main = () => {
             path="/account"
             caseSensitive={false}
             element={
-              <Protected isLoggedIn={hasRole}>
+              <Protected>
                 <Account />
               </Protected>
             }

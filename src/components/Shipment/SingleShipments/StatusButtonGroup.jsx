@@ -1,16 +1,12 @@
 import { Button } from "@mui/material";
-import { Box } from "@mui/system";
 import { statusOptions } from "../../../utils/utils";
-import UTurnRightIcon from "@mui/icons-material/UTurnRight";
-import UTurnLeftIcon from "@mui/icons-material/UTurnLeft";
 import { useUpdateShipmentStatusMutation } from "../../../services/shipment";
+import CloseIcon from "@mui/icons-material/Close";
 
 export const StatusButtonGroup = ({ id, handleShowStatusOptions }) => {
   const [updateStatus] = useUpdateShipmentStatusMutation();
 
   const handleUpdateStatus = async (status) => {
-    console.log("Clicked: ", status);
-
     await updateStatus({ shipmentId: id, status })
       .unwrap()
       .then(() => handleShowStatusOptions());
@@ -35,7 +31,7 @@ export const StatusButtonGroup = ({ id, handleShowStatusOptions }) => {
         variant="contained"
         onClick={handleShowStatusOptions}
       >
-        Go back <UTurnLeftIcon sx={{ ml: 1, transform: "rotate(-90deg)" }} />
+        <CloseIcon />
       </Button>
     </>
   );

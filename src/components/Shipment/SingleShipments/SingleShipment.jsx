@@ -13,6 +13,7 @@ import {
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ClearIcon from "@mui/icons-material/Clear";
 import EditIcon from "@mui/icons-material/Edit";
+import UTurnLeftIcon from "@mui/icons-material/UTurnLeft";
 import SystemUpdateAltIcon from "@mui/icons-material/SystemUpdateAlt";
 import { useParams } from "react-router";
 import { useGetAccountQuery } from "../../../services/account";
@@ -20,6 +21,7 @@ import {
   useDeleteShipmentMutation,
   useGetShipmentQuery,
   useUpdateShipmentMutation,
+  useUpdateShipmentStatusMutation,
 } from "../../../services/shipment";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
@@ -28,7 +30,10 @@ import { ShipmentDetails } from "./ShipmentDetails";
 import { SenderDetails } from "./SenderDetails";
 import { useState } from "react";
 import { StatusButtonGroup } from "./StatusButtonGroup";
-import { useGetTiersQuery } from "../../../services/settings";
+import {
+  useGetCountriesQuery,
+  useGetTiersQuery,
+} from "../../../services/settings";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 import OrderModal from "../OrderModal";
 import EditShipmentForm from "./EditShipmentForm";
@@ -43,29 +48,26 @@ const SingleShipment = () => {
 
   const { data: shipment, isSuccess: shipmentFetched } =
     useGetShipmentQuery(id);
-  const { data: countries, isSuccess: countriesFetched } = useGetTiersQuery();
+  const { data: countries, isSuccess: countriesFetched } =
+    useGetCountriesQuery();
   const { data: tiers, isSuccess: tiersFetched } = useGetTiersQuery();
-  const { data: account, isSuccess: accountFetched } = useGetAccountQuery(
+  const { data: account } = useGetAccountQuery(
     shipmentFetched ? shipment.accountId : skipToken
   );
 
+  const [cancelShipment] = useUpdateShipmentStatusMutation();
   const [deleteShipment] = useDeleteShipmentMutation();
-  const [updateShipmentDetails] = useUpdateShipmentMutation();
+  const [updateShipment] = useUpdateShipmentMutation();
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
   const toggleStatusOptions = () => setShowStatusOptions(!showStatusOptions);
 
-  if (
-    !shipmentFetched ||
-    !countriesFetched ||
-    !tiersFetched ||
-    !accountFetched
-  ) {
+  if (!shipmentFetched || !countriesFetched || !tiersFetched) {
     return <LinearProgress />;
   }
 
-  const handleDelete = async (id) => {
+  const handleDeleteShipment = async (id) => {
     const confirmed = window.confirm("Are you sure? This cannot be undone.");
 
     if (confirmed) {
@@ -76,7 +78,7 @@ const SingleShipment = () => {
     }
   };
 
-  const updateShipment = async (values) => {
+  const handleUpdateShipment = async (values) => {
     const body = {
       recipient: values.recipient,
       boxColor: values.color,
@@ -84,10 +86,14 @@ const SingleShipment = () => {
       boxTierId: values.tier.id,
     };
 
-    await updateShipmentDetails({ shipmentId: id, body })
+    await updateShipment({ shipmentId: id, body })
       .unwrap()
       .then(() => closeModal())
       .catch((e) => console.log(e));
+  };
+
+  const handleCancelShipment = async (id) => {
+    await cancelShipment({ shipmentId: id, status: "CANCELLED" });
   };
 
   return (
@@ -98,7 +104,7 @@ const SingleShipment = () => {
       <OrderModal showModal={showModal} closeModal={closeModal}>
         <EditShipmentForm
           shipment={shipment}
-          handleUpdate={updateShipment}
+          handleUpdate={handleUpdateShipment}
           closeModal={closeModal}
           tiers={tiers}
           countries={countries}
@@ -111,7 +117,7 @@ const SingleShipment = () => {
 
       <Divider />
       <Grid container columns={13} py={5}>
-        <SenderDetails account={account} />
+        <SenderDetails account={account} countries={countries} />
         <Grid item display="flex" justifyContent="center" sm={1} xs={0}>
           <Divider
             flexItem
@@ -193,7 +199,7 @@ const SingleShipment = () => {
                       variant="contained"
                       color="error"
                       size="large"
-                      onClick={() => handleDelete(shipment.id)}
+                      onClick={() => handleDeleteShipment(shipment.id)}
                       sx={{ mx: 1 }}
                     >
                       Delete
@@ -209,13 +215,29 @@ const SingleShipment = () => {
               </>
             )}
             {role === "REGISTERED_USER" &&
-              shipment.statuses.at(0).status !==
-                ("COMPLETED" || "CANCELLED") && (
-                <Button variant="contained" size="large" sx={{ mx: 1 }}>
+              !["COMPLETED", "CANCELLED"].includes(
+                shipment.statuses.at(-1).status
+              ) && (
+                <Button
+                  variant="contained"
+                  size="large"
+                  onClick={() => handleCancelShipment(shipment.id)}
+                  sx={{ mx: 1 }}
+                >
                   Cancel
                   <ClearIcon sx={{ ml: 1 }} />
                 </Button>
               )}
+
+            <Button
+              variant="contained"
+              size="large"
+              onClick={() => navigate("/shipments")}
+              sx={{ mx: 1 }}
+            >
+              Go back
+              <UTurnLeftIcon sx={{ ml: 1, transform: "rotate(-90deg)" }} />
+            </Button>
           </Box>
         </Box>
       </Box>

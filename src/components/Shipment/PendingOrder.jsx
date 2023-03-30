@@ -15,7 +15,6 @@ const PendingOrder = ({ shipment }) => {
 
   return (
     <Box
-      key={shipment.id}
       sx={{
         width: "100%",
         height: "100%",

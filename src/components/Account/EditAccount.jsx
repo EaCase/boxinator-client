@@ -41,6 +41,9 @@ const EditAccount = ({ userData }) => {
     const body = { ...values, countryId: values.countryId.id };
     delete body.country;
 
+    // Omit blank fields
+    Object.keys(body).forEach((k) => !body[k] && delete body[k]);
+
     await updateAccountData(body)
       .unwrap()
       .then(() => {

@@ -9,7 +9,7 @@ const Account = () => {
     isError,
     isLoading,
     isSuccess,
-  } = useGetMyAccountQuery();
+  } = useGetMyAccountQuery(undefined, { refetchOnMountOrArgChange: true });
 
   if (isLoading) {
     return <div>Loading...</div>;
